@@ -2,6 +2,7 @@ package lexwomy.verticalslabs.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
+import net.minecraft.block.enums.WallShape;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -20,6 +21,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.block.WallBlock;
 
 //TO-DO: Make rotate/mirror methods, add connectability to walls
 public class VerticalSlabBlock extends Block implements Waterloggable {
@@ -151,5 +153,34 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
      */
     public boolean canWallConnect(BlockState state, Direction side) {
         return side != state.get(FACING);
+    }
+
+    public BlockState interjectwithVerticalSlabCheck(BlockState state, BlockState aboveState,
+                                                     boolean north, boolean east, boolean south, boolean west) {
+        boolean ns = false;
+        boolean ew = false;
+        Direction face = aboveState.get(FACING);
+        if (face == Direction.NORTH || face == Direction.SOUTH) {
+            ns = true;
+        } else {
+            ew = true;
+        }
+
+        state.with(WallBlock.NORTH_SHAPE, ((ew || face == Direction.SOUTH) && north) ? WallShape.TALL : state.get(WallBlock.NORTH_SHAPE))
+                .with(WallBlock.SOUTH_SHAPE, ((ew || face == Direction.NORTH) && south) ? WallShape.TALL : state.get(WallBlock.SOUTH_SHAPE))
+                .with(WallBlock.EAST_SHAPE, ((ns || face == Direction.WEST) && east) ? WallShape.TALL : state.get(WallBlock.EAST_SHAPE))
+                .with(WallBlock.WEST_SHAPE, ((ns || face == Direction.EAST) && west) ? WallShape.TALL : state.get(WallBlock.WEST_SHAPE))
+        .with(WallBlock.UP, ((north && south && !east && !west) || (!north && !south && east && west)) ? false :
+                ((state.get(WallBlock.NORTH_SHAPE) != WallShape.TALL || state.get(WallBlock.SOUTH_SHAPE) != WallShape.TALL ||
+                        state.get(WallBlock.WEST_SHAPE) != WallShape.TALL || state.get(WallBlock.EAST_SHAPE) != WallShape.TALL) ? true : false));
+        if ((north && south && !east && !west) || (!north && !south && east && west)) {
+            state.with(WallBlock.UP, false);
+        } else if (state.get(WallBlock.NORTH_SHAPE) != WallShape.TALL || state.get(WallBlock.SOUTH_SHAPE) != WallShape.TALL ||
+                state.get(WallBlock.WEST_SHAPE) != WallShape.TALL || state.get(WallBlock.EAST_SHAPE) != WallShape.TALL) {
+            state.with(WallBlock.UP, true);
+        } else {
+            state.with(WallBlock.UP, false);
+        }
+        return state;
     }
 }
