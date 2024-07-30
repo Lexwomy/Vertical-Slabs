@@ -1,4 +1,7 @@
 {
   "itemGroup.vertical_slabs": "Vertical Slabs",
-  "block.vertical_slabs.vertical_stone_slab": "Vertical Stone Slab"
+  "block.vertical_slabs.vertical_stone_slab": "Vertical Stone Slab",
+  "block.vertical_slabs.vertical_smooth_stone_slab": "Vertical Smooth Stone Slab",
+  "block.vertical_slabs.vertical_cobblestone_slab": "Vertical Cobblestone Slab",
+  "block.vertical_slabs.vertical_mossy_cobblestone_slab": "Vertical Mossy Cobblestone Slab"
 }

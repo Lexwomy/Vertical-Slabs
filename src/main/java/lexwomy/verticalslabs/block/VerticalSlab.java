@@ -38,9 +38,15 @@ public class VerticalSlab {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register((itemGroup) -> {
             itemGroup.add(VERTICAL_STONE_SLAB);
+            itemGroup.add(VERTICAL_COBBLESTONE_SLAB);
+            itemGroup.add(VERTICAL_MOSSY_COBBLESTONE_SLAB);
+            itemGroup.add(VERTICAL_SMOOTH_STONE_SLAB);
         });
         ItemGroupEvents.modifyEntriesEvent(VERTICAL_SLAB_GROUP_KEY).register((itemGroup) -> {
             itemGroup.add(VERTICAL_STONE_SLAB);
+            itemGroup.add(VERTICAL_COBBLESTONE_SLAB);
+            itemGroup.add(VERTICAL_MOSSY_COBBLESTONE_SLAB);
+            itemGroup.add(VERTICAL_SMOOTH_STONE_SLAB);
         });
     }
 
@@ -52,5 +58,27 @@ public class VerticalSlab {
             true
     );
 
+    public static final Block VERTICAL_SMOOTH_STONE_SLAB = register(
+            new VerticalSlabBlock(Settings.create()
+                    .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool().strength(2.0F, 6.0F).sounds(BlockSoundGroup.STONE)),
+            "vertical_smooth_stone_slab",
+            true
+    );
 
+    public static final Block VERTICAL_COBBLESTONE_SLAB = register(
+            new VerticalSlabBlock(Settings.create()
+                    .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool().strength(2.0F, 6.0F).sounds(BlockSoundGroup.STONE)),
+            "vertical_cobblestone_slab",
+            true
+    );
+
+    public static final Block VERTICAL_MOSSY_COBBLESTONE_SLAB = register(
+            new VerticalSlabBlock(Settings.create()
+                    .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool().strength(2.0F, 6.0F).sounds(BlockSoundGroup.STONE)),
+            "vertical_mossy_cobblestone_slab",
+            true
+    );
 }

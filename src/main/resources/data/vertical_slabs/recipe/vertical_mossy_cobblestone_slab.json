@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "minecraft:stone"
+      "item": "minecraft:mossy_cobblestone"
     }
   },
   "pattern": [
@@ -13,6 +13,6 @@
   ],
   "result": {
     "count": 6,
-    "id": "vertical_slabs:vertical_stone_slab"
+    "id": "vertical_slabs:vertical_mossy_cobblestone_slab"
   }
 }

@@ -1,5 +1,8 @@
 {
   "values": [
-    "vertical_slabs:vertical_stone_slab"
+    "vertical_slabs:vertical_stone_slab",
+    "vertical_slabs:vertical_smooth_stone_slab",
+    "vertical_slabs:vertical_cobblestone_slab",
+    "vertical_slabs:vertical_mossy_cobblestone_slab"
   ]
 }
