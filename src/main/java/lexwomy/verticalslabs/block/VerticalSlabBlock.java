@@ -28,10 +28,10 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
     public static final EnumProperty<VerticalSlabType> TYPE = EnumProperty.of("type", VerticalSlabType.class);
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    protected static final VoxelShape SOUTH_FACING_SHAPE = Block.createCuboidShape(0f, 0f, 8f, 16f, 16f, 16f);
-    protected static final VoxelShape NORTH_FACING_SHAPE = Block.createCuboidShape(0f, 0f, 0f, 16f, 16f, 8f);
-    protected static final VoxelShape WEST_FACING_SHAPE = Block.createCuboidShape(0f, 0f, 0f, 8f, 16f, 16f);
-    protected static final VoxelShape EAST_FACING_SHAPE = Block.createCuboidShape(8f, 0f, 0f, 16f, 16f, 16f);
+    protected static final VoxelShape NORTH_FACING_SHAPE = Block.createCuboidShape(0f, 0f, 8f, 16f, 16f, 16f);
+    protected static final VoxelShape SOUTH_FACING_SHAPE = Block.createCuboidShape(0f, 0f, 0f, 16f, 16f, 8f);
+    protected static final VoxelShape EAST_FACING_SHAPE = Block.createCuboidShape(0f, 0f, 0f, 8f, 16f, 16f);
+    protected static final VoxelShape WEST_FACING_SHAPE = Block.createCuboidShape(8f, 0f, 0f, 16f, 16f, 16f);
     protected static final VoxelShape DOUBLE_SHAPE = VoxelShapes.fullCube();
     public VerticalSlabBlock(AbstractBlock.Settings settings) {
         super(settings);
@@ -112,12 +112,12 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
             if (ctx.canReplaceExisting()) {
                 boolean bl = (face == Direction.NORTH || face == Direction.SOUTH) ?
                         (face == Direction.NORTH ?
-                                ctx.getHitPos().z - (double)ctx.getBlockPos().getZ() > 0.5 :
-                                ctx.getHitPos().z - (double)ctx.getBlockPos().getZ() < 0.5) :
+                                ctx.getHitPos().z - (double)ctx.getBlockPos().getZ() < 0.5 :
+                                ctx.getHitPos().z - (double)ctx.getBlockPos().getZ() > 0.5) :
                         (face == Direction.WEST ?
-                                ctx.getHitPos().x - (double)ctx.getBlockPos().getX() > 0.5 :
-                                ctx.getHitPos().x - (double)ctx.getBlockPos().getX() < 0.5);
-                return ctx.getSide() == face.getOpposite() || bl;
+                                ctx.getHitPos().x - (double)ctx.getBlockPos().getX() < 0.5 :
+                                ctx.getHitPos().x - (double)ctx.getBlockPos().getX() > 0.5);
+                return ctx.getSide() == face || bl;
             } else {
                 return true;
             }
@@ -145,11 +145,8 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
 
         return this.getDefaultState().with(TYPE, VerticalSlabType.HALF)
                 .with(FACING, (face == Direction.NORTH || face == Direction.SOUTH) ?
-                        ((hit_coords.z - (double)block_coords.getZ() > 0.5) ? Direction.SOUTH : Direction.NORTH) :
-                        ((hit_coords.x - (double)block_coords.getX() > 0.5) ? Direction.EAST : Direction.WEST))
+                        ((hit_coords.z - (double)block_coords.getZ() < 0.5) ? Direction.SOUTH : Direction.NORTH) :
+                        ((hit_coords.x - (double)block_coords.getX() < 0.5) ? Direction.EAST : Direction.WEST))
                 .with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
-
-
-        //VerticalSlabs.LOGGER.debug("Direction: {}. Player facing: {}. Hit coords: {}", ctx.getSide(), ctx.getHorizontalPlayerFacing(), ctx.getHitPos());
     }
 }

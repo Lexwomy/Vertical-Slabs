@@ -1,0 +1,9 @@
+{
+  "parent": "vertical_slabs:block/vertical_slab",
+  "textures": {
+    "front": "minecraft:block/andesite",
+    "side": "minecraft:block/andesite",
+    "up_down": "minecraft:block/andesite",
+    "back": "minecraft:block/andesite"
+  }
+}

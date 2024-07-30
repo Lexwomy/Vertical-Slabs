@@ -1,0 +1,9 @@
+{
+  "parent": "vertical_slabs:block/vertical_slab",
+  "textures": {
+    "front": "minecraft:block/mossy_stone_bricks",
+    "side": "minecraft:block/mossy_stone_bricks",
+    "up_down": "minecraft:block/mossy_stone_bricks",
+    "back": "minecraft:block/mossy_stone_bricks"
+  }
+}

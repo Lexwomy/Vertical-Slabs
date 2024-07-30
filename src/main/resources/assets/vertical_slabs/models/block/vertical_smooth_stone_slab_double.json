@@ -1,0 +1,23 @@
+{
+  "parent": "vertical_slabs:block/vertical_double",
+  "textures": {
+    "particle": "minecraft:block/smooth_stone_slab_side",
+    "front": "minecraft:block/smooth_stone",
+    "back": "minecraft:block/smooth_stone",
+    "side": "minecraft:block/smooth_stone_slab_side"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#front", "cullface": "north"},
+        "east": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "east", "rotation": 90},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#back", "cullface": "south"},
+        "west": {"uv": [16, 0, 0, 16], "texture": "#side", "cullface": "west", "rotation": 270},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "up"},
+        "down": {"uv": [16, 16, 0, 0], "texture": "#side", "cullface": "down"}
+      }
+    }
+  ]
+}

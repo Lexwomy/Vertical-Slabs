@@ -1,21 +1,21 @@
 {
   "variants": {
     "type=double,facing=north": {
-      "model": "vertical_slabs:block/vertical_smooth_stone_double",
+      "model": "vertical_slabs:block/vertical_smooth_stone_slab_double",
       "uvlock": false
     },
     "type=double,facing=south": {
-      "model": "vertical_slabs:block/vertical_smooth_stone_double",
+      "model": "vertical_slabs:block/vertical_smooth_stone_slab_double",
       "y": 180,
       "uvlock": false
     },
     "type=double,facing=west": {
-      "model": "vertical_slabs:block/vertical_smooth_stone_double",
+      "model": "vertical_slabs:block/vertical_smooth_stone_slab_double",
       "y": 270,
       "uvlock": false
     },
     "type=double,facing=east": {
-      "model": "vertical_slabs:block/vertical_smooth_stone_double",
+      "model": "vertical_slabs:block/vertical_smooth_stone_slab_double",
       "y": 90,
       "uvlock": false
     },

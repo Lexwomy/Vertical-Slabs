@@ -1,0 +1,9 @@
+{
+  "parent": "vertical_slabs:block/vertical_slab",
+  "textures": {
+    "front": "minecraft:block/diorite",
+    "side": "minecraft:block/diorite",
+    "up_down": "minecraft:block/diorite",
+    "back": "minecraft:block/diorite"
+  }
+}

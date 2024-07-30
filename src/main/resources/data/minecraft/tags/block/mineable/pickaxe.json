@@ -4,6 +4,21 @@
     "vertical_slabs:vertical_stone_slab",
     "vertical_slabs:vertical_smooth_stone_slab",
     "vertical_slabs:vertical_cobblestone_slab",
-    "vertical_slabs:vertical_mossy_cobblestone_slab"
+    "vertical_slabs:vertical_mossy_cobblestone_slab",
+    "vertical_slabs:vertical_stone_brick_slab",
+    "vertical_slabs:vertical_mossy_stone_brick_slab",
+    "vertical_slabs:vertical_granite_slab",
+    "vertical_slabs:vertical_polished_granite_slab",
+    "vertical_slabs:vertical_diorite_slab",
+    "vertical_slabs:vertical_polished_diorite_slab",
+    "vertical_slabs:vertical_andesite_slab",
+    "vertical_slabs:vertical_polished_andesite_slab",
+    "vertical_slabs:vertical_cobbled_deepslate_slab",
+    "vertical_slabs:vertical_polished_deepslate_slab",
+    "vertical_slabs:vertical_deepslate_brick_slab",
+    "vertical_slabs:vertical_deepslate_tile_slab",
+    "vertical_slabs:vertical_tuff_slab",
+    "vertical_slabs:vertical_polished_tuff_slab",
+    "vertical_slabs:vertical_tuff_brick_slab"
   ]
 }
