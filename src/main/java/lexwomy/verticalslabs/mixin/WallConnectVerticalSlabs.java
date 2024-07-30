@@ -67,20 +67,36 @@ public abstract class WallConnectVerticalSlabs extends Block {
                 ew = true;
             }
 
-            WallBlock wall = ((WallBlock) (Object) this);
+            WallShape set_north = result.get(NORTH_SHAPE);
+            WallShape set_south = result.get(SOUTH_SHAPE);
+            WallShape set_east = result.get(EAST_SHAPE);
+            WallShape set_west = result.get(WEST_SHAPE);
 
-            BlockState thisState = wall.getStateWithProperties(state)
-                    .with(NORTH_SHAPE, ((ew || face == Direction.SOUTH) && north) ? WallShape.TALL : result.get(NORTH_SHAPE))
-                    .with(SOUTH_SHAPE, ((ew || face == Direction.NORTH) && south) ? WallShape.TALL : result.get(SOUTH_SHAPE))
-                    .with(EAST_SHAPE, ((ns || face == Direction.WEST) && east) ? WallShape.TALL : result.get(EAST_SHAPE))
-                    .with(WEST_SHAPE, ((ns || face == Direction.EAST) && west) ? WallShape.TALL : result.get(WEST_SHAPE));
+            int low_count = 4;
 
-            boolean full_z = thisState.get(NORTH_SHAPE) == WallShape.TALL && thisState.get(SOUTH_SHAPE) == WallShape.TALL
-                            && thisState.get(EAST_SHAPE) == WallShape.NONE && thisState.get(WEST_SHAPE) == WallShape.NONE;
-            boolean full_x = thisState.get(NORTH_SHAPE) == WallShape.NONE && thisState.get(SOUTH_SHAPE) == WallShape.NONE
-                            && thisState.get(EAST_SHAPE) == WallShape.TALL && thisState.get(WEST_SHAPE) == WallShape.TALL;
+            if (north && (ew || face == Direction.SOUTH)) {
+                set_north = WallShape.TALL;
+                low_count -= 1;
+            }
+            if (south && (ew || face == Direction.NORTH)) {
+                set_south = WallShape.TALL;
+                low_count -= 1;
+            }
+            if (east && (ns || face == Direction.WEST)) {
+                set_east = WallShape.TALL;
+                low_count -= 1;
+            }
+            if (west && (ns || face == Direction.EAST)) {
+                set_west = WallShape.TALL;
+                low_count -= 1;
+            }
 
-            cir.setReturnValue(thisState.with(UP, !(full_z || full_x)).with(WATERLOGGED, result.get(WATERLOGGED)));
+            boolean straight_wall = low_count == 2 && ((set_north == set_south && set_north == WallShape.TALL)
+                                                    || (set_east == set_west && set_east == WallShape.TALL));
+
+            cir.setReturnValue(result
+                    .with(NORTH_SHAPE, set_north).with(SOUTH_SHAPE, set_south).with(EAST_SHAPE, set_east).with(WEST_SHAPE, set_west)
+                    .with(UP, !straight_wall));
         }
     }
 }
