@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "vertical_slabs",
-	"version": "${version}",
+	"version": "1.1.0",
 	"name": "Vertical Slabs",
 	"description": "Adds vertical slab variants to every vanilla slab variant, with similar vanilla ways to craft/acquire them.",
 	"authors": [
