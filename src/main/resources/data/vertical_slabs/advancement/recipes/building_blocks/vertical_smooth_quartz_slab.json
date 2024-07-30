@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_tuff_bricks": {
+    "has_smooth_quartz": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:tuff_bricks"
+            "items": "minecraft:smooth_quartz"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vertical_slabs:vertical_polished_tuff_brick_slab"
+        "recipe": "vertical_slabs:vertical_smooth_quartz_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_tuff_bricks"
+      "has_smooth_quartz"
     ]
   ],
   "rewards": {
     "recipes": [
-      "vertical_slabs:vertical_polished_tuff_brick_slab"
+      "vertical_slabs:vertical_smooth_quartz_slab"
     ]
   }
 }

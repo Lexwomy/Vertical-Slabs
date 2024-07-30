@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vertical_slabs:vertical_deepslate_tile_slab_from_deepslate_bricks_stonecutting"
+        "recipe": "vertical_slabs:vertical_deepslate_tile_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

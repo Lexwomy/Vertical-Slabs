@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vertical_slabs:vertical_polished_andesite_slab_from_polished_andesite_stonecutting"
+        "recipe": "vertical_slabs:vertical_polished_andesite_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

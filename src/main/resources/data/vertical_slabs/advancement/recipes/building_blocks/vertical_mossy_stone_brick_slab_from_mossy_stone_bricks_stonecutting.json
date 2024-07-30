@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vertical_slabs:vertical_mossy_stone_brick_slab_from_mossy_stone_bricks_stonecutting"
+        "recipe": "vertical_slabs:vertical_mossy_stone_brick_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
