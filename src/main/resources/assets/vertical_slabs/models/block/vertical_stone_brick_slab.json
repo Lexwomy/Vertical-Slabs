@@ -3,7 +3,6 @@
   "textures": {
     "front": "minecraft:block/stone_bricks",
     "side": "minecraft:block/stone_bricks",
-    "up_down": "minecraft:block/stone_bricks",
     "back": "minecraft:block/stone_bricks"
   }
 }

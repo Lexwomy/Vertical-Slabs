@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "type=double": {
+      "model": "minecraft:block/oxidized_cut_copper"
+    },
+    "type=half,facing=north": {
+      "model": "vertical_slabs:block/oxidized_vertical_cut_copper_slab",
+      "uvlock": true
+    },
+    "type=half,facing=south": {
+      "model": "vertical_slabs:block/oxidized_vertical_cut_copper_slab",
+      "y": 180,
+      "uvlock": true
+    },
+    "type=half,facing=west": {
+      "model": "vertical_slabs:block/oxidized_vertical_cut_copper_slab",
+      "y": 270,
+      "uvlock": true
+    },
+    "type=half,facing=east": {
+      "model": "vertical_slabs:block/oxidized_vertical_cut_copper_slab",
+      "y": 90,
+      "uvlock": true
+    }
+  }
+}

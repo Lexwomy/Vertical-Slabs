@@ -3,7 +3,6 @@
   "textures": {
     "front": "minecraft:block/granite",
     "side": "minecraft:block/granite",
-    "up_down": "minecraft:block/granite",
     "back": "minecraft:block/granite"
   }
 }

@@ -3,7 +3,6 @@
   "textures": {
     "front": "minecraft:block/polished_granite",
     "side": "minecraft:block/polished_granite",
-    "up_down": "minecraft:block/polished_granite",
     "back": "minecraft:block/polished_granite"
   }
 }

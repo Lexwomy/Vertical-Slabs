@@ -14,10 +14,10 @@ public abstract interface VerticalOxidizableInterface extends Degradable<Oxidiza
 	@ModifyExpressionValue(method = "method_34740",
 			at = @At(value="INVOKE",
 					target="Lcom/google/common/collect/ImmutableBiMap$Builder;put(Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableBiMap$Builder;",
-					shift = At.Shift.AFTER, ordinal = 26))
+					ordinal = 0))
 	private static ImmutableBiMap.Builder<Block, Block> addVerticalCopperSlabsToMap(ImmutableBiMap.Builder<Block, Block> original) {
-		return original.put(VerticalSlab.VERTICAL_CUT_COPPER_SLAB, VerticalSlab.VERTICAL_EXPOSED_CUT_COPPER_SLAB)
-				.put(VerticalSlab.VERTICAL_EXPOSED_CUT_COPPER_SLAB, VerticalSlab.VERTICAL_WEATHERED_CUT_COPPER_SLAB)
-				.put(VerticalSlab.VERTICAL_WEATHERED_CUT_COPPER_SLAB, VerticalSlab.VERTICAL_OXIDIZED_CUT_COPPER_SLAB);
+		return original.put(VerticalSlab.VERTICAL_CUT_COPPER_SLAB, VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB)
+				.put(VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.WEATHERED_VERTICAL_CUT_COPPER_SLAB)
+				.put(VerticalSlab.WEATHERED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
 	}
 }

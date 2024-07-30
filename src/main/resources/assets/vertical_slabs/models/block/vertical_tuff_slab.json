@@ -3,7 +3,6 @@
   "textures": {
     "front": "minecraft:block/tuff",
     "side": "minecraft:block/tuff",
-    "up_down": "minecraft:block/tuff",
     "back": "minecraft:block/tuff"
   }
 }

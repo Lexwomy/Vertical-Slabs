@@ -1,0 +1,12 @@
+{
+  "values": [
+    "vertical_slabs:vertical_cut_copper_slab",
+    "vertical_slabs:exposed_vertical_cut_copper_slab",
+    "vertical_slabs:weathered_vertical_cut_copper_slab",
+    "vertical_slabs:oxidized_vertical_cut_copper_slab",
+    "vertical_slabs:waxed_vertical_cut_copper_slab",
+    "vertical_slabs:waxed_exposed_vertical_cut_copper_slab",
+    "vertical_slabs:waxed_weathered_vertical_cut_copper_slab",
+    "vertical_slabs:waxed_oxidized_vertical_cut_copper_slab"
+  ]
+}

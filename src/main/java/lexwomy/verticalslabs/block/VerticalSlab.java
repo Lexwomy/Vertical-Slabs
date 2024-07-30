@@ -3,6 +3,7 @@ package lexwomy.verticalslabs.block;
 import lexwomy.verticalslabs.VerticalSlabs;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
@@ -61,6 +62,34 @@ public class VerticalSlab {
             itemGroup.add(VERTICAL_TUFF_SLAB);
             itemGroup.add(VERTICAL_POLISHED_TUFF_SLAB);
             itemGroup.add(VERTICAL_TUFF_BRICK_SLAB);
+            itemGroup.add(VERTICAL_BRICK_SLAB);
+            itemGroup.add(VERTICAL_MUD_BRICK_SLAB);
+            itemGroup.add(VERTICAL_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_SMOOTH_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_CUT_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_RED_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_SMOOTH_RED_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_CUT_RED_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_PRISMARINE_SLAB);
+            itemGroup.add(VERTICAL_PRISMARINE_BRICK_SLAB);
+            itemGroup.add(VERTICAL_DARK_PRISMARINE_SLAB);
+            itemGroup.add(VERTICAL_NETHER_BRICK_SLAB);
+            itemGroup.add(VERTICAL_RED_NETHER_BRICK_SLAB);
+            itemGroup.add(VERTICAL_BLACKSTONE_SLAB);
+            itemGroup.add(VERTICAL_POLISHED_BLACKSTONE_SLAB);
+            itemGroup.add(VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB);
+            itemGroup.add(VERTICAL_END_STONE_BRICK_SLAB);
+            itemGroup.add(VERTICAL_PURPUR_SLAB);
+            itemGroup.add(VERTICAL_QUARTZ_SLAB);
+            itemGroup.add(VERTICAL_SMOOTH_QUARTZ_SLAB);
+            itemGroup.add(VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(EXPOSED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WEATHERED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WAXED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
         });
         ItemGroupEvents.modifyEntriesEvent(VERTICAL_SLAB_GROUP_KEY).register((itemGroup) -> {
             itemGroup.add(VERTICAL_STONE_SLAB);
@@ -82,7 +111,43 @@ public class VerticalSlab {
             itemGroup.add(VERTICAL_TUFF_SLAB);
             itemGroup.add(VERTICAL_POLISHED_TUFF_SLAB);
             itemGroup.add(VERTICAL_TUFF_BRICK_SLAB);
+            itemGroup.add(VERTICAL_BRICK_SLAB);
+            itemGroup.add(VERTICAL_MUD_BRICK_SLAB);
+            itemGroup.add(VERTICAL_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_SMOOTH_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_CUT_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_RED_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_SMOOTH_RED_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_CUT_RED_SANDSTONE_SLAB);
+            itemGroup.add(VERTICAL_PRISMARINE_SLAB);
+            itemGroup.add(VERTICAL_PRISMARINE_BRICK_SLAB);
+            itemGroup.add(VERTICAL_DARK_PRISMARINE_SLAB);
+            itemGroup.add(VERTICAL_NETHER_BRICK_SLAB);
+            itemGroup.add(VERTICAL_RED_NETHER_BRICK_SLAB);
+            itemGroup.add(VERTICAL_BLACKSTONE_SLAB);
+            itemGroup.add(VERTICAL_POLISHED_BLACKSTONE_SLAB);
+            itemGroup.add(VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB);
+            itemGroup.add(VERTICAL_END_STONE_BRICK_SLAB);
+            itemGroup.add(VERTICAL_PURPUR_SLAB);
+            itemGroup.add(VERTICAL_QUARTZ_SLAB);
+            itemGroup.add(VERTICAL_SMOOTH_QUARTZ_SLAB);
+            itemGroup.add(VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(EXPOSED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WEATHERED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WAXED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB);
+            itemGroup.add(WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
         });
+
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(VERTICAL_CUT_COPPER_SLAB, EXPOSED_VERTICAL_CUT_COPPER_SLAB);
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(EXPOSED_VERTICAL_CUT_COPPER_SLAB, WEATHERED_VERTICAL_CUT_COPPER_SLAB);
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(WEATHERED_VERTICAL_CUT_COPPER_SLAB, OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(VERTICAL_CUT_COPPER_SLAB, WAXED_VERTICAL_CUT_COPPER_SLAB);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(EXPOSED_VERTICAL_CUT_COPPER_SLAB, WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(WEATHERED_VERTICAL_CUT_COPPER_SLAB, WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OXIDIZED_VERTICAL_CUT_COPPER_SLAB, WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
     }
 
     public static final Block VERTICAL_STONE_SLAB = register(
@@ -325,27 +390,45 @@ public class VerticalSlab {
             true
     );
 
-    public static final Block VERTICAL_EXPOSED_CUT_COPPER_SLAB = register(
+    public static final Block EXPOSED_VERTICAL_CUT_COPPER_SLAB = register(
             new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.EXPOSED, Settings.copy(EXPOSED_CUT_COPPER_SLAB)),
-            "vertical_cut_copper_slab",
+            "exposed_vertical_cut_copper_slab",
             true
     );
 
-    public static final Block VERTICAL_WEATHERED_CUT_COPPER_SLAB = register(
+    public static final Block WEATHERED_VERTICAL_CUT_COPPER_SLAB = register(
             new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.WEATHERED, Settings.copy(WEATHERED_CUT_COPPER_SLAB)),
-            "vertical_cut_copper_slab",
+            "weathered_vertical_cut_copper_slab",
             true
     );
 
-    public static final Block VERTICAL_OXIDIZED_CUT_COPPER_SLAB = register(
+    public static final Block OXIDIZED_VERTICAL_CUT_COPPER_SLAB = register(
             new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.OXIDIZED, Settings.copy(OXIDIZED_CUT_COPPER_SLAB)),
-            "vertical_cut_copper_slab",
+            "oxidized_vertical_cut_copper_slab",
             true
     );
 
-    public static final Block VERTICAL_WAXED_CUT_COPPER_SLAB = register(
+    public static final Block WAXED_VERTICAL_CUT_COPPER_SLAB = register(
             new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.UNAFFECTED, Settings.copy(CUT_COPPER_SLAB)),
-            "vertical_cut_copper_slab",
+            "waxed_vertical_cut_copper_slab",
+            true
+    );
+
+    public static final Block WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB = register(
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.EXPOSED, Settings.copy(EXPOSED_CUT_COPPER_SLAB)),
+            "waxed_exposed_vertical_cut_copper_slab",
+            true
+    );
+
+    public static final Block WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB = register(
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.WEATHERED, Settings.copy(WEATHERED_CUT_COPPER_SLAB)),
+            "waxed_weathered_vertical_cut_copper_slab",
+            true
+    );
+
+    public static final Block WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB = register(
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.OXIDIZED, Settings.copy(OXIDIZED_CUT_COPPER_SLAB)),
+            "waxed_oxidized_vertical_cut_copper_slab",
             true
     );
 }

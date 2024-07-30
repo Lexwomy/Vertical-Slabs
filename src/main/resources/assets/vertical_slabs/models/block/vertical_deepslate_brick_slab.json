@@ -3,7 +3,6 @@
   "textures": {
     "front": "minecraft:block/deepslate_bricks",
     "side": "minecraft:block/deepslate_bricks",
-    "up_down": "minecraft:block/deepslate_bricks",
     "back": "minecraft:block/deepslate_bricks"
   }
 }

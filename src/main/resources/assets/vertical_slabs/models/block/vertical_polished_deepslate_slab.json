@@ -3,7 +3,6 @@
   "textures": {
     "front": "minecraft:block/polished_deepslate",
     "side": "minecraft:block/polished_deepslate",
-    "up_down": "minecraft:block/polished_deepslate",
     "back": "minecraft:block/polished_deepslate"
   }
 }
