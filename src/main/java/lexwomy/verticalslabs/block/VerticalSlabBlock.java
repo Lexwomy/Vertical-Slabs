@@ -21,7 +21,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-
+//TO-DO: Make rotate/mirror methods, add connectability to walls
 public class VerticalSlabBlock extends Block implements Waterloggable {
     public static final MapCodec<VerticalSlabBlock> CODEC = createCodec(VerticalSlabBlock::new);
     public static final EnumProperty<VerticalSlabType> TYPE = EnumProperty.of("type", VerticalSlabType.class);
@@ -143,5 +143,13 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
                         ((hit_coords.z - (double)block_coords.getZ() < 0.5) ? Direction.SOUTH : Direction.NORTH) :
                         ((hit_coords.x - (double)block_coords.getX() < 0.5) ? Direction.EAST : Direction.WEST))
                 .with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+    }
+
+    /*
+    * side is the direction of the wall
+    * state is the blockstate of the block trying to connect (e.g., this vertical slab rn)
+     */
+    public boolean canWallConnect(BlockState state, Direction side) {
+        return side != state.get(FACING);
     }
 }
