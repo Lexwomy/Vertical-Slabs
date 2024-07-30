@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
+import net.minecraft.block.Oxidizable;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -319,25 +320,31 @@ public class VerticalSlab {
     );
 
     public static final Block VERTICAL_CUT_COPPER_SLAB = register(
-            new OxidizableVerticalSlabBlock(Settings.copy(CUT_COPPER_SLAB)),
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.UNAFFECTED, Settings.copy(CUT_COPPER_SLAB)),
             "vertical_cut_copper_slab",
             true
     );
 
     public static final Block VERTICAL_EXPOSED_CUT_COPPER_SLAB = register(
-            new OxidizableVerticalSlabBlock(Settings.copy(EXPOSED_CUT_COPPER_SLAB)),
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.EXPOSED, Settings.copy(EXPOSED_CUT_COPPER_SLAB)),
             "vertical_cut_copper_slab",
             true
     );
 
     public static final Block VERTICAL_WEATHERED_CUT_COPPER_SLAB = register(
-            new OxidizableVerticalSlabBlock(Settings.copy(WEATHERED_CUT_COPPER_SLAB)),
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.WEATHERED, Settings.copy(WEATHERED_CUT_COPPER_SLAB)),
             "vertical_cut_copper_slab",
             true
     );
 
     public static final Block VERTICAL_OXIDIZED_CUT_COPPER_SLAB = register(
-            new OxidizableVerticalSlabBlock(Settings.copy(OXIDIZED_CUT_COPPER_SLAB)),
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.OXIDIZED, Settings.copy(OXIDIZED_CUT_COPPER_SLAB)),
+            "vertical_cut_copper_slab",
+            true
+    );
+
+    public static final Block VERTICAL_WAXED_CUT_COPPER_SLAB = register(
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.UNAFFECTED, Settings.copy(CUT_COPPER_SLAB)),
             "vertical_cut_copper_slab",
             true
     );
