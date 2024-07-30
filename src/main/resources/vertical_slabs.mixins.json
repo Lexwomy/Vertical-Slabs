@@ -3,7 +3,7 @@
 	"package": "lexwomy.verticalslabs.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+      "VerticalOxidizableInterface"
 	],
 	"injectors": {
 		"defaultRequire": 1

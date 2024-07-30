@@ -66,14 +66,10 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
     }
 
     protected boolean canPathfindThrough(BlockState state, NavigationType type) {
-        switch (type) {
-            case WATER -> {
-                return state.getFluidState().isIn(FluidTags.WATER);
-            }
-            default -> {
-                return false;
-            }
+        if (type == NavigationType.WATER) {
+            return state.getFluidState().isIn(FluidTags.WATER);
         }
+        return false;
     }
 
     protected boolean hasSidedTransparency(BlockState blockstate) {
