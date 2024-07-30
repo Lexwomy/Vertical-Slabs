@@ -43,6 +43,18 @@ public class VerticalSlab {
         Registry.register(Registries.ITEM_GROUP, VERTICAL_SLAB_GROUP_KEY, VERTICAL_SLAB_GROUP);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register((itemGroup) -> {
+            itemGroup.add(VERTICAL_OAK_SLAB);
+            itemGroup.add(VERTICAL_SPRUCE_SLAB);
+            itemGroup.add(VERTICAL_BIRCH_SLAB);
+            itemGroup.add(VERTICAL_JUNGLE_SLAB);
+            itemGroup.add(VERTICAL_ACACIA_SLAB);
+            itemGroup.add(VERTICAL_DARK_OAK_SLAB);
+            itemGroup.add(VERTICAL_MANGROVE_SLAB);
+            itemGroup.add(VERTICAL_CHERRY_SLAB);
+            itemGroup.add(VERTICAL_BAMBOO_SLAB);
+            itemGroup.add(VERTICAL_BAMBOO_MOSAIC_SLAB);
+            itemGroup.add(VERTICAL_CRIMSON_SLAB);
+            itemGroup.add(VERTICAL_WARPED_SLAB);
             itemGroup.add(VERTICAL_STONE_SLAB);
             itemGroup.add(VERTICAL_COBBLESTONE_SLAB);
             itemGroup.add(VERTICAL_MOSSY_COBBLESTONE_SLAB);
@@ -92,6 +104,18 @@ public class VerticalSlab {
             itemGroup.add(WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
         });
         ItemGroupEvents.modifyEntriesEvent(VERTICAL_SLAB_GROUP_KEY).register((itemGroup) -> {
+            itemGroup.add(VERTICAL_OAK_SLAB);
+            itemGroup.add(VERTICAL_SPRUCE_SLAB);
+            itemGroup.add(VERTICAL_BIRCH_SLAB);
+            itemGroup.add(VERTICAL_JUNGLE_SLAB);
+            itemGroup.add(VERTICAL_ACACIA_SLAB);
+            itemGroup.add(VERTICAL_DARK_OAK_SLAB);
+            itemGroup.add(VERTICAL_MANGROVE_SLAB);
+            itemGroup.add(VERTICAL_CHERRY_SLAB);
+            itemGroup.add(VERTICAL_BAMBOO_SLAB);
+            itemGroup.add(VERTICAL_BAMBOO_MOSAIC_SLAB);
+            itemGroup.add(VERTICAL_CRIMSON_SLAB);
+            itemGroup.add(VERTICAL_WARPED_SLAB);
             itemGroup.add(VERTICAL_STONE_SLAB);
             itemGroup.add(VERTICAL_COBBLESTONE_SLAB);
             itemGroup.add(VERTICAL_MOSSY_COBBLESTONE_SLAB);
@@ -149,6 +173,78 @@ public class VerticalSlab {
         OxidizableBlocksRegistry.registerWaxableBlockPair(WEATHERED_VERTICAL_CUT_COPPER_SLAB, WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB);
         OxidizableBlocksRegistry.registerWaxableBlockPair(OXIDIZED_VERTICAL_CUT_COPPER_SLAB, WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
     }
+
+    public static final Block VERTICAL_OAK_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(OAK_SLAB)),
+            "vertical_oak_slab",
+            true
+    );
+
+    public static final Block VERTICAL_SPRUCE_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(SPRUCE_SLAB)),
+            "vertical_spruce_slab",
+            true
+    );
+
+    public static final Block VERTICAL_BIRCH_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(BIRCH_SLAB)),
+            "vertical_birch_slab",
+            true
+    );
+
+    public static final Block VERTICAL_JUNGLE_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(JUNGLE_SLAB)),
+            "vertical_jungle_slab",
+            true
+    );
+
+    public static final Block VERTICAL_ACACIA_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(ACACIA_SLAB)),
+            "vertical_acacia_slab",
+            true
+    );
+
+    public static final Block VERTICAL_DARK_OAK_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(DARK_OAK_SLAB)),
+            "vertical_dark_oak_slab",
+            true
+    );
+
+    public static final Block VERTICAL_MANGROVE_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(MANGROVE_SLAB)),
+            "vertical_mangrove_slab",
+            true
+    );
+
+    public static final Block VERTICAL_CHERRY_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(CHERRY_SLAB)),
+            "vertical_cherry_slab",
+            true
+    );
+
+    public static final Block VERTICAL_BAMBOO_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(BAMBOO_SLAB)),
+            "vertical_bamboo_slab",
+            true
+    );
+
+    public static final Block VERTICAL_BAMBOO_MOSAIC_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(BAMBOO_MOSAIC_SLAB)),
+            "vertical_bamboo_mosaic_slab",
+            true
+    );
+
+    public static final Block VERTICAL_CRIMSON_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(CRIMSON_SLAB)),
+            "vertical_crimson_slab",
+            true
+    );
+
+    public static final Block VERTICAL_WARPED_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(WARPED_SLAB)),
+            "vertical_warped_slab",
+            true
+    );
 
     public static final Block VERTICAL_STONE_SLAB = register(
             new VerticalSlabBlock(Settings.copy(STONE_SLAB)),

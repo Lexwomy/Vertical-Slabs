@@ -2,7 +2,7 @@
   "parent": "vertical_slabs:block/vertical_slab",
   "textures": {
     "front": "minecraft:block/red_sandstone_top",
-    "side": "minecraft:block/red_sandstone",
+    "side": "minecraft:block/red_sandstone_top",
     "back": "minecraft:block/red_sandstone_top"
   }
 }
