@@ -1,0 +1,6 @@
+{
+  "parent": "vertical_slabs:block/vertical_slab",
+  "textures": {
+    "side": "minecraft:block/stone"
+  }
+}

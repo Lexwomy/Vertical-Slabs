@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "vertical_slabs",
+	"version": "${version}",
+	"name": "Vertical Slabs",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/vertical_slabs/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"lexwomy.verticalslabs.VerticalSlabs"
+		],
+		"client": [
+			"lexwomy.verticalslabs.VerticalSlabsClient"
+		],
+		"fabric-datagen": [
+			"lexwomy.verticalslabs.VerticalSlabsDataGenerator"
+		]
+	},
+	"mixins": [
+		"vertical_slabs.mixins.json",
+		{
+			"config": "vertical-slabs.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

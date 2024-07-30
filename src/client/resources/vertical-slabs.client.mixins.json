@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "lexwomy.verticalslabs.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"ExampleClientMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
