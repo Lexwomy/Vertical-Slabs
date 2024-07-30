@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "waxed_vertical_cut_copper_slab",
   "key": {
     "#": [
       {

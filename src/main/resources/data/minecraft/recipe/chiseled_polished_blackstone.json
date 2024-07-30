@@ -4,11 +4,12 @@
   "group": "chiseled_polished_blackstone",
   "key": {
     "#": {
-      "item": "vertical_slabs:vertical_polished_blackstone_slab"
+      "item": "minecraft:polished_blackstone_slab"
     }
   },
   "pattern": [
-    "##"
+    "#",
+    "#"
   ],
   "result": {
     "count": 1,

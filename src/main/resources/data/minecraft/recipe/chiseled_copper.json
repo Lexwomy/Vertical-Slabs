@@ -1,19 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "vertical_wooden_slabs",
+  "group": "chiseled_copper",
   "key": {
     "#": {
-      "item": "minecraft:bamboo_planks"
+      "item": "minecraft:cut_copper_slab"
     }
   },
   "pattern": [
     "#",
-    "#",
     "#"
   ],
   "result": {
-    "count": 6,
-    "id": "vertical_slabs:vertical_bamboo_slab"
+    "count": 1,
+    "id": "minecraft:chiseled_copper"
   }
 }

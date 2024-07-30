@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "purpur_pillar",
   "key": {
     "#": {
       "item": "vertical_slabs:vertical_purpur_slab"

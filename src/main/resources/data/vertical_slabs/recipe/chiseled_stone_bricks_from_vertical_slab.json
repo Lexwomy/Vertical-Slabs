@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "chiseled_stone_bricks",
   "key": {
     "#": {
       "item": "vertical_slabs:vertical_stone_brick_slab"

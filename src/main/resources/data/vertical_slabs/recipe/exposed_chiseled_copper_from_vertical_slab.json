@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "exposed_chiseled_copper",
   "key": {
     "#": {
       "item": "vertical_slabs:exposed_vertical_cut_copper_slab"

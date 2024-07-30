@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "chiseled_deepslate",
   "key": {
     "#": {
       "item": "vertical_slabs:vertical_cobbled_deepslate_slab"
