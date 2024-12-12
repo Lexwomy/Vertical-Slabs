@@ -3,14 +3,25 @@ package lexwomy.verticalslabs;
 import lexwomy.verticalslabs.block.VerticalSlab;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
+import net.minecraft.advancement.AdvancementCriterion;
+import net.minecraft.advancement.AdvancementRequirements;
+import net.minecraft.advancement.criterion.ItemCriterion;
+import net.minecraft.loot.condition.LocationCheckLootCondition;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class VerticalSlabs implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
-    public static final Logger LOGGER = LoggerFactory.getLogger("vertical_slabs");
+	public static final Logger LOGGER = LoggerFactory.getLogger("vertical_slabs");
 
 	public static final String MOD_ID = "vertical_slabs";
 
@@ -20,6 +31,21 @@ public class VerticalSlabs implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		VerticalSlab.initialize();
+		DynamicRegistrySetupCallback.EVENT.register(registryView -> {
+			registryView.registerEntryAdded(RegistryKeys.ADVANCEMENT, (rawId, id, advancement) -> {
+				LOGGER.info("{}, {}", rawId, id.toString());
+				if (advancement.name().isPresent() && advancement.name().get().equals(Text.translatable("advancements.husbandry.wax_on.title"))) {
+					LOGGER.info("Found wax on advancement!");
+
+					for (Map.Entry<String, AdvancementCriterion<?>> entry : advancement.criteria().entrySet()) {
+						if (Objects.equals(entry.getKey(), "wax_on") && entry.getValue().conditions() instanceof ItemCriterion itemCriterion) {
+							itemCriterion.
+							//ItemCriterion.Conditions.createItemUsedOnBlock()
+						}
+					}
+				}
+			});
+		});
 		LOGGER.info("Hello Fabric world! Debug is {}", LOGGER.isDebugEnabled());
 	}
 }

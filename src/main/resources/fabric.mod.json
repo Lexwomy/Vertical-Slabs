@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "vertical_slabs",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"name": "Vertical Slabs",
 	"description": "Adds vertical slab variants to every vanilla slab variant, with similar vanilla ways to craft/acquire them.",
 	"authors": [
@@ -13,6 +13,12 @@
 	"entrypoints": {
 		"main": [
 			"lexwomy.verticalslabs.VerticalSlabs"
+		],
+		"client": [
+			"lexwomy.verticalslabs.VerticalSlabsClient"
+		],
+		"fabric-datagen": [
+			"lexwomy.verticalslabs.VerticalSlabsDataGenerator"
 		]
 	},
 	"mixins": [

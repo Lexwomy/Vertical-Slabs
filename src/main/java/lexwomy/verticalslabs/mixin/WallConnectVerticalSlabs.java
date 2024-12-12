@@ -92,7 +92,7 @@ public abstract class WallConnectVerticalSlabs extends Block {
             }
 
             boolean straight_wall = low_count == 2 && ((set_north == set_south && set_north == WallShape.TALL)
-                                                    || (set_east == set_west && set_east == WallShape.TALL));
+                    || (set_east == set_west && set_east == WallShape.TALL));
 
             cir.setReturnValue(result
                     .with(NORTH_SHAPE, set_north).with(SOUTH_SHAPE, set_south).with(EAST_SHAPE, set_east).with(WEST_SHAPE, set_west)

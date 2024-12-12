@@ -45,6 +45,7 @@ public class VerticalSlab {
             itemGroup.add(VERTICAL_DARK_OAK_SLAB.asItem());
             itemGroup.add(VERTICAL_MANGROVE_SLAB.asItem());
             itemGroup.add(VERTICAL_CHERRY_SLAB.asItem());
+            itemGroup.add(VERTICAL_PALE_OAK_SLAB.asItem());
             itemGroup.add(VERTICAL_BAMBOO_SLAB.asItem());
             itemGroup.add(VERTICAL_BAMBOO_MOSAIC_SLAB.asItem());
             itemGroup.add(VERTICAL_CRIMSON_SLAB.asItem());
@@ -70,6 +71,7 @@ public class VerticalSlab {
             itemGroup.add(VERTICAL_TUFF_BRICK_SLAB.asItem());
             itemGroup.add(VERTICAL_BRICK_SLAB.asItem());
             itemGroup.add(VERTICAL_MUD_BRICK_SLAB.asItem());
+            itemGroup.add(VERTICAL_RESIN_BRICK_SLAB.asItem());
             itemGroup.add(VERTICAL_SANDSTONE_SLAB.asItem());
             itemGroup.add(VERTICAL_SMOOTH_SANDSTONE_SLAB.asItem());
             itemGroup.add(VERTICAL_CUT_SANDSTONE_SLAB.asItem());
@@ -106,6 +108,7 @@ public class VerticalSlab {
             itemGroup.add(VERTICAL_DARK_OAK_SLAB.asItem());
             itemGroup.add(VERTICAL_MANGROVE_SLAB.asItem());
             itemGroup.add(VERTICAL_CHERRY_SLAB.asItem());
+            itemGroup.add(VERTICAL_PALE_OAK_SLAB.asItem());
             itemGroup.add(VERTICAL_BAMBOO_SLAB.asItem());
             itemGroup.add(VERTICAL_BAMBOO_MOSAIC_SLAB.asItem());
             itemGroup.add(VERTICAL_CRIMSON_SLAB.asItem());
@@ -131,6 +134,7 @@ public class VerticalSlab {
             itemGroup.add(VERTICAL_TUFF_BRICK_SLAB.asItem());
             itemGroup.add(VERTICAL_BRICK_SLAB.asItem());
             itemGroup.add(VERTICAL_MUD_BRICK_SLAB.asItem());
+            itemGroup.add(VERTICAL_RESIN_BRICK_SLAB.asItem());
             itemGroup.add(VERTICAL_SANDSTONE_SLAB.asItem());
             itemGroup.add(VERTICAL_SMOOTH_SANDSTONE_SLAB.asItem());
             itemGroup.add(VERTICAL_CUT_SANDSTONE_SLAB.asItem());
@@ -213,6 +217,12 @@ public class VerticalSlab {
     public static final Block VERTICAL_CHERRY_SLAB = register(
             new VerticalSlabBlock(Settings.copy(CHERRY_SLAB)),
             "vertical_cherry_slab",
+            true
+    );
+
+    public static final Block VERTICAL_PALE_OAK_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(PALE_OAK_SLAB)),
+            "vertical_pale_oak_slab",
             true
     );
 
@@ -314,8 +324,8 @@ public class VerticalSlab {
 
     public static final Block VERTICAL_COBBLED_DEEPSLATE_SLAB = register(
             new VerticalSlabBlock(Settings.copy(COBBLED_DEEPSLATE_SLAB)),
-                "vertical_cobbled_deepslate_slab",
-                true
+            "vertical_cobbled_deepslate_slab",
+            true
     );
 
     public static final Block VERTICAL_POLISHED_DEEPSLATE_SLAB = register(
@@ -363,6 +373,12 @@ public class VerticalSlab {
     public static final Block VERTICAL_MUD_BRICK_SLAB = register(
             new VerticalSlabBlock(Settings.copy(MUD_BRICK_SLAB)),
             "vertical_mud_brick_slab",
+            true
+    );
+
+    public static final Block VERTICAL_RESIN_BRICK_SLAB = register(
+            new VerticalSlabBlock(Settings.copy(RESIN_BRICK_SLAB)),
+            "vertical_resin_brick_slab",
             true
     );
 
