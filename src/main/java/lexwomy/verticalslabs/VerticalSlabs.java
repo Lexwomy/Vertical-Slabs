@@ -37,12 +37,8 @@ public class VerticalSlabs implements ModInitializer {
 				if (advancement.name().isPresent() && advancement.name().get().equals(Text.translatable("advancements.husbandry.wax_on.title"))) {
 					LOGGER.info("Found wax on advancement!");
 
-					for (Map.Entry<String, AdvancementCriterion<?>> entry : advancement.criteria().entrySet()) {
-						if (Objects.equals(entry.getKey(), "wax_on") && entry.getValue().conditions() instanceof ItemCriterion itemCriterion) {
-							itemCriterion.
-							//ItemCriterion.Conditions.createItemUsedOnBlock()
-						}
-					}
+					// Add an extra requirement on to the advancement
+
 				}
 			});
 		});
