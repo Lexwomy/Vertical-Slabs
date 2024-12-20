@@ -31,7 +31,7 @@ bin/
 # fabric
 remappedSrc/
 run/
-
+src/main/generated/
 # java
 
 hs_err_*.log

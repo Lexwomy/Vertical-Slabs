@@ -3,6 +3,8 @@ package lexwomy.verticalslabs;
 import lexwomy.verticalslabs.block.VerticalSlab;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.AdvancementRequirements;
