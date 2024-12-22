@@ -9,9 +9,13 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.criterion.ItemCriterion;
+import net.minecraft.block.Block;
 import net.minecraft.loot.condition.LocationCheckLootCondition;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +28,10 @@ public class VerticalSlabs implements ModInitializer {
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger("vertical_slabs");
-
 	public static final String MOD_ID = "vertical_slabs";
+	public static final TagKey<Block> VERTICAL_SLABS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "vertical_slabs"));
+	public static final TagKey<Block> VERTICAL_WOODEN_SLABS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "vertical_wooden_slabs"));
+	public static final TagKey<Block> VERTICAL_MINEABLE_SLABS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "vertical_mineable_slabs"));
 
 	@Override
 	public void onInitialize() {
