@@ -1,0 +1,39 @@
+{
+  "variants": {
+    "facing=east,type=double": {
+      "model": "minecraft:block/red_nether_bricks",
+      "uvlock": true
+    },
+    "facing=east,type=half": {
+      "model": "vertical_slabs:block/vertical_red_nether_brick_slab",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north,type=double": {
+      "model": "minecraft:block/red_nether_bricks",
+      "uvlock": true
+    },
+    "facing=north,type=half": {
+      "model": "vertical_slabs:block/vertical_red_nether_brick_slab",
+      "uvlock": true
+    },
+    "facing=south,type=double": {
+      "model": "minecraft:block/red_nether_bricks",
+      "uvlock": true
+    },
+    "facing=south,type=half": {
+      "model": "vertical_slabs:block/vertical_red_nether_brick_slab",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=west,type=double": {
+      "model": "minecraft:block/red_nether_bricks",
+      "uvlock": true
+    },
+    "facing=west,type=half": {
+      "model": "vertical_slabs:block/vertical_red_nether_brick_slab",
+      "uvlock": true,
+      "y": 270
+    }
+  }
+}

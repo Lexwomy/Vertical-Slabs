@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:andesite",
+  "result": {
+    "count": 2,
+    "id": "vertical_slabs:vertical_polished_andesite_slab"
+  }
+}
