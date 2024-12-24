@@ -22,7 +22,7 @@ import static lexwomy.verticalslabs.block.VerticalSlabBlock.FACING;
 import static lexwomy.verticalslabs.block.VerticalSlabBlock.TYPE;
 
 @Mixin(WallBlock.class)
-public abstract class WallConnectVerticalSlabs extends Block {
+public abstract class WallConnectVerticalSlabsMixin extends Block {
 
     @Shadow @Final public static EnumProperty<WallShape> NORTH_SHAPE;
 
@@ -36,7 +36,7 @@ public abstract class WallConnectVerticalSlabs extends Block {
 
     @Shadow @Final public static BooleanProperty UP;
 
-    public WallConnectVerticalSlabs(Settings settings) {
+    public WallConnectVerticalSlabsMixin(Settings settings) {
         super(settings);
     }
 

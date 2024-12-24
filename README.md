@@ -18,6 +18,3 @@ Additional features (or annoyances):
   - The rest are uv-locked so they are not directional (which is good for consistency, since having a rotated stone texture in the middle of a stone outcrop would not look so great)
 - All models taken from minecraft textures so it will carry over to other resource packs 
   - As long as the vanilla models are not touched, the vertical slab models will be consistent
-- Fixes MC-266425 (Recipes for new waxed copper blocks are not grouped)
-  - This is because waxed vertical cut copper slabs can also combine to form waxed chiseled copper (so why not kill 2 birds with one stone)
-  - Waxed copper bulb and variants are moved to redstone category

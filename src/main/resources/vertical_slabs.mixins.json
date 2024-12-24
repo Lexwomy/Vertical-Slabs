@@ -3,7 +3,8 @@
   "package": "lexwomy.verticalslabs.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "WallConnectVerticalSlabs"
+    "WallConnectVerticalSlabsMixin",
+    "WaxAdvancementInjectionMixin"
   ],
   "injectors": {
     "defaultRequire": 1
