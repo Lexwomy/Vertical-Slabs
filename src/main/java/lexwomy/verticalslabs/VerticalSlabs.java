@@ -3,34 +3,22 @@ package lexwomy.verticalslabs;
 import com.google.common.collect.BiMap;
 import lexwomy.verticalslabs.block.VerticalSlab;
 import net.fabricmc.api.ModInitializer;
-
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
-import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
-import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
-import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
-import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
-import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.criterion.ItemCriterion;
 import net.minecraft.block.Block;
 import net.minecraft.item.HoneycombItem;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraft.loot.condition.LocationCheckLootCondition;
 import net.minecraft.predicate.BlockPredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Optional;
 
 import static net.minecraft.data.advancement.vanilla.VanillaHusbandryTabAdvancementGenerator.AXE_ITEMS;
 
@@ -62,7 +50,5 @@ public class VerticalSlabs implements ModInitializer {
 				LocationPredicate.Builder.create().block(BlockPredicate.Builder.create().blocks(Registries.BLOCK, unwaxedToWaxed.values())),
 				ItemPredicate.Builder.create().items(Registries.ITEM, AXE_ITEMS)
 		));
-
-		LOGGER.info("Hello Fabric world! Debug is {}", LOGGER.isDebugEnabled());
 	}
 }

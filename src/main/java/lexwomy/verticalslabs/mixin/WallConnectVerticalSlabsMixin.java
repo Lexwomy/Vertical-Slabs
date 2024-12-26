@@ -32,8 +32,6 @@ public abstract class WallConnectVerticalSlabsMixin extends Block {
 
     @Shadow @Final public static EnumProperty<WallShape> WEST_SHAPE;
 
-    @Shadow @Final public static BooleanProperty WATERLOGGED;
-
     @Shadow @Final public static BooleanProperty UP;
 
     public WallConnectVerticalSlabsMixin(Settings settings) {

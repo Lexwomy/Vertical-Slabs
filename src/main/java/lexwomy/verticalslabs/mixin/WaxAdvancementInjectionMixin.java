@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec;
 import lexwomy.verticalslabs.VerticalSlabs;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
-import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;

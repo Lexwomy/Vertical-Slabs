@@ -24,7 +24,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 
-//TO-DO: Make rotate/mirror methods, add connectability to walls
+
 public class VerticalSlabBlock extends Block implements Waterloggable {
     public static final MapCodec<VerticalSlabBlock> CODEC = createCodec(VerticalSlabBlock::new);
     public static final EnumProperty<VerticalSlabType> TYPE = EnumProperty.of("type", VerticalSlabType.class);

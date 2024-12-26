@@ -12,10 +12,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockKeys;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.enums.SlabType;
 import net.minecraft.client.data.*;
 import net.minecraft.data.recipe.CraftingRecipeJsonBuilder;
 import net.minecraft.data.recipe.RecipeExporter;
@@ -26,7 +23,6 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
@@ -357,7 +353,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                 new Pair<>("block.vertical_slabs.vertical_bamboo_slab", "Vertical Bamboo Slab"),
                 new Pair<>("block.vertical_slabs.vertical_bamboo_mosaic_slab", "Vertical Bamboo Mosaic Slab"),
                 new Pair<>("block.vertical_slabs.vertical_crimson_slab", "Vertical Crimson Slab"),
-                new Pair<>("block.vertical_slabs.vertical_warped_slab", "Vertical Stone Slab"),
+                new Pair<>("block.vertical_slabs.vertical_warped_slab", "Vertical Warped Slab"),
                 new Pair<>("block.vertical_slabs.vertical_pale_oak_slab", "Vertical Pale Oak Slab"),
                 new Pair<>("block.vertical_slabs.vertical_stone_slab", "Vertical Stone Slab"),
                 new Pair<>("block.vertical_slabs.vertical_smooth_stone_slab", "Vertical Smooth Stone Slab"),
