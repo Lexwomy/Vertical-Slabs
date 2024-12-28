@@ -60,5 +60,9 @@
   "block.vertical_slabs.waxed_vertical_cut_copper_slab": "Waxed Vertical Cut Copper Slab",
   "block.vertical_slabs.waxed_weathered_vertical_cut_copper_slab": "Waxed Weathered Vertical Cut Copper Slab",
   "block.vertical_slabs.weathered_vertical_cut_copper_slab": "Weathered Vertical Cut Copper Slab",
-  "itemGroup.vertical_slabs": "Vertical Slabs"
+  "itemGroup.vertical_slabs": "Vertical Slabs",
+  "tag.item.vertical_slabs.vertical_flammable_slabs": "Flammable Vertical Slabs",
+  "tag.item.vertical_slabs.vertical_mineable_slabs": "Mineable Vertical Slabs",
+  "tag.item.vertical_slabs.vertical_slabs": "Vertical Slabs",
+  "tag.item.vertical_slabs.vertical_wooden_slabs": "Vertical Wooden Slabs"
 }

@@ -1,23 +1,31 @@
 package lexwomy.verticalslabs.block;
 
 import lexwomy.verticalslabs.VerticalSlabs;
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
-import net.minecraft.block.AbstractBlock;
+import net.fabricmc.fabric.impl.content.registry.FlammableBlockRegistryImpl;
 import net.minecraft.block.AbstractBlock.Settings;
 import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
 import net.minecraft.block.Oxidizable;
-import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+
+import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.List;
 
 import static net.minecraft.block.Blocks.*;
 
@@ -194,6 +202,19 @@ public class VerticalSlab {
         OxidizableBlocksRegistry.registerWaxableBlockPair(EXPOSED_VERTICAL_CUT_COPPER_SLAB, WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB);
         OxidizableBlocksRegistry.registerWaxableBlockPair(WEATHERED_VERTICAL_CUT_COPPER_SLAB, WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB);
         OxidizableBlocksRegistry.registerWaxableBlockPair(OXIDIZED_VERTICAL_CUT_COPPER_SLAB, WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
+
+        int verticalSlabBurnTicks = 150; // 0.75 of an item, which takes 200 ticks, as of 1.21.4.
+
+        FuelRegistryEvents.BUILD.register(((builder, context) -> builder.add(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS_ITEMS, verticalSlabBurnTicks)));
+
+        // Try to add vertical wooden slabs to flammables in fire block
+        FlammableBlockRegistry.getDefaultInstance().add(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS, 5, 20);
+//        RegistryEntryAddedCallback.event(Registries.BLOCK).register(((rawId, id, object) -> {
+//            if (object.equals(Blocks.FIRE)) {
+//                FireBlock fire = (FireBlock) object;
+//                FlammableBlockRegistry.getInstance(fire).add(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS, verticalSlabBurnChance, verticalSlabSpreadChance);
+//            }
+//        }));
     }
 
     public static final Block VERTICAL_OAK_SLAB = register(

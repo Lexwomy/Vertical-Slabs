@@ -3,10 +3,14 @@ package lexwomy.verticalslabs;
 import com.google.common.collect.BiMap;
 import lexwomy.verticalslabs.block.VerticalSlab;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.criterion.ItemCriterion;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
 import net.minecraft.item.HoneycombItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.BlockPredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
@@ -31,6 +35,11 @@ public class VerticalSlabs implements ModInitializer {
 	public static final TagKey<Block> VERTICAL_SLABS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "vertical_slabs"));
 	public static final TagKey<Block> VERTICAL_WOODEN_SLABS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "vertical_wooden_slabs"));
 	public static final TagKey<Block> VERTICAL_MINEABLE_SLABS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "vertical_mineable_slabs"));
+	public static final TagKey<Item> VERTICAL_SLABS_ITEMS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "vertical_slabs"));
+	public static final TagKey<Item> VERTICAL_WOODEN_SLABS_ITEMS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "vertical_wooden_slabs"));
+	public static final TagKey<Item> VERTICAL_FLAMMABLE_SLABS_ITEMS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "vertical_flammable_slabs"));
+	public static final TagKey<Item> VERTICAL_MINEABLE_SLABS_ITEMS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "vertical_mineable_slabs"));
+	public static final TagKey<Block> VERTICAL_FLAMMABLE_SLABS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "vertical_flammable_slabs"));
 	public static Optional<AdvancementCriterion<ItemCriterion.Conditions>> VERTICAL_SLABS_WAX_ON_CRITERION = Optional.empty();
 	public static Optional<AdvancementCriterion<ItemCriterion.Conditions>> VERTICAL_SLABS_WAX_OFF_CRITERION = Optional.empty();
 	@Override

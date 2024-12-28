@@ -32,14 +32,17 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import static lexwomy.verticalslabs.VerticalSlabs.MOD_ID;
+import static lexwomy.verticalslabs.VerticalSlabs.VERTICAL_SLABS_ITEMS;
 
 public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
     // A recipe will be generated for every block in stonecutterInputs if stonecuttable,
@@ -342,6 +345,10 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
     private static class VerticalSlabsLanguageProvider extends FabricLanguageProvider {
         private static final List<Pair<String, String>> TRANSLATION_MAP = List.<Pair<String, String>>of(
                 new Pair<>("itemGroup.vertical_slabs", "Vertical Slabs"),
+                new Pair<>("tag.item.vertical_slabs.vertical_flammable_slabs", "Flammable Vertical Slabs"),
+                new Pair<>("tag.item.vertical_slabs.vertical_mineable_slabs", "Mineable Vertical Slabs"),
+                new Pair<>("tag.item.vertical_slabs.vertical_slabs", "Vertical Slabs"),
+                new Pair<>("tag.item.vertical_slabs.vertical_wooden_slabs", "Vertical Wooden Slabs"),
                 new Pair<>("block.vertical_slabs.vertical_oak_slab", "Vertical Oak Slab"),
                 new Pair<>("block.vertical_slabs.vertical_spruce_slab", "Vertical Spruce Slab"),
                 new Pair<>("block.vertical_slabs.vertical_birch_slab", "Vertical Birch Slab"),
@@ -455,7 +462,9 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                     offerChiseledFromVerticalSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.CHISELED_NETHER_BRICKS, VerticalSlab.VERTICAL_NETHER_BRICK_SLAB);
                     offerChiseledFromVerticalSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.CHISELED_POLISHED_BLACKSTONE, VerticalSlab.VERTICAL_POLISHED_BLACKSTONE_SLAB);
                     offerChiseledFromVerticalSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.CHISELED_QUARTZ_BLOCK, VerticalSlab.VERTICAL_QUARTZ_SLAB);
+                    //Yea ik not quite chiseled but same recipe style
                     offerChiseledFromVerticalSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.PURPUR_PILLAR, VerticalSlab.VERTICAL_PURPUR_SLAB);
+                    offerChiseledFromVerticalSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.BAMBOO_MOSAIC, VerticalSlab.VERTICAL_BAMBOO_SLAB);
                     //Chiseled copper and waxed chiseled copper recipes
                     offerChiseledFromVerticalSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.CHISELED_COPPER, VerticalSlab.VERTICAL_CUT_COPPER_SLAB);
                     offerChiseledFromVerticalSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.EXPOSED_CHISELED_COPPER, VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB);
@@ -477,7 +486,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                 public void offerChiseledFromVerticalSlabRecipe(RecipeCategory category, ItemConvertible chiseled, ItemConvertible slab) {
                     this.createShaped(category, chiseled, 1).input('#', slab).pattern("##")
                             .criterion(hasItem(slab), this.conditionsFromItem(slab))
-                            .offerTo(this.exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MOD_ID, convertBetween(chiseled, slab))));;
+                            .offerTo(this.exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MOD_ID, convertBetween(chiseled, slab))));
                 }
 
                 public void offerWaxedVerticalSlabRecipe(RecipeCategory category, ItemConvertible waxedSlab, ItemConvertible unwaxedSlab) {
@@ -493,8 +502,8 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
             return "Recipes";
         }
     }
-    private static class VerticalSlabsTagProvider extends FabricTagProvider.BlockTagProvider {
-        private VerticalSlabsTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    private static class VerticalSlabsBlockTagProvider extends FabricTagProvider.BlockTagProvider {
+        private VerticalSlabsBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
             super(output, registriesFuture);
         }
 
@@ -531,6 +540,28 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                             VerticalSlab.WAXED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB,
                             VerticalSlab.WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB)
                     .setReplace(false);
+
+            getOrCreateTagBuilder(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS).add(VerticalSlab.VERTICAL_OAK_SLAB,
+                    VerticalSlab.VERTICAL_BIRCH_SLAB, VerticalSlab.VERTICAL_SPRUCE_SLAB, VerticalSlab.VERTICAL_JUNGLE_SLAB,
+                    VerticalSlab.VERTICAL_ACACIA_SLAB, VerticalSlab.VERTICAL_DARK_OAK_SLAB, VerticalSlab.VERTICAL_MANGROVE_SLAB,
+                    VerticalSlab.VERTICAL_CHERRY_SLAB, VerticalSlab.VERTICAL_BAMBOO_SLAB, VerticalSlab.VERTICAL_BAMBOO_MOSAIC_SLAB);
+        }
+    }
+    private static class VerticalSlabsItemTagProvider extends FabricTagProvider.ItemTagProvider {
+        private VerticalSlabsItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture, @Nullable FabricTagProvider.BlockTagProvider blockTagProvider) {
+            super(output, completableFuture, blockTagProvider);
+        }
+
+        @Override
+        protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+            //Make vertical wooden slabs item tags, vertical mineable slabs item tags, and all vertical slabs item tags
+            copy(VerticalSlabs.VERTICAL_SLABS, VerticalSlabs.VERTICAL_SLABS_ITEMS);
+            copy(VerticalSlabs.VERTICAL_WOODEN_SLABS, VerticalSlabs.VERTICAL_WOODEN_SLABS_ITEMS);
+            copy(VerticalSlabs.VERTICAL_MINEABLE_SLABS, VerticalSlabs.VERTICAL_MINEABLE_SLABS_ITEMS);
+            copy(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS, VerticalSlabs.VERTICAL_FLAMMABLE_SLABS_ITEMS);
+
+            getOrCreateTagBuilder(ItemTags.WOODEN_SLABS).addTag(VERTICAL_SLABS_ITEMS).setReplace(false);
+            getOrCreateTagBuilder(ItemTags.NON_FLAMMABLE_WOOD).add(VerticalSlab.VERTICAL_CRIMSON_SLAB.asItem(), VerticalSlab.VERTICAL_WARPED_SLAB.asItem()).setReplace(false);
         }
     }
     private static class VerticalSlabsBlockLootProvider extends FabricBlockLootTableProvider {
@@ -558,7 +589,8 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(VerticalSlabsModelProvider::new);
         pack.addProvider(VerticalSlabsLanguageProvider::new);
         pack.addProvider(VerticalSlabsRecipeProvider::new);
-        pack.addProvider(VerticalSlabsTagProvider::new);
+        VerticalSlabsBlockTagProvider verticalSlabsBlockTagProvider = pack.addProvider(VerticalSlabsBlockTagProvider::new);
+        pack.addProvider((output, registriesFuture) -> new VerticalSlabsItemTagProvider(output, registriesFuture, verticalSlabsBlockTagProvider));
         pack.addProvider(VerticalSlabsBlockLootProvider::new);
     }
 }
