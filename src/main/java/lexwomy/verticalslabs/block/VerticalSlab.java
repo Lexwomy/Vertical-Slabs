@@ -209,12 +209,6 @@ public class VerticalSlab {
 
         // Try to add vertical wooden slabs to flammables in fire block
         FlammableBlockRegistry.getDefaultInstance().add(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS, 5, 20);
-//        RegistryEntryAddedCallback.event(Registries.BLOCK).register(((rawId, id, object) -> {
-//            if (object.equals(Blocks.FIRE)) {
-//                FireBlock fire = (FireBlock) object;
-//                FlammableBlockRegistry.getInstance(fire).add(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS, verticalSlabBurnChance, verticalSlabSpreadChance);
-//            }
-//        }));
     }
 
     public static final Block VERTICAL_OAK_SLAB = register(

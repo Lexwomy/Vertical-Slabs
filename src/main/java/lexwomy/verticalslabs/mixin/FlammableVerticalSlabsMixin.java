@@ -1,25 +1,16 @@
 package lexwomy.verticalslabs.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import lexwomy.verticalslabs.VerticalSlabs;
-import lexwomy.verticalslabs.block.VerticalSlab;
 import lexwomy.verticalslabs.block.VerticalSlabBlock;
 import lexwomy.verticalslabs.block.VerticalSlabType;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-
-import java.util.List;
 
 @Mixin(FireBlock.class)
 public abstract class FlammableVerticalSlabsMixin {
