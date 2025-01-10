@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "vertical_slabs",
-	"version": "1.2.3+mc1.21.4",
+	"version": "1.2.4+mc1.21.4",
 	"name": "Vertical Slabs",
 	"description": "Adds vertical slab variants to every vanilla slab variant, with similar vanilla ways to craft/acquire them.",
 	"authors": [
