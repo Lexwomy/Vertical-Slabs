@@ -24,13 +24,13 @@ import static lexwomy.verticalslabs.block.VerticalSlabBlock.TYPE;
 @Mixin(WallBlock.class)
 public abstract class WallConnectVerticalSlabsMixin extends Block {
 
-    @Shadow @Final public static EnumProperty<WallShape> NORTH_SHAPE;
+    @Shadow @Final public static EnumProperty<WallShape> NORTH_WALL_SHAPE;
 
-    @Shadow @Final public static EnumProperty<WallShape> SOUTH_SHAPE;
+    @Shadow @Final public static EnumProperty<WallShape> SOUTH_WALL_SHAPE;
 
-    @Shadow @Final public static EnumProperty<WallShape> EAST_SHAPE;
+    @Shadow @Final public static EnumProperty<WallShape> EAST_WALL_SHAPE;
 
-    @Shadow @Final public static EnumProperty<WallShape> WEST_SHAPE;
+    @Shadow @Final public static EnumProperty<WallShape> WEST_WALL_SHAPE;
 
     @Shadow @Final public static BooleanProperty UP;
 
@@ -65,10 +65,10 @@ public abstract class WallConnectVerticalSlabsMixin extends Block {
                 ew = true;
             }
 
-            WallShape set_north = result.get(NORTH_SHAPE);
-            WallShape set_south = result.get(SOUTH_SHAPE);
-            WallShape set_east = result.get(EAST_SHAPE);
-            WallShape set_west = result.get(WEST_SHAPE);
+            WallShape set_north = result.get(NORTH_WALL_SHAPE);
+            WallShape set_south = result.get(SOUTH_WALL_SHAPE);
+            WallShape set_east = result.get(EAST_WALL_SHAPE);
+            WallShape set_west = result.get(WEST_WALL_SHAPE);
 
             int low_count = 4;
 
@@ -93,7 +93,7 @@ public abstract class WallConnectVerticalSlabsMixin extends Block {
                     || (set_east == set_west && set_east == WallShape.TALL));
 
             cir.setReturnValue(result
-                    .with(NORTH_SHAPE, set_north).with(SOUTH_SHAPE, set_south).with(EAST_SHAPE, set_east).with(WEST_SHAPE, set_west)
+                    .with(NORTH_WALL_SHAPE, set_north).with(SOUTH_WALL_SHAPE, set_south).with(EAST_WALL_SHAPE, set_east).with(WEST_WALL_SHAPE, set_west)
                     .with(UP, !straight_wall));
         }
     }
