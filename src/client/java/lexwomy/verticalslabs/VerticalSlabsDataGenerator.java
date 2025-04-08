@@ -1,5 +1,6 @@
 package lexwomy.verticalslabs;
 
+import com.ibm.icu.text.Normalizer;
 import lexwomy.verticalslabs.block.VerticalSlab;
 import lexwomy.verticalslabs.block.VerticalSlabBlock;
 import lexwomy.verticalslabs.block.VerticalSlabType;
@@ -14,6 +15,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.model.json.ModelVariant;
+import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.data.recipe.CraftingRecipeJsonBuilder;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
@@ -35,267 +38,338 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
+import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
+import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import static lexwomy.verticalslabs.VerticalSlabs.MOD_ID;
 import static lexwomy.verticalslabs.VerticalSlabs.VERTICAL_SLABS_ITEMS;
+import static net.minecraft.client.data.BlockStateModelGenerator.*;
 
 public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
+    private enum VerticalSlabOrientation {
+        NONDIRECTIONAL,
+        DIRECTIONAL,
+        COLUMN
+    }
     // A recipe will be generated for every block in stonecutterInputs if stonecuttable,
     // while a generic crafting recipe will be generated for the input block
-    private record VerticalSlabDetails(Block slab, Identifier halfModel, Identifier doubleModel, boolean directional,
+    private record VerticalSlabDetails(Block slab, Block texture,
+                                       Identifier halfModelPath, Identifier doubleModelPath, VerticalSlabOrientation orientation,
                                        List<Block> input, boolean stonecuttable, List<Block> stonecutterInputs) {}
     private static final List<VerticalSlabDetails> VERTICAL_SLAB_DETAILS = List.of(
             new VerticalSlabDetails(VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB,
+                    Blocks.EXPOSED_CUT_COPPER,
                     Identifier.of(MOD_ID, "block/exposed_vertical_cut_copper_slab"),
-                    Identifier.ofVanilla("block/exposed_cut_copper"), false,
+                    Identifier.ofVanilla("block/exposed_cut_copper"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.EXPOSED_CUT_COPPER), true, List.of(Blocks.EXPOSED_COPPER, Blocks.EXPOSED_CUT_COPPER)),
             new VerticalSlabDetails(VerticalSlab.OXIDIZED_VERTICAL_CUT_COPPER_SLAB,
+                    Blocks.OXIDIZED_CUT_COPPER,
                     Identifier.of(MOD_ID, "block/oxidized_vertical_cut_copper_slab"),
-                    Identifier.ofVanilla("block/oxidized_cut_copper"), false,
+                    Identifier.ofVanilla("block/oxidized_cut_copper"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.OXIDIZED_CUT_COPPER), true, List.of(Blocks.OXIDIZED_COPPER, Blocks.OXIDIZED_CUT_COPPER)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_ACACIA_SLAB,
+                    Blocks.ACACIA_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_acacia_slab"),
-                    Identifier.ofVanilla("block/acacia_planks"), false,
+                    Identifier.ofVanilla("block/acacia_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.ACACIA_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_ANDESITE_SLAB,
+                    Blocks.ANDESITE,
                     Identifier.of(MOD_ID, "block/vertical_andesite_slab"),
-                    Identifier.ofVanilla("block/andesite"), false,
+                    Identifier.ofVanilla("block/andesite"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.ANDESITE), true, List.of(Blocks.ANDESITE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_BAMBOO_MOSAIC_SLAB,
+                    Blocks.BAMBOO_MOSAIC,
                     Identifier.of(MOD_ID, "block/vertical_bamboo_mosaic_slab"),
-                    Identifier.ofVanilla("block/bamboo_mosaic"), false,
+                    Identifier.ofVanilla("block/bamboo_mosaic"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.BAMBOO_MOSAIC), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_BAMBOO_SLAB,
+                    Blocks.BAMBOO_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_bamboo_slab"),
-                    Identifier.ofVanilla("block/bamboo_planks"), false,
+                    Identifier.ofVanilla("block/bamboo_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.BAMBOO_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_BIRCH_SLAB,
+                    Blocks.BIRCH_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_birch_slab"),
-                    Identifier.ofVanilla("block/birch_planks"), false,
+                    Identifier.ofVanilla("block/birch_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.BIRCH_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_BLACKSTONE_SLAB,
+                    Blocks.BLACKSTONE,
                     Identifier.of(MOD_ID, "block/vertical_blackstone_slab"),
-                    Identifier.ofVanilla("block/blackstone"), false,
+                    Identifier.ofVanilla("block/blackstone"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.BLACKSTONE), true, List.of(Blocks.BLACKSTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_BRICK_SLAB,
+                    Blocks.BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_brick_slab"),
-                    Identifier.ofVanilla("block/bricks"), false,
+                    Identifier.ofVanilla("block/bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.BRICKS), true, List.of(Blocks.BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_CHERRY_SLAB,
+                    Blocks.CHERRY_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_cherry_slab"),
-                    Identifier.ofVanilla("block/cherry_planks"), false,
+                    Identifier.ofVanilla("block/cherry_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.CHERRY_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_COBBLED_DEEPSLATE_SLAB,
+                    Blocks.COBBLED_DEEPSLATE,
                     Identifier.of(MOD_ID, "block/vertical_cobbled_deepslate_slab"),
-                    Identifier.ofVanilla("block/cobbled_deepslate"), false,
+                    Identifier.ofVanilla("block/cobbled_deepslate"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.COBBLED_DEEPSLATE), true, List.of(Blocks.COBBLED_DEEPSLATE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_COBBLESTONE_SLAB,
+                    Blocks.COBBLESTONE,
                     Identifier.of(MOD_ID, "block/vertical_cobblestone_slab"),
-                    Identifier.ofVanilla("block/cobblestone"), false,
+                    Identifier.ofVanilla("block/cobblestone"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.COBBLESTONE), true, List.of(Blocks.COBBLESTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_CRIMSON_SLAB,
+                    Blocks.CRIMSON_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_crimson_slab"),
-                    Identifier.ofVanilla("block/crimson_planks"), false,
+                    Identifier.ofVanilla("block/crimson_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.CRIMSON_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_CUT_COPPER_SLAB,
+                    Blocks.CUT_COPPER,
                     Identifier.of(MOD_ID, "block/vertical_cut_copper_slab"),
-                    Identifier.ofVanilla("block/cut_copper"), false,
+                    Identifier.ofVanilla("block/cut_copper"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.CUT_COPPER), true, List.of(Blocks.COPPER_BLOCK, Blocks.CUT_COPPER)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_CUT_RED_SANDSTONE_SLAB,
+                    Blocks.RED_SANDSTONE,
                     Identifier.of(MOD_ID, "block/vertical_cut_red_sandstone_slab"),
-                    Identifier.of(MOD_ID, "block/vertical_cut_red_sandstone_slab_double"), true,
+                    Identifier.of(MOD_ID, "block/vertical_cut_red_sandstone_slab_double"), VerticalSlabOrientation.COLUMN,
                     List.of(Blocks.CUT_RED_SANDSTONE), true, List.of(Blocks.RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_CUT_SANDSTONE_SLAB,
+                    Blocks.SANDSTONE,
                     Identifier.of(MOD_ID, "block/vertical_cut_sandstone_slab"),
-                    Identifier.of(MOD_ID, "block/vertical_cut_sandstone_slab_double"), true,
+                    Identifier.of(MOD_ID, "block/vertical_cut_sandstone_slab_double"), VerticalSlabOrientation.COLUMN,
                     List.of(Blocks.CUT_SANDSTONE), true, List.of(Blocks.SANDSTONE, Blocks.CUT_SANDSTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_DARK_OAK_SLAB,
+                    Blocks.DARK_OAK_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_dark_oak_slab"),
-                    Identifier.ofVanilla("block/dark_oak_planks"), false,
+                    Identifier.ofVanilla("block/dark_oak_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.DARK_OAK_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_DARK_PRISMARINE_SLAB,
+                    Blocks.DARK_PRISMARINE,
                     Identifier.of(MOD_ID, "block/vertical_dark_prismarine_slab"),
-                    Identifier.ofVanilla("block/dark_prismarine"), false,
+                    Identifier.ofVanilla("block/dark_prismarine"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.DARK_PRISMARINE), true, List.of(Blocks.DARK_PRISMARINE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_DEEPSLATE_BRICK_SLAB,
+                    Blocks.DEEPSLATE_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_deepslate_brick_slab"),
-                    Identifier.ofVanilla("block/deepslate_bricks"), false,
+                    Identifier.ofVanilla("block/deepslate_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.DEEPSLATE_BRICKS), true, List.of(Blocks.COBBLED_DEEPSLATE, Blocks.DEEPSLATE_BRICKS, Blocks.POLISHED_DEEPSLATE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_DEEPSLATE_TILE_SLAB,
+                    Blocks.DEEPSLATE_TILES,
                     Identifier.of(MOD_ID, "block/vertical_deepslate_tile_slab"),
-                    Identifier.ofVanilla("block/deepslate_tiles"), false,
+                    Identifier.ofVanilla("block/deepslate_tiles"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.DEEPSLATE_TILES), true,
                     List.of(Blocks.COBBLED_DEEPSLATE, Blocks.DEEPSLATE_BRICKS, Blocks.DEEPSLATE_TILES, Blocks.POLISHED_DEEPSLATE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_DIORITE_SLAB,
+                    Blocks.DIORITE,
                     Identifier.of(MOD_ID, "block/vertical_diorite_slab"),
-                    Identifier.ofVanilla("block/diorite"), false,
+                    Identifier.ofVanilla("block/diorite"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.DIORITE), true, List.of(Blocks.DIORITE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_END_STONE_BRICK_SLAB,
+                    Blocks.END_STONE_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_end_stone_brick_slab"),
-                    Identifier.ofVanilla("block/end_stone_bricks"), false,
+                    Identifier.ofVanilla("block/end_stone_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.END_STONE_BRICKS), true, List.of(Blocks.END_STONE_BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_GRANITE_SLAB,
+                    Blocks.GRANITE,
                     Identifier.of(MOD_ID, "block/vertical_granite_slab"),
-                    Identifier.ofVanilla("block/granite"), false,
+                    Identifier.ofVanilla("block/granite"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.GRANITE), true, List.of(Blocks.GRANITE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_JUNGLE_SLAB,
+                    Blocks.JUNGLE_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_jungle_slab"),
-                    Identifier.ofVanilla("block/jungle_planks"), false,
+                    Identifier.ofVanilla("block/jungle_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.JUNGLE_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_MANGROVE_SLAB,
+                    Blocks.MANGROVE_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_mangrove_slab"),
-                    Identifier.ofVanilla("block/mangrove_planks"), false,
+                    Identifier.ofVanilla("block/mangrove_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.MANGROVE_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_MOSSY_COBBLESTONE_SLAB,
+                    Blocks.MOSSY_COBBLESTONE,
                     Identifier.of(MOD_ID, "block/vertical_mossy_cobblestone_slab"),
-                    Identifier.ofVanilla("block/mossy_cobblestone"), false,
+                    Identifier.ofVanilla("block/mossy_cobblestone"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.MOSSY_COBBLESTONE), true, List.of(Blocks.MOSSY_COBBLESTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_MOSSY_STONE_BRICK_SLAB,
+                    Blocks.MOSSY_STONE_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_mossy_stone_brick_slab"),
-                    Identifier.ofVanilla("block/mossy_stone_bricks"), false,
+                    Identifier.ofVanilla("block/mossy_stone_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.MOSSY_STONE_BRICKS), true, List.of(Blocks.MOSSY_STONE_BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_MUD_BRICK_SLAB,
+                    Blocks.MUD_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_mud_brick_slab"),
-                    Identifier.ofVanilla("block/mud_bricks"), false,
+                    Identifier.ofVanilla("block/mud_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.MUD_BRICKS), true, List.of(Blocks.MUD_BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_NETHER_BRICK_SLAB,
+                    Blocks.NETHER_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_nether_brick_slab"),
-                    Identifier.ofVanilla("block/nether_bricks"), false,
+                    Identifier.ofVanilla("block/nether_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.NETHER_BRICKS), true, List.of(Blocks.NETHER_BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_OAK_SLAB,
+                    Blocks.OAK_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_oak_slab"),
-                    Identifier.ofVanilla("block/oak_planks"), false,
+                    Identifier.ofVanilla("block/oak_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.OAK_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_PALE_OAK_SLAB,
+                    Blocks.PALE_OAK_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_pale_oak_slab"),
-                    Identifier.ofVanilla("block/pale_oak_planks"), false,
+                    Identifier.ofVanilla("block/pale_oak_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.PALE_OAK_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_POLISHED_ANDESITE_SLAB,
+                    Blocks.POLISHED_ANDESITE,
                     Identifier.of(MOD_ID, "block/vertical_polished_andesite_slab"),
-                    Identifier.ofVanilla("block/polished_andesite"), false,
+                    Identifier.ofVanilla("block/polished_andesite"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.POLISHED_ANDESITE), true, List.of(Blocks.ANDESITE, Blocks.POLISHED_ANDESITE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB,
+                    Blocks.POLISHED_BLACKSTONE_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_polished_blackstone_brick_slab"),
-                    Identifier.ofVanilla("block/polished_blackstone_bricks"), false,
+                    Identifier.ofVanilla("block/polished_blackstone_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.POLISHED_BLACKSTONE_BRICKS), true,
                     List.of(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.POLISHED_BLACKSTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_POLISHED_BLACKSTONE_SLAB,
+                    Blocks.POLISHED_BLACKSTONE,
                     Identifier.of(MOD_ID, "block/vertical_polished_blackstone_slab"),
-                    Identifier.ofVanilla("block/polished_blackstone"), false,
+                    Identifier.ofVanilla("block/polished_blackstone"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.POLISHED_BLACKSTONE), true, List.of(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_POLISHED_DEEPSLATE_SLAB,
+                    Blocks.POLISHED_DEEPSLATE,
                     Identifier.of(MOD_ID, "block/vertical_polished_deepslate_slab"),
-                    Identifier.ofVanilla("block/polished_deepslate"), false,
+                    Identifier.ofVanilla("block/polished_deepslate"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.POLISHED_DEEPSLATE), true, List.of(Blocks.COBBLED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_POLISHED_DIORITE_SLAB,
+                    Blocks.POLISHED_DIORITE,
                     Identifier.of(MOD_ID, "block/vertical_polished_diorite_slab"),
-                    Identifier.ofVanilla("block/polished_diorite"), false,
+                    Identifier.ofVanilla("block/polished_diorite"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.POLISHED_DIORITE), true, List.of(Blocks.DIORITE, Blocks.POLISHED_DIORITE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_POLISHED_GRANITE_SLAB,
+                    Blocks.POLISHED_GRANITE,
                     Identifier.of(MOD_ID, "block/vertical_polished_granite_slab"),
-                    Identifier.ofVanilla("block/polished_granite"), false,
+                    Identifier.ofVanilla("block/polished_granite"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.POLISHED_GRANITE), true, List.of(Blocks.GRANITE, Blocks.POLISHED_GRANITE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_POLISHED_TUFF_SLAB,
+                    Blocks.POLISHED_TUFF,
                     Identifier.of(MOD_ID, "block/vertical_polished_tuff_slab"),
-                    Identifier.ofVanilla("block/polished_tuff"), false,
+                    Identifier.ofVanilla("block/polished_tuff"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.POLISHED_TUFF), true, List.of(Blocks.TUFF, Blocks.POLISHED_TUFF)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_PRISMARINE_SLAB,
+                    Blocks.PRISMARINE,
                     Identifier.of(MOD_ID, "block/vertical_prismarine_slab"),
-                    Identifier.ofVanilla("block/prismarine"), false,
+                    Identifier.ofVanilla("block/prismarine"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.PRISMARINE), true, List.of(Blocks.PRISMARINE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_PRISMARINE_BRICK_SLAB,
+                    Blocks.PRISMARINE_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_prismarine_brick_slab"),
-                    Identifier.ofVanilla("block/prismarine_bricks"), false,
+                    Identifier.ofVanilla("block/prismarine_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.PRISMARINE_BRICKS), true, List.of(Blocks.PRISMARINE_BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_PURPUR_SLAB,
+                    Blocks.PURPUR_BLOCK,
                     Identifier.of(MOD_ID, "block/vertical_purpur_slab"),
-                    Identifier.ofVanilla("block/purpur_block"), false,
+                    Identifier.ofVanilla("block/purpur_block"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.PURPUR_BLOCK, Blocks.PURPUR_PILLAR), true, List.of(Blocks.PURPUR_BLOCK)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_QUARTZ_SLAB,
+                    Blocks.QUARTZ_BLOCK,
                     Identifier.of(MOD_ID, "block/vertical_quartz_slab"),
-                    Identifier.ofVanilla("block/quartz_block"), false,
+                    Identifier.of(MOD_ID, "block/vertical_quartz_slab_double"), VerticalSlabOrientation.COLUMN,
                     List.of(Blocks.QUARTZ_BLOCK, Blocks.QUARTZ_PILLAR, Blocks.CHISELED_QUARTZ_BLOCK),
                     true, List.of(Blocks.QUARTZ_BLOCK)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_RED_NETHER_BRICK_SLAB,
+                    Blocks.RED_NETHER_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_red_nether_brick_slab"),
-                    Identifier.ofVanilla("block/red_nether_bricks"), false,
+                    Identifier.ofVanilla("block/red_nether_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.RED_NETHER_BRICKS), true, List.of(Blocks.RED_NETHER_BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_RED_SANDSTONE_SLAB,
+                    Blocks.RED_SANDSTONE,
                     Identifier.of(MOD_ID, "block/vertical_red_sandstone_slab"),
-                    Identifier.ofVanilla("block/red_sandstone"), false,
+                    Identifier.of(MOD_ID, "block/vertical_red_sandstone_slab_double"), VerticalSlabOrientation.DIRECTIONAL,
                     List.of(Blocks.RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE), true, List.of(Blocks.RED_SANDSTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_RESIN_BRICK_SLAB,
+                    Blocks.RESIN_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_resin_brick_slab"),
-                    Identifier.ofVanilla("block/resin_bricks"), false,
+                    Identifier.ofVanilla("block/resin_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.RESIN_BRICKS), true, List.of(Blocks.RESIN_BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_SANDSTONE_SLAB,
+                    Blocks.SANDSTONE,
                     Identifier.of(MOD_ID, "block/vertical_sandstone_slab"),
-                    Identifier.ofVanilla("block/sandstone"), false,
+                    Identifier.of(MOD_ID, "block/vertical_sandstone_slab_double"), VerticalSlabOrientation.DIRECTIONAL,
                     List.of(Blocks.SANDSTONE, Blocks.CHISELED_SANDSTONE), true, List.of(Blocks.SANDSTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_SMOOTH_QUARTZ_SLAB,
+                    Blocks.QUARTZ_BLOCK,
                     Identifier.of(MOD_ID, "block/vertical_smooth_quartz_slab"),
-                    Identifier.ofVanilla("block/smooth_quartz"), false,
+                    Identifier.ofVanilla("block/smooth_quartz"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.SMOOTH_QUARTZ), true, List.of(Blocks.SMOOTH_QUARTZ)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_SMOOTH_RED_SANDSTONE_SLAB,
+                    Blocks.RED_SANDSTONE,
                     Identifier.of(MOD_ID, "block/vertical_smooth_red_sandstone_slab"),
-                    Identifier.ofVanilla("block/smooth_red_sandstone"), false,
+                    Identifier.ofVanilla("block/smooth_red_sandstone"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.SMOOTH_RED_SANDSTONE), true, List.of(Blocks.SMOOTH_RED_SANDSTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_SMOOTH_SANDSTONE_SLAB,
+                    Blocks.SANDSTONE,
                     Identifier.of(MOD_ID, "block/vertical_smooth_sandstone_slab"),
-                    Identifier.ofVanilla("block/smooth_sandstone"), false,
+                    Identifier.ofVanilla("block/smooth_sandstone"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.SMOOTH_SANDSTONE), true, List.of(Blocks.SMOOTH_SANDSTONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_SMOOTH_STONE_SLAB,
+                    Blocks.SMOOTH_STONE,
                     Identifier.of(MOD_ID, "block/vertical_smooth_stone_slab"),
-                    Identifier.of(MOD_ID, "block/vertical_smooth_stone_slab_double"), true,
+                    Identifier.of(MOD_ID, "block/vertical_smooth_stone_slab_double"), VerticalSlabOrientation.COLUMN,
                     List.of(Blocks.SMOOTH_STONE), true, List.of(Blocks.SMOOTH_STONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_SPRUCE_SLAB,
+                    Blocks.SPRUCE_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_spruce_slab"),
-                    Identifier.ofVanilla("block/spruce_planks"), false,
+                    Identifier.ofVanilla("block/spruce_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.SPRUCE_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_STONE_BRICK_SLAB,
+                    Blocks.STONE_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_stone_brick_slab"),
-                    Identifier.ofVanilla("block/stone_bricks"), false,
+                    Identifier.ofVanilla("block/stone_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.STONE_BRICKS), true, List.of(Blocks.STONE, Blocks.STONE_BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_STONE_SLAB,
+                    Blocks.STONE,
                     Identifier.of(MOD_ID, "block/vertical_stone_slab"),
-                    Identifier.ofVanilla("block/stone"), false,
+                    Identifier.ofVanilla("block/stone"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.STONE), true, List.of(Blocks.STONE)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_TUFF_BRICK_SLAB,
+                    Blocks.TUFF_BRICKS,
                     Identifier.of(MOD_ID, "block/vertical_tuff_brick_slab"),
-                    Identifier.ofVanilla("block/tuff_bricks"), false,
+                    Identifier.ofVanilla("block/tuff_bricks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.TUFF_BRICKS), true, List.of(Blocks.TUFF, Blocks.POLISHED_TUFF, Blocks.TUFF_BRICKS)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_TUFF_SLAB,
+                    Blocks.TUFF,
                     Identifier.of(MOD_ID, "block/vertical_tuff_slab"),
-                    Identifier.ofVanilla("block/tuff"), false,
+                    Identifier.ofVanilla("block/tuff"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.TUFF), true, List.of(Blocks.TUFF)),
             new VerticalSlabDetails(VerticalSlab.VERTICAL_WARPED_SLAB,
+                    Blocks.WARPED_PLANKS,
                     Identifier.of(MOD_ID, "block/vertical_warped_slab"),
-                    Identifier.ofVanilla("block/warped_planks"), false,
+                    Identifier.ofVanilla("block/warped_planks"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.WARPED_PLANKS), false, null),
             new VerticalSlabDetails(VerticalSlab.WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB,
+                    Blocks.EXPOSED_CUT_COPPER,
                     Identifier.of(MOD_ID, "block/waxed_exposed_vertical_cut_copper_slab"),
-                    Identifier.ofVanilla("block/exposed_cut_copper"), false,
+                    Identifier.ofVanilla("block/exposed_cut_copper"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.WAXED_EXPOSED_CUT_COPPER), true, List.of(Blocks.WAXED_EXPOSED_COPPER, Blocks.WAXED_EXPOSED_CUT_COPPER)),
             new VerticalSlabDetails(VerticalSlab.WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB,
+                    Blocks.OXIDIZED_CUT_COPPER,
                     Identifier.of(MOD_ID, "block/waxed_oxidized_vertical_cut_copper_slab"),
-                    Identifier.ofVanilla("block/oxidized_cut_copper"), false,
+                    Identifier.ofVanilla("block/oxidized_cut_copper"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.WAXED_OXIDIZED_CUT_COPPER), true, List.of(Blocks.WAXED_OXIDIZED_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER)),
             new VerticalSlabDetails(VerticalSlab.WAXED_VERTICAL_CUT_COPPER_SLAB,
+                    Blocks.CUT_COPPER,
                     Identifier.of(MOD_ID, "block/waxed_vertical_cut_copper_slab"),
-                    Identifier.ofVanilla("block/cut_copper"), false,
+                    Identifier.ofVanilla("block/cut_copper"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.WAXED_CUT_COPPER), true, List.of(Blocks.WAXED_COPPER_BLOCK, Blocks.WAXED_CUT_COPPER)),
             new VerticalSlabDetails(VerticalSlab.WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB,
+                    Blocks.WEATHERED_CUT_COPPER,
                     Identifier.of(MOD_ID, "block/waxed_weathered_vertical_cut_copper_slab"),
-                    Identifier.ofVanilla("block/weathered_cut_copper"), false,
+                    Identifier.ofVanilla("block/weathered_cut_copper"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.WAXED_WEATHERED_CUT_COPPER), true, List.of(Blocks.WAXED_WEATHERED_COPPER, Blocks.WAXED_WEATHERED_CUT_COPPER)),
             new VerticalSlabDetails(VerticalSlab.WEATHERED_VERTICAL_CUT_COPPER_SLAB,
+                    Blocks.WEATHERED_CUT_COPPER,
                     Identifier.of(MOD_ID, "block/weathered_vertical_cut_copper_slab"),
-                    Identifier.ofVanilla("block/weathered_cut_copper"), false,
+                    Identifier.ofVanilla("block/weathered_cut_copper"), VerticalSlabOrientation.NONDIRECTIONAL,
                     List.of(Blocks.WEATHERED_CUT_COPPER), true, List.of(Blocks.WEATHERED_COPPER, Blocks.WEATHERED_CUT_COPPER))
     );
     private static class VerticalSlabsModelProvider extends FabricModelProvider {
@@ -303,37 +377,192 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
             super(output);
         }
 
-        private BlockStateSupplier createVerticalSlabState(Block slab, Identifier halfModel, Identifier doubleModel, boolean uvlock, boolean directional) {
-            return VariantsBlockStateSupplier.create(slab).coordinate(
-                    BlockStateVariantMap.create(VerticalSlabBlock.TYPE, VerticalSlabBlock.FACING).register((verticalSlabType, direction) -> {
-                        BlockStateVariant setting = BlockStateVariant.create();
-                        if (uvlock) {
-                            setting.put(VariantSettings.UVLOCK, true);
-                        }
+        // The block passed in should be the vanilla minecraft block whose textures
+        // we want to grab - this creates a texture map for uvlocked, non directional
+        // vertical slabs and their double slabs
+        private TextureMap createNonDirectionalTextureMap(Block block) {
+            Identifier texture;
+            if (block == Blocks.QUARTZ_BLOCK) {
+                texture = TextureMap.getSubId(block, "_bottom");
+            } else if (block == Blocks.SANDSTONE || block == Blocks.RED_SANDSTONE) {
+                texture = TextureMap.getSubId(block, "_top");
+            } else {
+                texture = TextureMap.getId(block);
+            }
+            return new TextureMap()
+                    .put(TextureKey.FRONT, texture)
+                    .put(TextureKey.SIDE, texture)
+                    .put(TextureKey.BACK, texture);
+        }
 
-                        setting.put(VariantSettings.MODEL, verticalSlabType == VerticalSlabType.DOUBLE ? doubleModel : halfModel);
+        // The block passed in should be the vanilla minecraft block whose textures
+        // we want to grab - this creates a texture map for directional vertical slabs
+        // Non column directional slabs have differing front and back textures
+        // This applies to raw sandstone slabs only as of 1.21.5
+        private TextureMap createDirectionalTextureMap(Block block) {
+            return new TextureMap()
+                    .put(TextureKey.FRONT, TextureMap.getSubId(block, "_top"))
+                    .put(TextureKey.SIDE, TextureMap.getSubId(block, ""))
+                    .put(TextureKey.BACK, TextureMap.getSubId(block, "_bottom"));
+        }
 
-                        if (verticalSlabType == VerticalSlabType.DOUBLE && !directional) {
-                            return setting;
-                        }
+        // The block passed in should be the vanilla minecraft block whose textures
+        // we want to grab - this creates a texture map for column vertical slabs
+        // Column slabs have the same textures front and back
+        // For now this applies to smooth stone slabs, quartz slabs, cut sandstone slabs
+        private TextureMap createColumnTextureMap(Block block) {
+            Identifier endTexture, sideTexture;
 
-                        switch (direction) {
-                            case SOUTH -> setting.put(VariantSettings.Y, VariantSettings.Rotation.R180);
-                            case EAST -> setting.put(VariantSettings.Y, VariantSettings.Rotation.R90);
-                            case WEST -> setting.put(VariantSettings.Y, VariantSettings.Rotation.R270);
-                        }
+            if (block == Blocks.SANDSTONE || block == Blocks.RED_SANDSTONE ||
+                    block == Blocks.QUARTZ_BLOCK) {
+                endTexture = TextureMap.getSubId(block, "_top");
+            } else {
+                endTexture = TextureMap.getId(block);
+            }
 
-                        return setting;
-                    })
+            if (block == Blocks.SMOOTH_STONE) {
+                sideTexture = TextureMap.getSubId(block, "_slab_side");
+            } else if (block == Blocks.SANDSTONE || block == Blocks.RED_SANDSTONE) {
+                sideTexture = block == Blocks.SANDSTONE ?
+                        TextureMap.getId(Blocks.CUT_SANDSTONE) : TextureMap.getId(Blocks.CUT_RED_SANDSTONE);
+            } else {
+                sideTexture = TextureMap.getSubId(block, "_side");
+            }
+            return new TextureMap()
+                    .put(TextureKey.FRONT, endTexture)
+                    .put(TextureKey.SIDE, sideTexture)
+                    .put(TextureKey.BACK, endTexture);
+        }
+
+        private BlockModelDefinitionCreator createNonDirectionalVerticalSlabState(Block slab, WeightedVariant halfModel, WeightedVariant doubleModel) {
+            return VariantsBlockModelDefinitionCreator.of(slab).with(
+                    BlockStateVariantMap.models(VerticalSlabBlock.TYPE, VerticalSlabBlock.FACING)
+                            .register(VerticalSlabType.HALF, Direction.NORTH, halfModel.apply(UV_LOCK))
+                            .register(VerticalSlabType.HALF, Direction.SOUTH, halfModel.apply(ROTATE_Y_180).apply(UV_LOCK))
+                            .register(VerticalSlabType.HALF, Direction.EAST, halfModel.apply(ROTATE_Y_90).apply(UV_LOCK))
+                            .register(VerticalSlabType.HALF, Direction.WEST, halfModel.apply(ROTATE_Y_270).apply(UV_LOCK))
+                            .register(VerticalSlabType.DOUBLE, Direction.NORTH, doubleModel.apply(UV_LOCK))
+                            .register(VerticalSlabType.DOUBLE, Direction.SOUTH, doubleModel.apply(UV_LOCK))
+                            .register(VerticalSlabType.DOUBLE, Direction.EAST, doubleModel.apply(UV_LOCK))
+                            .register(VerticalSlabType.DOUBLE, Direction.WEST, doubleModel.apply(UV_LOCK))
             );
         }
 
+        private BlockModelDefinitionCreator createColumnVerticalSlabState(Block slab, WeightedVariant halfModel, WeightedVariant doubleModel) {
+            return VariantsBlockModelDefinitionCreator.of(slab).with(
+                    BlockStateVariantMap.models(VerticalSlabBlock.TYPE, VerticalSlabBlock.FACING)
+                            .register(VerticalSlabType.HALF, Direction.NORTH, halfModel)
+                            .register(VerticalSlabType.HALF, Direction.SOUTH, halfModel.apply(ROTATE_Y_180))
+                            .register(VerticalSlabType.HALF, Direction.EAST, halfModel.apply(ROTATE_Y_90))
+                            .register(VerticalSlabType.HALF, Direction.WEST, halfModel.apply(ROTATE_Y_270))
+                            .register(VerticalSlabType.DOUBLE, Direction.NORTH, doubleModel)
+                            .register(VerticalSlabType.DOUBLE, Direction.SOUTH, doubleModel.apply(ROTATE_Y_180))
+                            .register(VerticalSlabType.DOUBLE, Direction.EAST, doubleModel.apply(ROTATE_Y_90))
+                            .register(VerticalSlabType.DOUBLE, Direction.WEST, doubleModel.apply(ROTATE_Y_270))
+            );
+        }
+
+//        private BlockStateSupplier createVerticalSlabState(Block slab, Identifier halfModel, Identifier doubleModel, boolean uvlock, boolean directional) {
+//            return VariantsBlockStateSupplier.create(slab).coordinate(
+//                    BlockStateVariantMap.create(VerticalSlabBlock.TYPE, VerticalSlabBlock.FACING).register((verticalSlabType, direction) -> {
+//                        BlockStateVariant setting = BlockStateVariant.create();
+//                        if (uvlock) {
+//                            setting.put(VariantSettings.UVLOCK, true);
+//                        }
+//
+//                        setting.put(VariantSettings.MODEL, verticalSlabType == VerticalSlabType.DOUBLE ? doubleModel : halfModel);
+//
+//                        if (verticalSlabType == VerticalSlabType.DOUBLE && !directional) {
+//                            return setting;
+//                        }
+//
+//                        switch (direction) {
+//                            case SOUTH -> setting.put(VariantSettings.Y, VariantSettings.Rotation.R180);
+//                            case EAST -> setting.put(VariantSettings.Y, VariantSettings.Rotation.R90);
+//                            case WEST -> setting.put(VariantSettings.Y, VariantSettings.Rotation.R270);
+//                        }
+//
+//                        return setting;
+//                    })
+//            );
+//        }
+
         @Override
         public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+
             for (VerticalSlabDetails verticalSlabMapping : VERTICAL_SLAB_DETAILS) {
-                blockStateModelGenerator.blockStateCollector.accept(
-                        createVerticalSlabState(verticalSlabMapping.slab, verticalSlabMapping.halfModel,
-                                verticalSlabMapping.doubleModel, !verticalSlabMapping.directional, verticalSlabMapping.directional));
+                WeightedVariant halfModel, doubleModel;
+                TextureMap mapping;
+                switch (verticalSlabMapping.orientation) {
+                    case NONDIRECTIONAL:
+                        mapping = createNonDirectionalTextureMap(verticalSlabMapping.texture);
+
+                        halfModel = createWeightedVariant(
+                                VerticalSlabModels.VERTICAL_SLAB.upload(
+                                        verticalSlabMapping.slab, mapping,
+                                        blockStateModelGenerator.modelCollector)
+                        );
+                        // For non directional slabs, the full block is the vanilla minecraft block
+                        doubleModel = createWeightedVariant(verticalSlabMapping.doubleModelPath);
+
+                        blockStateModelGenerator.blockStateCollector.accept(
+                                createNonDirectionalVerticalSlabState(verticalSlabMapping.slab, halfModel, doubleModel)
+                        );
+                        break;
+                    case DIRECTIONAL:
+                        mapping = createDirectionalTextureMap(verticalSlabMapping.texture);
+                        halfModel = createWeightedVariant(
+                                VerticalSlabModels.VERTICAL_DIRECTIONAL_SLAB.upload(
+                                        verticalSlabMapping.slab, mapping,
+                                        blockStateModelGenerator.modelCollector
+                                )
+                        );
+
+                        doubleModel = createWeightedVariant(
+                                VerticalSlabModels.VERTICAL_DIRECTIONAL_DOUBLE_SLAB.upload(
+                                        verticalSlabMapping.doubleModelPath, mapping,
+                                        blockStateModelGenerator.modelCollector
+                                )
+                        );
+                        blockStateModelGenerator.blockStateCollector.accept(
+                                createColumnVerticalSlabState(verticalSlabMapping.slab, halfModel, doubleModel)
+                        );
+                        break;
+                    case COLUMN:
+                        mapping = createColumnTextureMap(verticalSlabMapping.texture);
+                        halfModel = createWeightedVariant(
+                                VerticalSlabModels.VERTICAL_DIRECTIONAL_SLAB.upload(
+                                        verticalSlabMapping.slab, mapping,
+                                        blockStateModelGenerator.modelCollector
+                                )
+                        );
+
+                        // Create a directional double block model using the doubleModel id since there is no
+                        // actual block to associate the id with
+                        doubleModel = createWeightedVariant(VerticalSlabModels.VERTICAL_DIRECTIONAL_DOUBLE_SLAB.upload(
+                                verticalSlabMapping.doubleModelPath, mapping, blockStateModelGenerator.modelCollector
+                        ));
+
+                        blockStateModelGenerator.blockStateCollector.accept(
+                                createColumnVerticalSlabState(verticalSlabMapping.slab, halfModel, doubleModel)
+                        );
+                        break;
+                }
+
+//                if (verticalSlabMapping.directional) {
+//                    TextureMap halfMapping = new TextureMap()
+//                            .put(TextureKey.FRONT, )
+//                    WeightedVariant halfModel = createWeightedVariant(
+//                                    VerticalSlabModels.VERTICAL_DIRECTIONAL_SLAB.upload(verticalSlabMapping.slab, halfMapping, ));
+//                    WeightedVariant doubleModel = createWeightedVariant(
+//                            VerticalSlabModels.VERTICAL_DIRECTIONAL_DOUBLE_SLAB.upload(verticalSlabMapping.slab, doubleMapping, )
+//                    );
+//                    blockStateModelGenerator.blockStateCollector.accept(
+//                            createDirectionalVerticalSlabState(verticalSlabMapping.slab, halfModel, doubleModel));
+//                }
+//                blockStateModelGenerator.blockStateCollector.accept(
+//                        createVerticalSlabState(verticalSlabMapping.slab, verticalSlabMapping.halfModel,
+//                                verticalSlabMapping.doubleModel, !verticalSlabMapping.directional, verticalSlabMapping.directional));
             }
         }
 

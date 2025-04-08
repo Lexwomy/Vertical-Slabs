@@ -1,38 +1,33 @@
 {
   "variants": {
     "facing=east,type=double": {
-      "model": "minecraft:block/red_sandstone",
-      "uvlock": true
+      "model": "vertical_slabs:block/vertical_red_sandstone_slab_double",
+      "y": 90
     },
     "facing=east,type=half": {
       "model": "vertical_slabs:block/vertical_red_sandstone_slab",
-      "uvlock": true,
       "y": 90
     },
     "facing=north,type=double": {
-      "model": "minecraft:block/red_sandstone",
-      "uvlock": true
+      "model": "vertical_slabs:block/vertical_red_sandstone_slab_double"
     },
     "facing=north,type=half": {
-      "model": "vertical_slabs:block/vertical_red_sandstone_slab",
-      "uvlock": true
+      "model": "vertical_slabs:block/vertical_red_sandstone_slab"
     },
     "facing=south,type=double": {
-      "model": "minecraft:block/red_sandstone",
-      "uvlock": true
+      "model": "vertical_slabs:block/vertical_red_sandstone_slab_double",
+      "y": 180
     },
     "facing=south,type=half": {
       "model": "vertical_slabs:block/vertical_red_sandstone_slab",
-      "uvlock": true,
       "y": 180
     },
     "facing=west,type=double": {
-      "model": "minecraft:block/red_sandstone",
-      "uvlock": true
+      "model": "vertical_slabs:block/vertical_red_sandstone_slab_double",
+      "y": 270
     },
     "facing=west,type=half": {
       "model": "vertical_slabs:block/vertical_red_sandstone_slab",
-      "uvlock": true,
       "y": 270
     }
   }

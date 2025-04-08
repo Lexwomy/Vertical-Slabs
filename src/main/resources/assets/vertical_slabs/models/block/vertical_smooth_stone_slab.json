@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_directional_slab",
-  "textures": {
-    "front": "minecraft:block/smooth_stone",
-    "side": "minecraft:block/smooth_stone_slab_side",
-    "back": "minecraft:block/smooth_stone"
-  }
-}

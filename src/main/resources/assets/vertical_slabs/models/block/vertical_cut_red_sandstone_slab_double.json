@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_directional_slab_double",
-  "textures": {
-    "front": "minecraft:block/red_sandstone_top",
-    "side": "minecraft:block/cut_red_sandstone",
-    "back": "minecraft:block/red_sandstone_top"
-  }
-}

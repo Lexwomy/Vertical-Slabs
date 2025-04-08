@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_slab",
-  "textures": {
-    "front": "minecraft:block/end_stone_bricks",
-    "side": "minecraft:block/end_stone_bricks",
-    "back": "minecraft:block/end_stone_bricks"
-  }
-}

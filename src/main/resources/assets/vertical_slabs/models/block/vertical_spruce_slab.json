@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_slab",
-  "textures": {
-    "front": "minecraft:block/spruce_planks",
-    "side": "minecraft:block/spruce_planks",
-    "back": "minecraft:block/spruce_planks"
-  }
-}

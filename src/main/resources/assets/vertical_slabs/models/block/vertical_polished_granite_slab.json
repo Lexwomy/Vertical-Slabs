@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_slab",
-  "textures": {
-    "front": "minecraft:block/polished_granite",
-    "side": "minecraft:block/polished_granite",
-    "back": "minecraft:block/polished_granite"
-  }
-}

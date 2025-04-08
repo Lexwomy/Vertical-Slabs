@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_slab",
-  "textures": {
-    "front": "minecraft:block/mangrove_planks",
-    "side": "minecraft:block/mangrove_planks",
-    "back": "minecraft:block/mangrove_planks"
-  }
-}

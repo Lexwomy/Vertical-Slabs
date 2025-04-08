@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(FireBlock.class)
 public abstract class FlammableVerticalSlabsMixin {
     @WrapOperation(method = "areBlocksAroundFlammable(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z",
-    at = @At(value = "INVOKE", target = "Lnet/minecraft/block/FireBlock;isFlammable(Lnet/minecraft/block/BlockState;)Z"))
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/FireBlock;isFlammable(Lnet/minecraft/block/BlockState;)Z"))
     private boolean CheckFlammableVerticalSlabs(FireBlock instance, BlockState state, Operation<Boolean> original,
                                                 @Local(ordinal = 0) Direction direction) {
         if (state.isIn(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS)) {

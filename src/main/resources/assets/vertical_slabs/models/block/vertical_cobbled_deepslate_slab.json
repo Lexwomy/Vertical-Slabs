@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_slab",
-  "textures": {
-    "front": "minecraft:block/cobbled_deepslate",
-    "side": "minecraft:block/cobbled_deepslate",
-    "back": "minecraft:block/cobbled_deepslate"
-  }
-}

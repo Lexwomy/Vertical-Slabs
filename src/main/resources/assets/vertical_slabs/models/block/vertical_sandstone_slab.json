@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_column_slab",
-  "textures": {
-    "top": "minecraft:block/sandstone_top",
-    "side": "minecraft:block/sandstone",
-    "bottom": "minecraft:block/sandstone_bottom"
-  }
-}
