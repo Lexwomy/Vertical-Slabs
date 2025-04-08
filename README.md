@@ -13,7 +13,7 @@ Additional features (or annoyances):
 - Recipe discovery more or less the same as vanilla slab recipe discovery
 - Wax On / Wax Off advancements now track vertical copper variants as well
 - Vertical copper slab variants can be oxidized and waxed like normal copper
-- Vertical smooth stone, cut sandstone, and cut red sandstone slabs are now directional
+- Vertical smooth stone, quartz, sandstone slabs and their variants (red and cut) are now directional
   - Imagine a rotated double smooth stone block orientable in any horizontal direction, that's what it looks like
   - The rest are uv-locked so they are not directional (which is good for consistency, since having a rotated stone texture in the middle of a stone outcrop would not look so great)
 - All models taken from minecraft textures so it will carry over to other resource packs 
