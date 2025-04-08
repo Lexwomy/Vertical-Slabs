@@ -462,31 +462,6 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
             );
         }
 
-//        private BlockStateSupplier createVerticalSlabState(Block slab, Identifier halfModel, Identifier doubleModel, boolean uvlock, boolean directional) {
-//            return VariantsBlockStateSupplier.create(slab).coordinate(
-//                    BlockStateVariantMap.create(VerticalSlabBlock.TYPE, VerticalSlabBlock.FACING).register((verticalSlabType, direction) -> {
-//                        BlockStateVariant setting = BlockStateVariant.create();
-//                        if (uvlock) {
-//                            setting.put(VariantSettings.UVLOCK, true);
-//                        }
-//
-//                        setting.put(VariantSettings.MODEL, verticalSlabType == VerticalSlabType.DOUBLE ? doubleModel : halfModel);
-//
-//                        if (verticalSlabType == VerticalSlabType.DOUBLE && !directional) {
-//                            return setting;
-//                        }
-//
-//                        switch (direction) {
-//                            case SOUTH -> setting.put(VariantSettings.Y, VariantSettings.Rotation.R180);
-//                            case EAST -> setting.put(VariantSettings.Y, VariantSettings.Rotation.R90);
-//                            case WEST -> setting.put(VariantSettings.Y, VariantSettings.Rotation.R270);
-//                        }
-//
-//                        return setting;
-//                    })
-//            );
-//        }
-
         @Override
         public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
 
@@ -508,6 +483,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                         blockStateModelGenerator.blockStateCollector.accept(
                                 createNonDirectionalVerticalSlabState(verticalSlabMapping.slab, halfModel, doubleModel)
                         );
+                        blockStateModelGenerator.registerParentedItemModel(verticalSlabMapping.slab, verticalSlabMapping.halfModelPath);
                         break;
                     case DIRECTIONAL:
                         mapping = createDirectionalTextureMap(verticalSlabMapping.texture);
@@ -527,6 +503,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                         blockStateModelGenerator.blockStateCollector.accept(
                                 createColumnVerticalSlabState(verticalSlabMapping.slab, halfModel, doubleModel)
                         );
+                        blockStateModelGenerator.registerParentedItemModel(verticalSlabMapping.slab, verticalSlabMapping.halfModelPath);
                         break;
                     case COLUMN:
                         mapping = createColumnTextureMap(verticalSlabMapping.texture);
@@ -546,23 +523,9 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                         blockStateModelGenerator.blockStateCollector.accept(
                                 createColumnVerticalSlabState(verticalSlabMapping.slab, halfModel, doubleModel)
                         );
+                        blockStateModelGenerator.registerParentedItemModel(verticalSlabMapping.slab, verticalSlabMapping.halfModelPath);
                         break;
                 }
-
-//                if (verticalSlabMapping.directional) {
-//                    TextureMap halfMapping = new TextureMap()
-//                            .put(TextureKey.FRONT, )
-//                    WeightedVariant halfModel = createWeightedVariant(
-//                                    VerticalSlabModels.VERTICAL_DIRECTIONAL_SLAB.upload(verticalSlabMapping.slab, halfMapping, ));
-//                    WeightedVariant doubleModel = createWeightedVariant(
-//                            VerticalSlabModels.VERTICAL_DIRECTIONAL_DOUBLE_SLAB.upload(verticalSlabMapping.slab, doubleMapping, )
-//                    );
-//                    blockStateModelGenerator.blockStateCollector.accept(
-//                            createDirectionalVerticalSlabState(verticalSlabMapping.slab, halfModel, doubleModel));
-//                }
-//                blockStateModelGenerator.blockStateCollector.accept(
-//                        createVerticalSlabState(verticalSlabMapping.slab, verticalSlabMapping.halfModel,
-//                                verticalSlabMapping.doubleModel, !verticalSlabMapping.directional, verticalSlabMapping.directional));
             }
         }
 
