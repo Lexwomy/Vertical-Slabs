@@ -13,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.*;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -147,6 +149,28 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
                         ((hit_coords.z - (double)block_coords.getZ() < 0.5) ? Direction.SOUTH : Direction.NORTH) :
                         ((hit_coords.x - (double)block_coords.getX() < 0.5) ? Direction.EAST : Direction.WEST))
                 .with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+    }
+
+    @Override
+    protected BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    protected BlockState mirror(BlockState state, BlockMirror mirror) {
+        switch (mirror) {
+            case LEFT_RIGHT:
+                if (state.get(FACING).getAxis() == Direction.Axis.Z) {
+                    return state.with(FACING, state.get(FACING).getOpposite());
+                }
+                break;
+            case FRONT_BACK:
+                if (state.get(FACING).getAxis() == Direction.Axis.X) {
+                    return state.with(FACING, state.get(FACING).getOpposite());
+                }
+                break;
+        }
+        return super.mirror(state, mirror);
     }
 
     /*
