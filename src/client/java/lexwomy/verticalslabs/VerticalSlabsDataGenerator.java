@@ -752,7 +752,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
             copy(VerticalSlabs.VERTICAL_MINEABLE_SLABS, VerticalSlabs.VERTICAL_MINEABLE_SLABS_ITEMS);
             copy(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS, VerticalSlabs.VERTICAL_FLAMMABLE_SLABS_ITEMS);
 
-            getOrCreateTagBuilder(ItemTags.WOODEN_SLABS).addTag(VERTICAL_SLABS_ITEMS).setReplace(false);
+            getOrCreateTagBuilder(ItemTags.WOODEN_SLABS).addTag(VerticalSlabs.VERTICAL_WOODEN_SLABS_ITEMS).setReplace(false);
             getOrCreateTagBuilder(ItemTags.NON_FLAMMABLE_WOOD).add(VerticalSlab.VERTICAL_CRIMSON_SLAB.asItem(), VerticalSlab.VERTICAL_WARPED_SLAB.asItem()).setReplace(false);
         }
     }
