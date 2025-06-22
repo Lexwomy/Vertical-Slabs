@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:vertical_diorite_slab_from_diorite_stonecutting"
+        "recipe": "vertical_slabs:vertical_diorite_slab_from_diorite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:vertical_diorite_slab_from_diorite_stonecutting"
+      "vertical_slabs:vertical_diorite_slab_from_diorite_stonecutting"
     ]
   }
 }

@@ -1,6 +1,5 @@
 package lexwomy.verticalslabs;
 
-import com.ibm.icu.text.Normalizer;
 import lexwomy.verticalslabs.block.VerticalSlab;
 import lexwomy.verticalslabs.block.VerticalSlabBlock;
 import lexwomy.verticalslabs.block.VerticalSlabType;
@@ -15,11 +14,11 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
-import net.minecraft.client.render.model.json.ModelVariant;
 import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.data.recipe.CraftingRecipeJsonBuilder;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
+import net.minecraft.data.tag.ProvidedTagBuilder;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
@@ -40,15 +39,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
-import org.w3c.dom.Text;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import static lexwomy.verticalslabs.VerticalSlabs.MOD_ID;
-import static lexwomy.verticalslabs.VerticalSlabs.VERTICAL_SLABS_ITEMS;
 import static net.minecraft.client.data.BlockStateModelGenerator.*;
 
 public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
@@ -707,37 +703,36 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                     VerticalSlab.VERTICAL_MANGROVE_SLAB, VerticalSlab.VERTICAL_BAMBOO_SLAB, VerticalSlab.VERTICAL_BAMBOO_MOSAIC_SLAB,
                     VerticalSlab.VERTICAL_PALE_OAK_SLAB, VerticalSlab.VERTICAL_CRIMSON_SLAB, VerticalSlab.VERTICAL_WARPED_SLAB);
 
-            //TODO - fix to 1.21.6 tag builder
             //Add all vertical slabs to vertical slab tag
-//            FabricTagProvider<Block>.FabricTagBuilder verticalSlabBuilder = getOrCreateTagBuilder(VerticalSlabs.VERTICAL_SLABS);
-//            FabricTagProvider<Block>.FabricTagBuilder verticalWoodenSlabBuilder = getOrCreateTagBuilder(VerticalSlabs.VERTICAL_WOODEN_SLABS);
-//            FabricTagProvider<Block>.FabricTagBuilder verticalMineableSlabBuilder = getOrCreateTagBuilder(VerticalSlabs.VERTICAL_MINEABLE_SLABS);
-//
-//            for (VerticalSlabDetails verticalSlabDetails : VERTICAL_SLAB_DETAILS) {
-//                verticalSlabBuilder.add(verticalSlabDetails.slab);
-//                if (woodenSlabSet.contains(verticalSlabDetails.slab)) {
-//                    verticalWoodenSlabBuilder.add(verticalSlabDetails.slab);
-//                } else {
-//                    verticalMineableSlabBuilder.add(verticalSlabDetails.slab);
-//                }
-//            }
-//
-//            //Append wooden vertical slabs to vanilla wooden slabs tag
-//            getOrCreateTagBuilder(BlockTags.WOODEN_SLABS).addTag(VerticalSlabs.VERTICAL_WOODEN_SLABS).setReplace(false);
-//            //Append stone slabs to mineable with pickaxe
-//            getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).addTag(VerticalSlabs.VERTICAL_MINEABLE_SLABS).setReplace(false);
-//            //Append copper slabs to needs stone tool
-//            getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
-//                    .add(VerticalSlab.VERTICAL_CUT_COPPER_SLAB, VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB,
-//                            VerticalSlab.WEATHERED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.OXIDIZED_VERTICAL_CUT_COPPER_SLAB,
-//                            VerticalSlab.WAXED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB,
-//                            VerticalSlab.WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB)
-//                    .setReplace(false);
-//
-//            getOrCreateTagBuilder(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS).add(VerticalSlab.VERTICAL_OAK_SLAB,
-//                    VerticalSlab.VERTICAL_BIRCH_SLAB, VerticalSlab.VERTICAL_SPRUCE_SLAB, VerticalSlab.VERTICAL_JUNGLE_SLAB,
-//                    VerticalSlab.VERTICAL_ACACIA_SLAB, VerticalSlab.VERTICAL_DARK_OAK_SLAB, VerticalSlab.VERTICAL_MANGROVE_SLAB,
-//                    VerticalSlab.VERTICAL_CHERRY_SLAB, VerticalSlab.VERTICAL_BAMBOO_SLAB, VerticalSlab.VERTICAL_BAMBOO_MOSAIC_SLAB);
+            ProvidedTagBuilder<Block, Block> verticalSlabBuilder = valueLookupBuilder(VerticalSlabs.VERTICAL_SLABS);
+            ProvidedTagBuilder<Block, Block> verticalWoodenSlabBuilder = valueLookupBuilder(VerticalSlabs.VERTICAL_WOODEN_SLABS);
+            ProvidedTagBuilder<Block, Block> verticalMineableSlabBuilder = valueLookupBuilder(VerticalSlabs.VERTICAL_MINEABLE_SLABS);
+
+            for (VerticalSlabDetails verticalSlabDetails : VERTICAL_SLAB_DETAILS) {
+                verticalSlabBuilder.add(verticalSlabDetails.slab);
+                if (woodenSlabSet.contains(verticalSlabDetails.slab)) {
+                    verticalWoodenSlabBuilder.add(verticalSlabDetails.slab);
+                } else {
+                    verticalMineableSlabBuilder.add(verticalSlabDetails.slab);
+                }
+            }
+
+            //Append wooden vertical slabs to vanilla wooden slabs tag
+            valueLookupBuilder(BlockTags.WOODEN_SLABS).addTag(VerticalSlabs.VERTICAL_WOODEN_SLABS).setReplace(false);
+            //Append stone slabs to mineable with pickaxe
+            valueLookupBuilder(BlockTags.PICKAXE_MINEABLE).addTag(VerticalSlabs.VERTICAL_MINEABLE_SLABS).setReplace(false);
+            //Append copper slabs to needs stone tool
+            valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL)
+                    .add(VerticalSlab.VERTICAL_CUT_COPPER_SLAB, VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB,
+                                            VerticalSlab.WEATHERED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.OXIDIZED_VERTICAL_CUT_COPPER_SLAB,
+                                            VerticalSlab.WAXED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB,
+                                            VerticalSlab.WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB, VerticalSlab.WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB)
+                    .setReplace(false);
+
+            valueLookupBuilder(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS).add(VerticalSlab.VERTICAL_OAK_SLAB,
+                    VerticalSlab.VERTICAL_BIRCH_SLAB, VerticalSlab.VERTICAL_SPRUCE_SLAB, VerticalSlab.VERTICAL_JUNGLE_SLAB,
+                    VerticalSlab.VERTICAL_ACACIA_SLAB, VerticalSlab.VERTICAL_DARK_OAK_SLAB, VerticalSlab.VERTICAL_MANGROVE_SLAB,
+                    VerticalSlab.VERTICAL_CHERRY_SLAB, VerticalSlab.VERTICAL_BAMBOO_SLAB, VerticalSlab.VERTICAL_BAMBOO_MOSAIC_SLAB);
         }
     }
     private static class VerticalSlabsItemTagProvider extends FabricTagProvider.ItemTagProvider {
@@ -753,9 +748,8 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
             copy(VerticalSlabs.VERTICAL_MINEABLE_SLABS, VerticalSlabs.VERTICAL_MINEABLE_SLABS_ITEMS);
             copy(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS, VerticalSlabs.VERTICAL_FLAMMABLE_SLABS_ITEMS);
 
-            //TODO - fix to 1.21.6 tag builder
-//            getOrCreateTagBuilder(ItemTags.WOODEN_SLABS).addTag(VerticalSlabs.VERTICAL_WOODEN_SLABS_ITEMS).setReplace(false);
-//            getOrCreateTagBuilder(ItemTags.NON_FLAMMABLE_WOOD).add(VerticalSlab.VERTICAL_CRIMSON_SLAB.asItem(), VerticalSlab.VERTICAL_WARPED_SLAB.asItem()).setReplace(false);
+            valueLookupBuilder(ItemTags.WOODEN_SLABS).addTag(VerticalSlabs.VERTICAL_WOODEN_SLABS_ITEMS).setReplace(false);
+            valueLookupBuilder(ItemTags.NON_FLAMMABLE_WOOD).add(VerticalSlab.VERTICAL_CRIMSON_SLAB.asItem(), VerticalSlab.VERTICAL_WARPED_SLAB.asItem()).setReplace(false);
         }
     }
     private static class VerticalSlabsBlockLootProvider extends FabricBlockLootTableProvider {

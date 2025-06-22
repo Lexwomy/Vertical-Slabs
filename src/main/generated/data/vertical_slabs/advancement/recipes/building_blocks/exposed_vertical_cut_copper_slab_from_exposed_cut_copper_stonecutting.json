@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:exposed_vertical_cut_copper_slab_from_exposed_cut_copper_stonecutting"
+        "recipe": "vertical_slabs:exposed_vertical_cut_copper_slab_from_exposed_cut_copper_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:exposed_vertical_cut_copper_slab_from_exposed_cut_copper_stonecutting"
+      "vertical_slabs:exposed_vertical_cut_copper_slab_from_exposed_cut_copper_stonecutting"
     ]
   }
 }
