@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/purpur_block",
+    "east": "minecraft:block/purpur_block",
+    "north": "minecraft:block/purpur_block",
+    "particle": "minecraft:block/purpur_block",
+    "south": "minecraft:block/purpur_block",
+    "up": "minecraft:block/purpur_block",
+    "west": "minecraft:block/purpur_block"
+  }
+}

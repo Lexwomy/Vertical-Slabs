@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/resin_bricks",
+    "east": "minecraft:block/resin_bricks",
+    "north": "minecraft:block/resin_bricks",
+    "particle": "minecraft:block/resin_bricks",
+    "south": "minecraft:block/resin_bricks",
+    "up": "minecraft:block/resin_bricks",
+    "west": "minecraft:block/resin_bricks"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/warped_planks",
+    "east": "minecraft:block/warped_planks",
+    "north": "minecraft:block/warped_planks",
+    "particle": "minecraft:block/warped_planks",
+    "south": "minecraft:block/warped_planks",
+    "up": "minecraft:block/warped_planks",
+    "west": "minecraft:block/warped_planks"
+  }
+}

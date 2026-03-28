@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/cherry_planks",
+    "east": "minecraft:block/cherry_planks",
+    "north": "minecraft:block/cherry_planks",
+    "particle": "minecraft:block/cherry_planks",
+    "south": "minecraft:block/cherry_planks",
+    "up": "minecraft:block/cherry_planks",
+    "west": "minecraft:block/cherry_planks"
+  }
+}

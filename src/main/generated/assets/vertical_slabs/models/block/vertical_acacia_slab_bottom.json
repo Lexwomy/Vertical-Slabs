@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/acacia_planks",
+    "east": "minecraft:block/acacia_planks",
+    "north": "minecraft:block/acacia_planks",
+    "particle": "minecraft:block/acacia_planks",
+    "south": "minecraft:block/acacia_planks",
+    "up": "minecraft:block/acacia_planks",
+    "west": "minecraft:block/acacia_planks"
+  }
+}

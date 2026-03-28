@@ -1,33 +1,57 @@
 {
   "variants": {
-    "facing=east,type=double": {
-      "model": "vertical_slabs:block/vertical_quartz_slab_double",
+    "facing=east,type=bottom": {
+      "model": "vertical_slabs:block/vertical_quartz_slab_bottom",
+      "uvlock": true,
       "y": 90
     },
-    "facing=east,type=half": {
-      "model": "vertical_slabs:block/vertical_quartz_slab",
+    "facing=east,type=double": {
+      "model": "minecraft:block/quartz_block",
+      "uvlock": true
+    },
+    "facing=east,type=top": {
+      "model": "vertical_slabs:block/vertical_quartz_slab_top",
+      "uvlock": true,
       "y": 90
+    },
+    "facing=north,type=bottom": {
+      "model": "vertical_slabs:block/vertical_quartz_slab_bottom",
+      "uvlock": true
     },
     "facing=north,type=double": {
-      "model": "vertical_slabs:block/vertical_quartz_slab_double"
+      "model": "minecraft:block/quartz_block",
+      "uvlock": true
     },
-    "facing=north,type=half": {
-      "model": "vertical_slabs:block/vertical_quartz_slab"
+    "facing=north,type=top": {
+      "model": "vertical_slabs:block/vertical_quartz_slab_top",
+      "uvlock": true
+    },
+    "facing=south,type=bottom": {
+      "model": "vertical_slabs:block/vertical_quartz_slab_bottom",
+      "uvlock": true,
+      "y": 180
     },
     "facing=south,type=double": {
-      "model": "vertical_slabs:block/vertical_quartz_slab_double",
+      "model": "minecraft:block/quartz_block",
+      "uvlock": true
+    },
+    "facing=south,type=top": {
+      "model": "vertical_slabs:block/vertical_quartz_slab_top",
+      "uvlock": true,
       "y": 180
     },
-    "facing=south,type=half": {
-      "model": "vertical_slabs:block/vertical_quartz_slab",
-      "y": 180
-    },
-    "facing=west,type=double": {
-      "model": "vertical_slabs:block/vertical_quartz_slab_double",
+    "facing=west,type=bottom": {
+      "model": "vertical_slabs:block/vertical_quartz_slab_bottom",
+      "uvlock": true,
       "y": 270
     },
-    "facing=west,type=half": {
-      "model": "vertical_slabs:block/vertical_quartz_slab",
+    "facing=west,type=double": {
+      "model": "minecraft:block/quartz_block",
+      "uvlock": true
+    },
+    "facing=west,type=top": {
+      "model": "vertical_slabs:block/vertical_quartz_slab_top",
+      "uvlock": true,
       "y": 270
     }
   }

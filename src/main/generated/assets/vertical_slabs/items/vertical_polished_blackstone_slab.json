@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "vertical_slabs:block/vertical_polished_blackstone_slab"
+    "model": "vertical_slabs:block/vertical_polished_blackstone_slab_bottom"
   }
 }

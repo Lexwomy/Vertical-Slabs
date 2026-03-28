@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/dark_prismarine",
+    "east": "minecraft:block/dark_prismarine",
+    "north": "minecraft:block/dark_prismarine",
+    "particle": "minecraft:block/dark_prismarine",
+    "south": "minecraft:block/dark_prismarine",
+    "up": "minecraft:block/dark_prismarine",
+    "west": "minecraft:block/dark_prismarine"
+  }
+}

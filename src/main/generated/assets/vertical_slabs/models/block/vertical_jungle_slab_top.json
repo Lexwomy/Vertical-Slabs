@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/jungle_planks",
+    "east": "minecraft:block/jungle_planks",
+    "north": "minecraft:block/jungle_planks",
+    "particle": "minecraft:block/jungle_planks",
+    "south": "minecraft:block/jungle_planks",
+    "up": "minecraft:block/jungle_planks",
+    "west": "minecraft:block/jungle_planks"
+  }
+}

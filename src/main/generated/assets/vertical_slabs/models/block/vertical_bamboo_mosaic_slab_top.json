@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/bamboo_mosaic",
+    "east": "minecraft:block/bamboo_mosaic",
+    "north": "minecraft:block/bamboo_mosaic",
+    "particle": "minecraft:block/bamboo_mosaic",
+    "south": "minecraft:block/bamboo_mosaic",
+    "up": "minecraft:block/bamboo_mosaic",
+    "west": "minecraft:block/bamboo_mosaic"
+  }
+}

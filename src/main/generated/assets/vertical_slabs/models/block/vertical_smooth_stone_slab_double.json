@@ -1,8 +1,12 @@
 {
-  "parent": "vertical_slabs:block/vertical_directional_slab_double",
+  "parent": "minecraft:block/cube_directional",
   "textures": {
-    "back": "minecraft:block/smooth_stone",
-    "front": "minecraft:block/smooth_stone",
-    "side": "minecraft:block/smooth_stone_slab_side"
+    "down": "minecraft:block/smooth_stone_slab_side",
+    "east": "minecraft:block/smooth_stone_slab_side",
+    "north": "minecraft:block/smooth_stone",
+    "particle": "minecraft:block/smooth_stone_slab_side",
+    "south": "minecraft:block/smooth_stone",
+    "up": "minecraft:block/smooth_stone_slab_side",
+    "west": "minecraft:block/smooth_stone_slab_side"
   }
 }

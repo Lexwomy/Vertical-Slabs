@@ -2,36 +2,48 @@ package lexwomy.verticalslabs.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.*;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.ChangeOverTimeBlock;
+import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class OxidizableVerticalSlabBlock extends VerticalSlabBlock implements Oxidizable {
-    public static final MapCodec<OxidizableVerticalSlabBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-        return instance.group(OxidationLevel.CODEC.fieldOf("weathering_state").forGetter(Degradable::getDegradationLevel), createSettingsCodec()).apply(instance, OxidizableVerticalSlabBlock::new);
-    });
+public class OxidizableVerticalSlabBlock extends VerticalSlabBlock implements WeatheringCopper {
+  public static final MapCodec<OxidizableVerticalSlabBlock> CODEC =
+      RecordCodecBuilder.mapCodec(
+          (instance) ->
+              instance
+                  .group(
+                      WeatherState.CODEC
+                          .fieldOf("weathering_state")
+                          .forGetter(ChangeOverTimeBlock::getAge),
+                      propertiesCodec())
+                  .apply(instance, OxidizableVerticalSlabBlock::new));
 
-    private final Oxidizable.OxidationLevel oxidationLevel;
+  private final WeatheringCopper.WeatherState oxidationLevel;
 
-    public OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel oxidationLevel, AbstractBlock.Settings settings) {
-        super(settings);
-        this.oxidationLevel = oxidationLevel;
-    }
+  public OxidizableVerticalSlabBlock(
+      WeatheringCopper.WeatherState oxidationLevel, BlockBehaviour.Properties settings) {
+    super(settings);
+    this.oxidationLevel = oxidationLevel;
+  }
 
-    public MapCodec<OxidizableVerticalSlabBlock> getCodec() {
-        return CODEC;
-    }
+  public MapCodec<OxidizableVerticalSlabBlock> codec() {
+    return CODEC;
+  }
 
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        this.tickDegradation(state, world, pos, random);
-    }
+  protected void randomTick(
+      BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    this.changeOverTime(state, world, pos, random);
+  }
 
-    protected boolean hasRandomTicks(BlockState state) {
-        return Oxidizable.getIncreasedOxidationBlock(state.getBlock()).isPresent();
-    }
+  protected boolean isRandomlyTicking(BlockState state) {
+    return WeatheringCopper.getNext(state.getBlock()).isPresent();
+  }
 
-    public Oxidizable.OxidationLevel getDegradationLevel() {
-        return this.oxidationLevel;
-    }
+  public WeatheringCopper.WeatherState getAge() {
+    return this.oxidationLevel;
+  }
 }

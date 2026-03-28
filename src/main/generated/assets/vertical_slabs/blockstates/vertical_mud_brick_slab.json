@@ -1,39 +1,40 @@
 {
   "variants": {
-    "facing=east,type=double": {
-      "model": "minecraft:block/mud_bricks",
-      "uvlock": true
+    "facing=east,type=bottom": {
+      "model": "vertical_slabs:block/vertical_mud_brick_slab_east_facing"
     },
-    "facing=east,type=half": {
-      "model": "vertical_slabs:block/vertical_mud_brick_slab",
-      "uvlock": true,
-      "y": 90
+    "facing=east,type=double": {
+      "model": "minecraft:block/mud_bricks_north_west_mirrored"
+    },
+    "facing=east,type=top": {
+      "model": "vertical_slabs:block/vertical_mud_brick_slab_west_facing"
+    },
+    "facing=north,type=bottom": {
+      "model": "vertical_slabs:block/vertical_mud_brick_slab_north_facing"
     },
     "facing=north,type=double": {
-      "model": "minecraft:block/mud_bricks",
-      "uvlock": true
+      "model": "minecraft:block/mud_bricks_north_west_mirrored"
     },
-    "facing=north,type=half": {
-      "model": "vertical_slabs:block/vertical_mud_brick_slab",
-      "uvlock": true
+    "facing=north,type=top": {
+      "model": "vertical_slabs:block/vertical_mud_brick_slab_south_facing"
+    },
+    "facing=south,type=bottom": {
+      "model": "vertical_slabs:block/vertical_mud_brick_slab_south_facing"
     },
     "facing=south,type=double": {
-      "model": "minecraft:block/mud_bricks",
-      "uvlock": true
+      "model": "minecraft:block/mud_bricks_north_west_mirrored"
     },
-    "facing=south,type=half": {
-      "model": "vertical_slabs:block/vertical_mud_brick_slab",
-      "uvlock": true,
-      "y": 180
+    "facing=south,type=top": {
+      "model": "vertical_slabs:block/vertical_mud_brick_slab_north_facing"
+    },
+    "facing=west,type=bottom": {
+      "model": "vertical_slabs:block/vertical_mud_brick_slab_west_facing"
     },
     "facing=west,type=double": {
-      "model": "minecraft:block/mud_bricks",
-      "uvlock": true
+      "model": "minecraft:block/mud_bricks_north_west_mirrored"
     },
-    "facing=west,type=half": {
-      "model": "vertical_slabs:block/vertical_mud_brick_slab",
-      "uvlock": true,
-      "y": 270
+    "facing=west,type=top": {
+      "model": "vertical_slabs:block/vertical_mud_brick_slab_east_facing"
     }
   }
 }

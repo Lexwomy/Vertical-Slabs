@@ -1,8 +1,12 @@
 {
-  "parent": "vertical_slabs:block/vertical_directional_slab_double",
+  "parent": "minecraft:block/cube_directional",
   "textures": {
-    "back": "minecraft:block/sandstone_top",
-    "front": "minecraft:block/sandstone_top",
-    "side": "minecraft:block/cut_sandstone"
+    "down": "minecraft:block/sandstone",
+    "east": "minecraft:block/sandstone",
+    "north": "minecraft:block/sandstone_top",
+    "particle": "minecraft:block/sandstone",
+    "south": "minecraft:block/sandstone_bottom",
+    "up": "minecraft:block/sandstone",
+    "west": "minecraft:block/sandstone"
   }
 }

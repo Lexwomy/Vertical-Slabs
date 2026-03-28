@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/polished_deepslate",
+    "east": "minecraft:block/polished_deepslate",
+    "north": "minecraft:block/polished_deepslate",
+    "particle": "minecraft:block/polished_deepslate",
+    "south": "minecraft:block/polished_deepslate",
+    "up": "minecraft:block/polished_deepslate",
+    "west": "minecraft:block/polished_deepslate"
+  }
+}

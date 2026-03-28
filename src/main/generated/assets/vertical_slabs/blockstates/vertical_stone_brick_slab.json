@@ -1,37 +1,56 @@
 {
   "variants": {
+    "facing=east,type=bottom": {
+      "model": "vertical_slabs:block/vertical_stone_brick_slab_bottom",
+      "uvlock": true,
+      "y": 90
+    },
     "facing=east,type=double": {
       "model": "minecraft:block/stone_bricks",
       "uvlock": true
     },
-    "facing=east,type=half": {
-      "model": "vertical_slabs:block/vertical_stone_brick_slab",
+    "facing=east,type=top": {
+      "model": "vertical_slabs:block/vertical_stone_brick_slab_top",
       "uvlock": true,
       "y": 90
+    },
+    "facing=north,type=bottom": {
+      "model": "vertical_slabs:block/vertical_stone_brick_slab_bottom",
+      "uvlock": true
     },
     "facing=north,type=double": {
       "model": "minecraft:block/stone_bricks",
       "uvlock": true
     },
-    "facing=north,type=half": {
-      "model": "vertical_slabs:block/vertical_stone_brick_slab",
+    "facing=north,type=top": {
+      "model": "vertical_slabs:block/vertical_stone_brick_slab_top",
       "uvlock": true
+    },
+    "facing=south,type=bottom": {
+      "model": "vertical_slabs:block/vertical_stone_brick_slab_bottom",
+      "uvlock": true,
+      "y": 180
     },
     "facing=south,type=double": {
       "model": "minecraft:block/stone_bricks",
       "uvlock": true
     },
-    "facing=south,type=half": {
-      "model": "vertical_slabs:block/vertical_stone_brick_slab",
+    "facing=south,type=top": {
+      "model": "vertical_slabs:block/vertical_stone_brick_slab_top",
       "uvlock": true,
       "y": 180
+    },
+    "facing=west,type=bottom": {
+      "model": "vertical_slabs:block/vertical_stone_brick_slab_bottom",
+      "uvlock": true,
+      "y": 270
     },
     "facing=west,type=double": {
       "model": "minecraft:block/stone_bricks",
       "uvlock": true
     },
-    "facing=west,type=half": {
-      "model": "vertical_slabs:block/vertical_stone_brick_slab",
+    "facing=west,type=top": {
+      "model": "vertical_slabs:block/vertical_stone_brick_slab_top",
       "uvlock": true,
       "y": 270
     }

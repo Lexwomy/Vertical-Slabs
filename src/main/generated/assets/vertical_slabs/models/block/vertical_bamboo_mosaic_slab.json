@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_slab",
-  "textures": {
-    "back": "minecraft:block/bamboo_mosaic",
-    "front": "minecraft:block/bamboo_mosaic",
-    "side": "minecraft:block/bamboo_mosaic"
-  }
-}

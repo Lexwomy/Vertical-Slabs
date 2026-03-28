@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/diorite",
+    "east": "minecraft:block/diorite",
+    "north": "minecraft:block/diorite",
+    "particle": "minecraft:block/diorite",
+    "south": "minecraft:block/diorite",
+    "up": "minecraft:block/diorite",
+    "west": "minecraft:block/diorite"
+  }
+}

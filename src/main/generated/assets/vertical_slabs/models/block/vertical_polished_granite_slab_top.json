@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/polished_granite",
+    "east": "minecraft:block/polished_granite",
+    "north": "minecraft:block/polished_granite",
+    "particle": "minecraft:block/polished_granite",
+    "south": "minecraft:block/polished_granite",
+    "up": "minecraft:block/polished_granite",
+    "west": "minecraft:block/polished_granite"
+  }
+}

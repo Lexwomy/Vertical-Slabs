@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/oxidized_cut_copper",
+    "east": "minecraft:block/oxidized_cut_copper",
+    "north": "minecraft:block/oxidized_cut_copper",
+    "particle": "minecraft:block/oxidized_cut_copper",
+    "south": "minecraft:block/oxidized_cut_copper",
+    "up": "minecraft:block/oxidized_cut_copper",
+    "west": "minecraft:block/oxidized_cut_copper"
+  }
+}

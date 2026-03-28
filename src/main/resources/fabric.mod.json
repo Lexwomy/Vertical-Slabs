@@ -1,36 +1,37 @@
 {
-	"schemaVersion": 1,
-	"id": "vertical_slabs",
-	"version": "1.2.9+mc1.21.11",
-	"name": "Vertical Slabs",
-	"description": "Adds vertical slab variants to every vanilla slab variant, with similar vanilla ways to craft/acquire them.",
-	"authors": [
-		"Lexwomy"
-	],
-	"license": "CC0-1.0",
-	"icon": "assets/vertical_slabs/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"lexwomy.verticalslabs.VerticalSlabs"
-		],
-		"client": [
-			"lexwomy.verticalslabs.VerticalSlabsClient"
-		],
-		"fabric-datagen": [
-			"lexwomy.verticalslabs.VerticalSlabsDataGenerator"
-		]
-	},
-	"mixins": [
-		"vertical_slabs.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.18.4",
-		"minecraft": "~1.21.11",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
-	}
+  "schemaVersion": 1,
+  "id": "vertical_slabs",
+  "version": "1.3.0+mc1.21.11",
+  "name": "Vertical Slabs",
+  "description": "Adds vertical slab variants to every vanilla slab variant, with similar vanilla ways to craft/acquire them.",
+  "authors": [
+    "Lexwomy"
+  ],
+  "license": "MIT",
+  "icon": "assets/vertical_slabs/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "lexwomy.verticalslabs.VerticalSlabs"
+    ],
+    "client": [
+      "lexwomy.verticalslabs.VerticalSlabsClient"
+    ],
+    "fabric-datagen": [
+      "lexwomy.verticalslabs.VerticalSlabsDataGenerator"
+    ]
+  },
+  "mixins": [
+    "vertical_slabs.mixins.json",
+    "vertical_slabs.client.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.5",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
 }

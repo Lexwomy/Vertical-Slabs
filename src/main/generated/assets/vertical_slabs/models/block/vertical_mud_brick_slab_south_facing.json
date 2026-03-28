@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_south_facing_slab_north_west_mirrored",
+  "textures": {
+    "down": "minecraft:block/mud_bricks",
+    "east": "minecraft:block/mud_bricks",
+    "north": "minecraft:block/mud_bricks",
+    "particle": "minecraft:block/mud_bricks",
+    "south": "minecraft:block/mud_bricks",
+    "up": "minecraft:block/mud_bricks",
+    "west": "minecraft:block/mud_bricks"
+  }
+}

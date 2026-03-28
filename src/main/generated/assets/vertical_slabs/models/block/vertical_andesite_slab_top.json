@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/andesite",
+    "east": "minecraft:block/andesite",
+    "north": "minecraft:block/andesite",
+    "particle": "minecraft:block/andesite",
+    "south": "minecraft:block/andesite",
+    "up": "minecraft:block/andesite",
+    "west": "minecraft:block/andesite"
+  }
+}

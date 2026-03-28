@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/quartz_block_top",
+    "east": "minecraft:block/quartz_block_top",
+    "north": "minecraft:block/quartz_block_top",
+    "particle": "minecraft:block/quartz_block_top",
+    "south": "minecraft:block/quartz_block_top",
+    "up": "minecraft:block/quartz_block_top",
+    "west": "minecraft:block/quartz_block_top"
+  }
+}

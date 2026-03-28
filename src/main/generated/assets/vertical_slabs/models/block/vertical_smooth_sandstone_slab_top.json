@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/sandstone_top",
+    "east": "minecraft:block/sandstone_top",
+    "north": "minecraft:block/sandstone_top",
+    "particle": "minecraft:block/sandstone_top",
+    "south": "minecraft:block/sandstone_top",
+    "up": "minecraft:block/sandstone_top",
+    "west": "minecraft:block/sandstone_top"
+  }
+}

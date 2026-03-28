@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/polished_blackstone_bricks",
+    "east": "minecraft:block/polished_blackstone_bricks",
+    "north": "minecraft:block/polished_blackstone_bricks",
+    "particle": "minecraft:block/polished_blackstone_bricks",
+    "south": "minecraft:block/polished_blackstone_bricks",
+    "up": "minecraft:block/polished_blackstone_bricks",
+    "west": "minecraft:block/polished_blackstone_bricks"
+  }
+}

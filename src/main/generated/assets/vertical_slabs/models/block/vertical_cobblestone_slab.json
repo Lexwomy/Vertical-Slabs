@@ -1,8 +1,0 @@
-{
-  "parent": "vertical_slabs:block/vertical_slab",
-  "textures": {
-    "back": "minecraft:block/cobblestone",
-    "front": "minecraft:block/cobblestone",
-    "side": "minecraft:block/cobblestone"
-  }
-}

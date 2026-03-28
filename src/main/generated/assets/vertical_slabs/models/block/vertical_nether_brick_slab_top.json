@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_top_slab",
+  "textures": {
+    "down": "minecraft:block/nether_bricks",
+    "east": "minecraft:block/nether_bricks",
+    "north": "minecraft:block/nether_bricks",
+    "particle": "minecraft:block/nether_bricks",
+    "south": "minecraft:block/nether_bricks",
+    "up": "minecraft:block/nether_bricks",
+    "west": "minecraft:block/nether_bricks"
+  }
+}

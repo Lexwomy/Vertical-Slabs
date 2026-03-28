@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/tuff",
+    "east": "minecraft:block/tuff",
+    "north": "minecraft:block/tuff",
+    "particle": "minecraft:block/tuff",
+    "south": "minecraft:block/tuff",
+    "up": "minecraft:block/tuff",
+    "west": "minecraft:block/tuff"
+  }
+}

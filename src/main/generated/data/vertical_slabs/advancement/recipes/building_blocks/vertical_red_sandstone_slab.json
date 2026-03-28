@@ -1,6 +1,16 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
+    "has_chiseled_red_sandstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:chiseled_red_sandstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_red_sandstone": {
       "conditions": {
         "items": [
@@ -21,7 +31,8 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_red_sandstone"
+      "has_red_sandstone",
+      "has_chiseled_red_sandstone"
     ]
   ],
   "rewards": {

@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/mangrove_planks",
+    "east": "minecraft:block/mangrove_planks",
+    "north": "minecraft:block/mangrove_planks",
+    "particle": "minecraft:block/mangrove_planks",
+    "south": "minecraft:block/mangrove_planks",
+    "up": "minecraft:block/mangrove_planks",
+    "west": "minecraft:block/mangrove_planks"
+  }
+}
