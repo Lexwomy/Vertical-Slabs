@@ -61,14 +61,14 @@ public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
   @Override
   public BlockState getStateForPlacement(BlockPlaceContext ctx) {
     Direction face = ctx.getHorizontalDirection();
-    Vec3 hit_coords = ctx.getClickLocation();
-    BlockPos block_coords = ctx.getClickedPos();
-    BlockState blockstate = ctx.getLevel().getBlockState(block_coords);
-    FluidState fluidState = ctx.getLevel().getFluidState(block_coords);
+    Vec3 hitCoords = ctx.getClickLocation();
+    BlockPos blockCoords = ctx.getClickedPos();
+    BlockState blockState = ctx.getLevel().getBlockState(blockCoords);
+    FluidState fluidState = ctx.getLevel().getFluidState(blockCoords);
 
     // If adding a vertical slab onto an existing vertical slab, turn it into a full block
-    if (blockstate.is(this)) {
-      return blockstate.setValue(TYPE, VerticalSlabType.DOUBLE).setValue(WATERLOGGED, false);
+    if (blockState.is(this)) {
+      return blockState.setValue(TYPE, VerticalSlabType.DOUBLE).setValue(WATERLOGGED, false);
     }
 
     VerticalSlabType halfSlabType;
@@ -76,19 +76,19 @@ public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
     if (face.getAxis() == Direction.Axis.Z) {
       halfSlabType =
           face == Direction.NORTH
-              ? (hit_coords.z - (double) block_coords.getZ() < 0.5
+              ? (hitCoords.z - (double) blockCoords.getZ() < 0.5
                   ? VerticalSlabType.BOTTOM
                   : VerticalSlabType.TOP)
-              : (hit_coords.z - (double) block_coords.getZ() < 0.5)
+              : (hitCoords.z - (double) blockCoords.getZ() < 0.5)
                   ? VerticalSlabType.TOP
                   : VerticalSlabType.BOTTOM;
     } else {
       halfSlabType =
           face == Direction.WEST
-              ? (hit_coords.x - (double) block_coords.getX() < 0.5
+              ? (hitCoords.x - (double) blockCoords.getX() < 0.5
                   ? VerticalSlabType.BOTTOM
                   : VerticalSlabType.TOP)
-              : (hit_coords.x - (double) block_coords.getX() < 0.5
+              : (hitCoords.x - (double) blockCoords.getX() < 0.5
                   ? VerticalSlabType.TOP
                   : VerticalSlabType.BOTTOM);
     }
@@ -254,7 +254,7 @@ public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
 
   /*
    * side is the direction of the wall
-   * state is the blockstate of the block trying to connect (e.g., this vertical slab rn)
+   * state is the blockState of the block trying to connect (e.g., this vertical slab rn)
    */
   public boolean canWallConnect(BlockState state, Direction side) {
     return side != state.getValue(FACING);
