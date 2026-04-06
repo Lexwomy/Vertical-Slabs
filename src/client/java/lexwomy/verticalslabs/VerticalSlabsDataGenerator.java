@@ -11,11 +11,11 @@ import lexwomy.verticalslabs.data.*;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -549,17 +549,17 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
     pack.addProvider(VerticalSlabsModelProvider::new);
     pack.addProvider(VerticalSlabsLanguageProvider::new);
     pack.addProvider(VerticalSlabsRecipeProvider::new);
-    VerticalSlabsBlockTagProvider verticalSlabsBlockTagProvider =
-        pack.addProvider(VerticalSlabsBlockTagProvider::new);
+    VerticalSlabsBlockTagsProvider verticalSlabsBlockTagsProvider =
+        pack.addProvider(VerticalSlabsBlockTagsProvider::new);
     pack.addProvider(
         (output, registriesFuture) ->
-            new VerticalSlabsItemTagProvider(
-                output, registriesFuture, verticalSlabsBlockTagProvider));
+            new VerticalSlabsItemTagsProvider(
+                output, registriesFuture, verticalSlabsBlockTagsProvider));
     pack.addProvider(VerticalSlabsBlockLootProvider::new);
   }
 
   public static class VerticalSlabsModelProvider extends FabricModelProvider {
-    private VerticalSlabsModelProvider(FabricDataOutput output) {
+    private VerticalSlabsModelProvider(FabricPackOutput output) {
       super(output);
     }
 
@@ -585,7 +585,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
             new Pair<>("tag.item.vertical_slabs.vertical_wooden_slabs", "Vertical Wooden Slabs"));
 
     private VerticalSlabsLanguageProvider(
-        FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
       super(dataOutput, registryLookup);
     }
 
@@ -649,7 +649,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                 Blocks.WAXED_OXIDIZED_CHISELED_COPPER));
 
     private VerticalSlabsRecipeProvider(
-        FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
       super(output, registriesFuture);
     }
 
@@ -704,9 +704,9 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
     }
   }
 
-  private static class VerticalSlabsBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-    private VerticalSlabsBlockTagProvider(
-        FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+  private static class VerticalSlabsBlockTagsProvider extends FabricTagsProvider.BlockTagsProvider {
+    private VerticalSlabsBlockTagsProvider(
+        FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
       super(output, registriesFuture);
     }
 
@@ -781,12 +781,12 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
     }
   }
 
-  private static class VerticalSlabsItemTagProvider extends FabricTagProvider.ItemTagProvider {
-    private VerticalSlabsItemTagProvider(
-        FabricDataOutput output,
+  private static class VerticalSlabsItemTagsProvider extends FabricTagsProvider.ItemTagsProvider {
+    private VerticalSlabsItemTagsProvider(
+        FabricPackOutput output,
         CompletableFuture<HolderLookup.Provider> completableFuture,
-        @Nullable FabricTagProvider.BlockTagProvider blockTagProvider) {
-      super(output, completableFuture, blockTagProvider);
+        @Nullable FabricTagsProvider.BlockTagsProvider blockTagsProvider) {
+      super(output, completableFuture, blockTagsProvider);
     }
 
     @Override
@@ -809,9 +809,9 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
     }
   }
 
-  public static class VerticalSlabsBlockLootProvider extends FabricBlockLootTableProvider {
+  public static class VerticalSlabsBlockLootProvider extends FabricBlockLootSubProvider {
     private VerticalSlabsBlockLootProvider(
-        FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
       super(dataOutput, registryLookup);
     }
 

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "vertical_slabs",
-  "version": "1.0.0+mc1.21.11",
+  "version": "1.0.0+mc26.1",
   "name": "Vertical Slabs",
   "description": "Adds vertical slab variants to every vanilla slab variant, with similar vanilla ways to craft/acquire them.",
   "authors": [
@@ -27,8 +27,8 @@
   ],
   "depends": {
     "fabricloader": ">=0.18.5",
-    "minecraft": "~1.21.11",
-    "java": ">=21",
+    "minecraft": "~26.1",
+    "java": ">=25",
     "fabric-api": "*"
   },
   "suggests": {

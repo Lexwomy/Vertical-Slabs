@@ -3,10 +3,10 @@ package lexwomy.verticalslabs.block;
 import static net.minecraft.world.level.block.Blocks.*;
 
 import lexwomy.verticalslabs.VerticalSlabs;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -56,11 +56,6 @@ public class VerticalSlab {
       register(Properties.ofFullCopy(WARPED_SLAB), "vertical_warped_slab", true);
   public static final Block VERTICAL_STONE_SLAB =
       register(Properties.ofFullCopy(STONE_SLAB), "vertical_stone_slab", true);
-  public static final CreativeModeTab VERTICAL_SLAB_GROUP =
-      FabricItemGroup.builder()
-          .icon(() -> new ItemStack(VerticalSlab.VERTICAL_STONE_SLAB))
-          .title(Component.translatable("itemGroup.vertical_slabs"))
-          .build();
   public static final Block VERTICAL_SMOOTH_STONE_SLAB =
       register(Properties.ofFullCopy(SMOOTH_STONE_SLAB), "vertical_smooth_stone_slab", true);
   public static final Block VERTICAL_COBBLESTONE_SLAB =
@@ -207,6 +202,75 @@ public class VerticalSlab {
           Properties.ofFullCopy(OXIDIZED_CUT_COPPER_SLAB),
           "waxed_oxidized_vertical_cut_copper_slab",
           true);
+  public static final CreativeModeTab VERTICAL_SLAB_GROUP =
+      FabricCreativeModeTab.builder()
+          .icon(() -> new ItemStack(VerticalSlab.VERTICAL_STONE_SLAB))
+          .title(Component.translatable("itemGroup.vertical_slabs"))
+          .displayItems(
+              (params, output) -> {
+                output.accept(VERTICAL_OAK_SLAB.asItem());
+                output.accept(VERTICAL_SPRUCE_SLAB.asItem());
+                output.accept(VERTICAL_BIRCH_SLAB.asItem());
+                output.accept(VERTICAL_JUNGLE_SLAB.asItem());
+                output.accept(VERTICAL_ACACIA_SLAB.asItem());
+                output.accept(VERTICAL_DARK_OAK_SLAB.asItem());
+                output.accept(VERTICAL_MANGROVE_SLAB.asItem());
+                output.accept(VERTICAL_CHERRY_SLAB.asItem());
+                output.accept(VERTICAL_PALE_OAK_SLAB.asItem());
+                output.accept(VERTICAL_BAMBOO_SLAB.asItem());
+                output.accept(VERTICAL_BAMBOO_MOSAIC_SLAB.asItem());
+                output.accept(VERTICAL_CRIMSON_SLAB.asItem());
+                output.accept(VERTICAL_WARPED_SLAB.asItem());
+                output.accept(VERTICAL_STONE_SLAB.asItem());
+                output.accept(VERTICAL_COBBLESTONE_SLAB.asItem());
+                output.accept(VERTICAL_MOSSY_COBBLESTONE_SLAB.asItem());
+                output.accept(VERTICAL_SMOOTH_STONE_SLAB.asItem());
+                output.accept(VERTICAL_STONE_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_MOSSY_STONE_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_GRANITE_SLAB.asItem());
+                output.accept(VERTICAL_POLISHED_GRANITE_SLAB.asItem());
+                output.accept(VERTICAL_DIORITE_SLAB.asItem());
+                output.accept(VERTICAL_POLISHED_DIORITE_SLAB.asItem());
+                output.accept(VERTICAL_ANDESITE_SLAB.asItem());
+                output.accept(VERTICAL_POLISHED_ANDESITE_SLAB.asItem());
+                output.accept(VERTICAL_COBBLED_DEEPSLATE_SLAB.asItem());
+                output.accept(VERTICAL_POLISHED_DEEPSLATE_SLAB.asItem());
+                output.accept(VERTICAL_DEEPSLATE_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_DEEPSLATE_TILE_SLAB.asItem());
+                output.accept(VERTICAL_TUFF_SLAB.asItem());
+                output.accept(VERTICAL_POLISHED_TUFF_SLAB.asItem());
+                output.accept(VERTICAL_TUFF_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_MUD_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_RESIN_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_SANDSTONE_SLAB.asItem());
+                output.accept(VERTICAL_SMOOTH_SANDSTONE_SLAB.asItem());
+                output.accept(VERTICAL_CUT_SANDSTONE_SLAB.asItem());
+                output.accept(VERTICAL_RED_SANDSTONE_SLAB.asItem());
+                output.accept(VERTICAL_SMOOTH_RED_SANDSTONE_SLAB.asItem());
+                output.accept(VERTICAL_CUT_RED_SANDSTONE_SLAB.asItem());
+                output.accept(VERTICAL_PRISMARINE_SLAB.asItem());
+                output.accept(VERTICAL_PRISMARINE_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_DARK_PRISMARINE_SLAB.asItem());
+                output.accept(VERTICAL_NETHER_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_RED_NETHER_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_BLACKSTONE_SLAB.asItem());
+                output.accept(VERTICAL_POLISHED_BLACKSTONE_SLAB.asItem());
+                output.accept(VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_END_STONE_BRICK_SLAB.asItem());
+                output.accept(VERTICAL_PURPUR_SLAB.asItem());
+                output.accept(VERTICAL_QUARTZ_SLAB.asItem());
+                output.accept(VERTICAL_SMOOTH_QUARTZ_SLAB.asItem());
+                output.accept(VERTICAL_CUT_COPPER_SLAB.asItem());
+                output.accept(EXPOSED_VERTICAL_CUT_COPPER_SLAB.asItem());
+                output.accept(WEATHERED_VERTICAL_CUT_COPPER_SLAB.asItem());
+                output.accept(OXIDIZED_VERTICAL_CUT_COPPER_SLAB.asItem());
+                output.accept(WAXED_VERTICAL_CUT_COPPER_SLAB.asItem());
+                output.accept(WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB.asItem());
+                output.accept(WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB.asItem());
+                output.accept(WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB.asItem());
+              })
+          .build();
 
   public static Block register(Properties settings, String name, boolean shouldRegisterItem) {
     Identifier id = Identifier.fromNamespaceAndPath(VerticalSlabs.MOD_ID, name);
@@ -251,72 +315,7 @@ public class VerticalSlab {
     Registry.register(
         BuiltInRegistries.CREATIVE_MODE_TAB, VERTICAL_SLAB_GROUP_KEY, VERTICAL_SLAB_GROUP);
 
-    ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS)
-        .register(
-            (itemGroup) -> {
-              itemGroup.accept(VERTICAL_OAK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_SPRUCE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_BIRCH_SLAB.asItem());
-              itemGroup.accept(VERTICAL_JUNGLE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_ACACIA_SLAB.asItem());
-              itemGroup.accept(VERTICAL_DARK_OAK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_MANGROVE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_CHERRY_SLAB.asItem());
-              itemGroup.accept(VERTICAL_PALE_OAK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_BAMBOO_SLAB.asItem());
-              itemGroup.accept(VERTICAL_BAMBOO_MOSAIC_SLAB.asItem());
-              itemGroup.accept(VERTICAL_CRIMSON_SLAB.asItem());
-              itemGroup.accept(VERTICAL_WARPED_SLAB.asItem());
-              itemGroup.accept(VERTICAL_STONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_COBBLESTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_MOSSY_COBBLESTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_SMOOTH_STONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_STONE_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_MOSSY_STONE_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_GRANITE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_POLISHED_GRANITE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_DIORITE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_POLISHED_DIORITE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_ANDESITE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_POLISHED_ANDESITE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_COBBLED_DEEPSLATE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_POLISHED_DEEPSLATE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_DEEPSLATE_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_DEEPSLATE_TILE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_TUFF_SLAB.asItem());
-              itemGroup.accept(VERTICAL_POLISHED_TUFF_SLAB.asItem());
-              itemGroup.accept(VERTICAL_TUFF_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_MUD_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_RESIN_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_SANDSTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_SMOOTH_SANDSTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_CUT_SANDSTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_RED_SANDSTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_SMOOTH_RED_SANDSTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_CUT_RED_SANDSTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_PRISMARINE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_PRISMARINE_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_DARK_PRISMARINE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_NETHER_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_RED_NETHER_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_BLACKSTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_POLISHED_BLACKSTONE_SLAB.asItem());
-              itemGroup.accept(VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_END_STONE_BRICK_SLAB.asItem());
-              itemGroup.accept(VERTICAL_PURPUR_SLAB.asItem());
-              itemGroup.accept(VERTICAL_QUARTZ_SLAB.asItem());
-              itemGroup.accept(VERTICAL_SMOOTH_QUARTZ_SLAB.asItem());
-              itemGroup.accept(VERTICAL_CUT_COPPER_SLAB.asItem());
-              itemGroup.accept(EXPOSED_VERTICAL_CUT_COPPER_SLAB.asItem());
-              itemGroup.accept(WEATHERED_VERTICAL_CUT_COPPER_SLAB.asItem());
-              itemGroup.accept(OXIDIZED_VERTICAL_CUT_COPPER_SLAB.asItem());
-              itemGroup.accept(WAXED_VERTICAL_CUT_COPPER_SLAB.asItem());
-              itemGroup.accept(WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB.asItem());
-              itemGroup.accept(WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB.asItem());
-              itemGroup.accept(WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB.asItem());
-            });
-    ItemGroupEvents.modifyEntriesEvent(VERTICAL_SLAB_GROUP_KEY)
+    CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS)
         .register(
             (itemGroup) -> {
               itemGroup.accept(VERTICAL_OAK_SLAB.asItem());
@@ -382,24 +381,24 @@ public class VerticalSlab {
               itemGroup.accept(WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB.asItem());
             });
 
-    OxidizableBlocksRegistry.registerOxidizableBlockPair(
+    OxidizableBlocksRegistry.registerNextStage(
         VERTICAL_CUT_COPPER_SLAB, EXPOSED_VERTICAL_CUT_COPPER_SLAB);
-    OxidizableBlocksRegistry.registerOxidizableBlockPair(
+    OxidizableBlocksRegistry.registerNextStage(
         EXPOSED_VERTICAL_CUT_COPPER_SLAB, WEATHERED_VERTICAL_CUT_COPPER_SLAB);
-    OxidizableBlocksRegistry.registerOxidizableBlockPair(
+    OxidizableBlocksRegistry.registerNextStage(
         WEATHERED_VERTICAL_CUT_COPPER_SLAB, OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
-    OxidizableBlocksRegistry.registerWaxableBlockPair(
+    OxidizableBlocksRegistry.registerWaxable(
         VERTICAL_CUT_COPPER_SLAB, WAXED_VERTICAL_CUT_COPPER_SLAB);
-    OxidizableBlocksRegistry.registerWaxableBlockPair(
+    OxidizableBlocksRegistry.registerWaxable(
         EXPOSED_VERTICAL_CUT_COPPER_SLAB, WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB);
-    OxidizableBlocksRegistry.registerWaxableBlockPair(
+    OxidizableBlocksRegistry.registerWaxable(
         WEATHERED_VERTICAL_CUT_COPPER_SLAB, WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB);
-    OxidizableBlocksRegistry.registerWaxableBlockPair(
+    OxidizableBlocksRegistry.registerWaxable(
         OXIDIZED_VERTICAL_CUT_COPPER_SLAB, WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
 
     int verticalSlabBurnTicks = 150; // 0.75 of an item, which takes 200 ticks, as of 1.21.4.
 
-    FuelRegistryEvents.BUILD.register(
+    FuelValueEvents.BUILD.register(
         ((builder, context) ->
             builder.add(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS_ITEMS, verticalSlabBurnTicks)));
 

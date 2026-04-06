@@ -6,7 +6,7 @@ import java.util.function.Function;
 import lexwomy.verticalslabs.VerticalSlabs;
 import lexwomy.verticalslabs.mixin.TexturedModelInvoker;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.resources.Identifier;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
@@ -139,7 +139,7 @@ public class VerticalSlabTexturedModels {
               ModelTemplates.CUBE_DIRECTIONAL);
 
   public static TextureMapping simpleVerticalSlab(Block block) {
-    Identifier blockTexture = getBlockTexture(block);
+    Material blockTexture = getBlockTexture(block);
     return new TextureMapping()
         .put(TextureSlot.NORTH, blockTexture)
         .put(TextureSlot.SOUTH, blockTexture)
@@ -150,7 +150,7 @@ public class VerticalSlabTexturedModels {
         .put(TextureSlot.PARTICLE, blockTexture);
   }
 
-  public static void editSimpleVerticalSlab(TextureMapping mapping, Identifier customBlockTexture) {
+  public static void editSimpleVerticalSlab(TextureMapping mapping, Material customBlockTexture) {
     mapping
         .put(TextureSlot.NORTH, customBlockTexture)
         .put(TextureSlot.SOUTH, customBlockTexture)
@@ -162,8 +162,8 @@ public class VerticalSlabTexturedModels {
   }
 
   public static TextureMapping columnWithSideVerticalSlab(Block block) {
-    Identifier sideTexture = getBlockTexture(block, "_side");
-    Identifier endTexture = getBlockTexture(block, "_top");
+    Material sideTexture = getBlockTexture(block, "_side");
+    Material endTexture = getBlockTexture(block, "_top");
     return new TextureMapping()
         .put(TextureSlot.NORTH, sideTexture)
         .put(TextureSlot.SOUTH, sideTexture)
@@ -175,8 +175,8 @@ public class VerticalSlabTexturedModels {
   }
 
   public static TextureMapping directionalColumnWithSideVerticalSlab(Block block) {
-    Identifier sideTexture = getBlockTexture(block, "_side");
-    Identifier endTexture = getBlockTexture(block, "_top");
+    Material sideTexture = getBlockTexture(block, "_side");
+    Material endTexture = getBlockTexture(block, "_top");
     return new TextureMapping()
         .put(TextureSlot.NORTH, endTexture)
         .put(TextureSlot.SOUTH, endTexture)
@@ -188,8 +188,8 @@ public class VerticalSlabTexturedModels {
   }
 
   public static TextureMapping columnVerticalSlab(Block block) {
-    Identifier sideTexture = getBlockTexture(block);
-    Identifier endTexture = getBlockTexture(block, "_top");
+    Material sideTexture = getBlockTexture(block);
+    Material endTexture = getBlockTexture(block, "_top");
     return new TextureMapping()
         .put(TextureSlot.NORTH, sideTexture)
         .put(TextureSlot.SOUTH, sideTexture)
@@ -201,8 +201,8 @@ public class VerticalSlabTexturedModels {
   }
 
   public static TextureMapping directionalColumnVerticalSlab(Block block) {
-    Identifier sideTexture = getBlockTexture(block);
-    Identifier endTexture = getBlockTexture(block, "_top");
+    Material sideTexture = getBlockTexture(block);
+    Material endTexture = getBlockTexture(block, "_top");
     return new TextureMapping()
         .put(TextureSlot.NORTH, endTexture)
         .put(TextureSlot.SOUTH, endTexture)
@@ -215,8 +215,8 @@ public class VerticalSlabTexturedModels {
 
   public static void editColumnVerticalSlab(
       TextureMapping mapping,
-      @Nullable Identifier customEndTexture,
-      @Nullable Identifier customSideTexture) {
+      @Nullable Material customEndTexture,
+      @Nullable Material customSideTexture) {
     if (customEndTexture != null) {
       mapping.put(TextureSlot.UP, customEndTexture).put(TextureSlot.DOWN, customEndTexture);
     }
@@ -232,8 +232,8 @@ public class VerticalSlabTexturedModels {
 
   public static void editDirectionalColumnVerticalSlab(
       TextureMapping mapping,
-      @Nullable Identifier customEndTexture,
-      @Nullable Identifier customSideTexture) {
+      @Nullable Material customEndTexture,
+      @Nullable Material customSideTexture) {
     if (customEndTexture != null) {
       mapping.put(TextureSlot.NORTH, customEndTexture).put(TextureSlot.SOUTH, customEndTexture);
     }
@@ -248,9 +248,9 @@ public class VerticalSlabTexturedModels {
   }
 
   public static TextureMapping bottomTopWithSideVerticalSlab(Block block) {
-    Identifier sideTexture = getBlockTexture(block, "_side");
-    Identifier topTexture = getBlockTexture(block, "_top");
-    Identifier bottomTexture = getBlockTexture(block, "_bottom");
+    Material sideTexture = getBlockTexture(block, "_side");
+    Material topTexture = getBlockTexture(block, "_top");
+    Material bottomTexture = getBlockTexture(block, "_bottom");
     return new TextureMapping()
         .put(TextureSlot.NORTH, sideTexture)
         .put(TextureSlot.SOUTH, sideTexture)
@@ -262,9 +262,9 @@ public class VerticalSlabTexturedModels {
   }
 
   public static TextureMapping directionalBottomTopWithSideVerticalSlab(Block block) {
-    Identifier sideTexture = getBlockTexture(block, "_side");
-    Identifier topTexture = getBlockTexture(block, "_top");
-    Identifier bottomTexture = getBlockTexture(block, "_bottom");
+    Material sideTexture = getBlockTexture(block, "_side");
+    Material topTexture = getBlockTexture(block, "_top");
+    Material bottomTexture = getBlockTexture(block, "_bottom");
     return new TextureMapping()
         .put(TextureSlot.NORTH, topTexture)
         .put(TextureSlot.SOUTH, bottomTexture)
@@ -276,9 +276,9 @@ public class VerticalSlabTexturedModels {
   }
 
   public static TextureMapping bottomTopVerticalSlab(Block block) {
-    Identifier sideTexture = getBlockTexture(block);
-    Identifier topTexture = getBlockTexture(block, "_top");
-    Identifier bottomTexture = getBlockTexture(block, "_bottom");
+    Material sideTexture = getBlockTexture(block);
+    Material topTexture = getBlockTexture(block, "_top");
+    Material bottomTexture = getBlockTexture(block, "_bottom");
     return new TextureMapping()
         .put(TextureSlot.NORTH, sideTexture)
         .put(TextureSlot.SOUTH, sideTexture)
@@ -290,9 +290,9 @@ public class VerticalSlabTexturedModels {
   }
 
   public static TextureMapping directionalBottomTopVerticalSlab(Block block) {
-    Identifier sideTexture = getBlockTexture(block);
-    Identifier topTexture = getBlockTexture(block, "_top");
-    Identifier bottomTexture = getBlockTexture(block, "_bottom");
+    Material sideTexture = getBlockTexture(block);
+    Material topTexture = getBlockTexture(block, "_top");
+    Material bottomTexture = getBlockTexture(block, "_bottom");
     return new TextureMapping()
         .put(TextureSlot.NORTH, topTexture)
         .put(TextureSlot.SOUTH, bottomTexture)
@@ -305,9 +305,9 @@ public class VerticalSlabTexturedModels {
 
   public static void editBottomTopWithSideVerticalSlab(
       TextureMapping mapping,
-      @Nullable Identifier customBottomTexture,
-      @Nullable Identifier customTopTexture,
-      @Nullable Identifier customSideTexture) {
+      @Nullable Material customBottomTexture,
+      @Nullable Material customTopTexture,
+      @Nullable Material customSideTexture) {
     if (customBottomTexture != null) {
       mapping.put(TextureSlot.DOWN, customBottomTexture);
     }
@@ -326,9 +326,9 @@ public class VerticalSlabTexturedModels {
 
   public static void editDirectionalBottomTopWithSideVerticalSlab(
       TextureMapping mapping,
-      @Nullable Identifier customBottomTexture,
-      @Nullable Identifier customTopTexture,
-      @Nullable Identifier customSideTexture) {
+      @Nullable Material customBottomTexture,
+      @Nullable Material customTopTexture,
+      @Nullable Material customSideTexture) {
     if (customBottomTexture != null) {
       mapping.put(TextureSlot.SOUTH, customBottomTexture);
     }
