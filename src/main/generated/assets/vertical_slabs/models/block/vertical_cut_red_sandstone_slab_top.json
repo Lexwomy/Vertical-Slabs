@@ -1,12 +1,12 @@
 {
   "parent": "vertical_slabs:block/vertical_top_slab_directional",
   "textures": {
-    "down": "minecraft:block/red_sandstone",
-    "east": "minecraft:block/red_sandstone",
+    "down": "minecraft:block/cut_red_sandstone",
+    "east": "minecraft:block/cut_red_sandstone",
     "north": "minecraft:block/red_sandstone_top",
-    "particle": "minecraft:block/red_sandstone",
-    "south": "minecraft:block/red_sandstone_bottom",
-    "up": "minecraft:block/red_sandstone",
-    "west": "minecraft:block/red_sandstone"
+    "particle": "minecraft:block/cut_red_sandstone",
+    "south": "minecraft:block/red_sandstone_top",
+    "up": "minecraft:block/cut_red_sandstone",
+    "west": "minecraft:block/cut_red_sandstone"
   }
 }

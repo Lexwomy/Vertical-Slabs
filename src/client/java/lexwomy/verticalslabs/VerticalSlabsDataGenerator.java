@@ -91,7 +91,10 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               "Vertical Blackstone Slab",
               VerticalSlab.VERTICAL_BLACKSTONE_SLAB,
               Blocks.BLACKSTONE,
-              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
+              new BottomTopBasedBlockModelGenerator(
+                  VerticalSlabTexturedModels.VERTICAL_BOTTOM_SLAB_COLUMN,
+                  VerticalSlabTexturedModels.VERTICAL_TOP_SLAB_COLUMN,
+                  VerticalSlabBlockStateMaps.simpleUVLockedBlockStateMap),
               List.of(Blocks.BLACKSTONE),
               List.of(Blocks.BLACKSTONE)),
           new VerticalSlabDetails(
@@ -137,22 +140,52 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
           new VerticalSlabDetails(
               "Vertical Cut Red Sandstone Slab",
               VerticalSlab.VERTICAL_CUT_RED_SANDSTONE_SLAB,
-              Blocks.RED_SANDSTONE,
+              Blocks.CUT_RED_SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
-                  VerticalSlabTexturedModels.VERTICAL_BOTTOM_SLAB_DIRECTIONAL_BOTTOM_TOP,
-                  VerticalSlabTexturedModels.VERTICAL_TOP_SLAB_DIRECTIONAL_BOTTOM_TOP,
-                  VerticalSlabTexturedModels.VERTICAL_DOUBLE_SLAB_DIRECTIONAL_BOTTOM_TOP,
+                  VerticalSlabTexturedModels.VERTICAL_BOTTOM_SLAB_DIRECTIONAL_COLUMN.updateTexture(
+                      mapping ->
+                          VerticalSlabTexturedModels.editDirectionalColumnVerticalSlab(
+                              mapping,
+                              TextureMapping.getBlockTexture(Blocks.RED_SANDSTONE, "_top"),
+                              null)),
+                  VerticalSlabTexturedModels.VERTICAL_TOP_SLAB_DIRECTIONAL_COLUMN.updateTexture(
+                      mapping ->
+                          VerticalSlabTexturedModels.editDirectionalColumnVerticalSlab(
+                              mapping,
+                              TextureMapping.getBlockTexture(Blocks.RED_SANDSTONE, "_top"),
+                              null)),
+                  VerticalSlabTexturedModels.VERTICAL_DOUBLE_SLAB_DIRECTIONAL_COLUMN.updateTexture(
+                      mapping ->
+                          VerticalSlabTexturedModels.editDirectionalColumnVerticalSlab(
+                              mapping,
+                              TextureMapping.getBlockTexture(Blocks.RED_SANDSTONE, "_top"),
+                              null)),
                   VerticalSlabBlockStateMaps.directionalBlockStateMap),
               List.of(Blocks.CUT_RED_SANDSTONE),
               List.of(Blocks.RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE)),
           new VerticalSlabDetails(
               "Vertical Cut Sandstone Slab",
               VerticalSlab.VERTICAL_CUT_SANDSTONE_SLAB,
-              Blocks.SANDSTONE,
+              Blocks.CUT_SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
-                  VerticalSlabTexturedModels.VERTICAL_BOTTOM_SLAB_DIRECTIONAL_BOTTOM_TOP,
-                  VerticalSlabTexturedModels.VERTICAL_TOP_SLAB_DIRECTIONAL_BOTTOM_TOP,
-                  VerticalSlabTexturedModels.VERTICAL_DOUBLE_SLAB_DIRECTIONAL_BOTTOM_TOP,
+                  VerticalSlabTexturedModels.VERTICAL_BOTTOM_SLAB_DIRECTIONAL_COLUMN.updateTexture(
+                      mapping ->
+                          VerticalSlabTexturedModels.editDirectionalColumnVerticalSlab(
+                              mapping,
+                              TextureMapping.getBlockTexture(Blocks.SANDSTONE, "_top"),
+                              null)),
+                  VerticalSlabTexturedModels.VERTICAL_TOP_SLAB_DIRECTIONAL_COLUMN.updateTexture(
+                      mapping ->
+                          VerticalSlabTexturedModels.editDirectionalColumnVerticalSlab(
+                              mapping,
+                              TextureMapping.getBlockTexture(Blocks.SANDSTONE, "_top"),
+                              null)),
+                  VerticalSlabTexturedModels.VERTICAL_DOUBLE_SLAB_DIRECTIONAL_COLUMN.updateTexture(
+                      mapping ->
+                          VerticalSlabTexturedModels.editDirectionalColumnVerticalSlab(
+                              mapping,
+                              TextureMapping.getBlockTexture(Blocks.SANDSTONE, "_top"),
+                              null)),
                   VerticalSlabBlockStateMaps.directionalBlockStateMap),
               List.of(Blocks.CUT_SANDSTONE),
               List.of(Blocks.SANDSTONE, Blocks.CUT_SANDSTONE)),
@@ -407,7 +440,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
           new VerticalSlabDetails(
               "Vertical Smooth Red Sandstone Slab",
               VerticalSlab.VERTICAL_SMOOTH_RED_SANDSTONE_SLAB,
-              Blocks.RED_SANDSTONE,
+              Blocks.SMOOTH_RED_SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
                   VerticalSlabTexturedModels.VERTICAL_BOTTOM_SLAB.updateTexture(
                       mapping ->
@@ -425,7 +458,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
           new VerticalSlabDetails(
               "Vertical Smooth Sandstone Slab",
               VerticalSlab.VERTICAL_SMOOTH_SANDSTONE_SLAB,
-              Blocks.SANDSTONE,
+              Blocks.SMOOTH_SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
                   VerticalSlabTexturedModels.VERTICAL_BOTTOM_SLAB.updateTexture(
                       mapping ->

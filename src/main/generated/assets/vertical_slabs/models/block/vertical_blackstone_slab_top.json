@@ -1,12 +1,12 @@
 {
   "parent": "vertical_slabs:block/vertical_top_slab",
   "textures": {
-    "down": "minecraft:block/blackstone",
+    "down": "minecraft:block/blackstone_top",
     "east": "minecraft:block/blackstone",
     "north": "minecraft:block/blackstone",
     "particle": "minecraft:block/blackstone",
     "south": "minecraft:block/blackstone",
-    "up": "minecraft:block/blackstone",
+    "up": "minecraft:block/blackstone_top",
     "west": "minecraft:block/blackstone"
   }
 }

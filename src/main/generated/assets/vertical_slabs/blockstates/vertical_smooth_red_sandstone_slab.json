@@ -6,7 +6,7 @@
       "y": 90
     },
     "facing=east,type=double": {
-      "model": "minecraft:block/red_sandstone",
+      "model": "minecraft:block/smooth_red_sandstone",
       "uvlock": true
     },
     "facing=east,type=top": {
@@ -19,7 +19,7 @@
       "uvlock": true
     },
     "facing=north,type=double": {
-      "model": "minecraft:block/red_sandstone",
+      "model": "minecraft:block/smooth_red_sandstone",
       "uvlock": true
     },
     "facing=north,type=top": {
@@ -32,7 +32,7 @@
       "y": 180
     },
     "facing=south,type=double": {
-      "model": "minecraft:block/red_sandstone",
+      "model": "minecraft:block/smooth_red_sandstone",
       "uvlock": true
     },
     "facing=south,type=top": {
@@ -46,7 +46,7 @@
       "y": 270
     },
     "facing=west,type=double": {
-      "model": "minecraft:block/red_sandstone",
+      "model": "minecraft:block/smooth_red_sandstone",
       "uvlock": true
     },
     "facing=west,type=top": {
