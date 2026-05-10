@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "vertical_slabs",
-  "version": "1.0.0+mc26.1",
+  "version": "1.0.1+mc26.1",
   "name": "Vertical Slabs",
   "description": "Adds vertical slab variants to every vanilla slab variant, with similar vanilla ways to craft/acquire them.",
   "authors": [
@@ -26,12 +26,12 @@
     "vertical_slabs.client.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.18.5",
+    "fabricloader": ">=0.19.2",
     "minecraft": "~26.1",
     "java": ">=25",
     "fabric-api": "*"
   },
   "suggests": {
-    "another-mod": "*"
+    "calcite_variants": "1.0.0+mc26.1"
   }
 }
