@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "vertical_slabs",
-  "version": "1.0.1+mc1.21.11",
+  "version": "1.0.2+mc1.21.11",
   "name": "Vertical Slabs",
   "description": "Adds vertical slab variants to every vanilla slab variant, with similar vanilla ways to craft/acquire them.",
   "authors": [
@@ -32,6 +32,6 @@
     "fabric-api": "*"
   },
   "suggests": {
-    "calcite_variants": "1.0.0"
+    "calcite_variants": "1.0.0+mc1.21.11"
   }
 }
