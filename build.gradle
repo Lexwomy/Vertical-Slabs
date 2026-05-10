@@ -3,9 +3,12 @@ plugins {
     id 'maven-publish'
 }
 
-mod_id = project.mod_id
 version = project.mod_version
 group = project.maven_group
+
+base {
+    archivesName = project.mod_id
+}
 
 repositories {
     // Add repositories to retrieve artifacts from in here.
@@ -19,7 +22,7 @@ loom {
     splitEnvironmentSourceSets()
 
     mods {
-        "${mod_id}" {
+        "${project.mod_id}" {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }
@@ -30,7 +33,7 @@ loom {
 fabricApi {
     configureDataGeneration {
         client = true
-        modId = "${mod_id}"
+        modId = "${project.mod_id}"
     }
 }
 
@@ -78,6 +81,7 @@ jar {
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
+            artifactId = project.base.archivesName.get()
             from components.java
         }
     }
