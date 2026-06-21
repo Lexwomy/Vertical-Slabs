@@ -27,7 +27,7 @@ public abstract class FlammableVerticalSlabsMixin {
       BlockState state,
       Operation<Boolean> original,
       @Local(ordinal = 0) Direction direction) {
-    if (state.is(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS)) {
+    if (state.is(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS.block())) {
       // If block is in vertical flammable slab and is not a double slab, require same axes (solid
       // face only)
       Direction slabFacing = state.getValue(VerticalSlabBlock.FACING);

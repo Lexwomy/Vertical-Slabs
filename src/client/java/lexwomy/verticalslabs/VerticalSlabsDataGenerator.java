@@ -4,10 +4,12 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 import lexwomy.verticalslabs.block.VerticalSlab;
 import lexwomy.verticalslabs.block.VerticalSlabBlock;
 import lexwomy.verticalslabs.block.VerticalSlabType;
 import lexwomy.verticalslabs.data.*;
+import lexwomy.verticalslabs.references.VerticalSlabBlockItemIds;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -16,7 +18,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.TextureMapping;
@@ -25,6 +27,8 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.tags.TagAppender;
+import net.minecraft.references.BlockItemId;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
@@ -32,6 +36,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.WeatheringCopperCollection;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -43,28 +49,20 @@ import org.jetbrains.annotations.Nullable;
 public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
   private static final List<VerticalSlabDetails> VERTICAL_SLAB_DETAILS =
       List.of(
-          new VerticalSlabDetails(
-              "Exposed Vertical Cut Copper Slab",
-              VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB,
-              Blocks.EXPOSED_CUT_COPPER,
-              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
-              List.of(Blocks.EXPOSED_CUT_COPPER),
-              List.of(Blocks.EXPOSED_COPPER, Blocks.EXPOSED_CUT_COPPER)),
-          new VerticalSlabDetails(
-              "Oxidized Vertical Cut Copper Slab",
-              VerticalSlab.OXIDIZED_VERTICAL_CUT_COPPER_SLAB,
-              Blocks.OXIDIZED_CUT_COPPER,
-              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
-              List.of(Blocks.OXIDIZED_CUT_COPPER),
-              List.of(Blocks.OXIDIZED_COPPER, Blocks.OXIDIZED_CUT_COPPER)),
+          VerticalSlabDetails.createFromCutCopperCollection(
+              "Exposed Vertical Cut Copper Slab", WeatheringCopper.WeatherState.EXPOSED, false),
+          VerticalSlabDetails.createFromCutCopperCollection(
+              "Oxidized Vertical Cut Copper Slab", WeatheringCopper.WeatherState.OXIDIZED, false),
           new VerticalSlabDetails(
               "Vertical Acacia Slab",
+              VerticalSlabBlockItemIds.VERTICAL_ACACIA_SLAB,
               VerticalSlab.VERTICAL_ACACIA_SLAB,
               Blocks.ACACIA_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.ACACIA_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Andesite Slab",
+              VerticalSlabBlockItemIds.VERTICAL_ANDESITE_SLAB,
               VerticalSlab.VERTICAL_ANDESITE_SLAB,
               Blocks.ANDESITE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -72,24 +70,28 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.ANDESITE)),
           new VerticalSlabDetails(
               "Vertical Bamboo Mosaic Slab",
+              VerticalSlabBlockItemIds.VERTICAL_BAMBOO_MOSAIC_SLAB,
               VerticalSlab.VERTICAL_BAMBOO_MOSAIC_SLAB,
               Blocks.BAMBOO_MOSAIC,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.BAMBOO_MOSAIC)),
           new VerticalSlabDetails(
               "Vertical Bamboo Slab",
+              VerticalSlabBlockItemIds.VERTICAL_BAMBOO_SLAB,
               VerticalSlab.VERTICAL_BAMBOO_SLAB,
               Blocks.BAMBOO_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.BAMBOO_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Birch Slab",
+              VerticalSlabBlockItemIds.VERTICAL_BIRCH_SLAB,
               VerticalSlab.VERTICAL_BIRCH_SLAB,
               Blocks.BIRCH_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.BIRCH_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Blackstone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_BLACKSTONE_SLAB,
               VerticalSlab.VERTICAL_BLACKSTONE_SLAB,
               Blocks.BLACKSTONE,
               new BottomTopBasedBlockModelGenerator(
@@ -100,6 +102,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.BLACKSTONE)),
           new VerticalSlabDetails(
               "Vertical Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_BRICK_SLAB,
               VerticalSlab.VERTICAL_BRICK_SLAB,
               Blocks.BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -107,12 +110,14 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.BRICKS)),
           new VerticalSlabDetails(
               "Vertical Cherry Slab",
+              VerticalSlabBlockItemIds.VERTICAL_CHERRY_SLAB,
               VerticalSlab.VERTICAL_CHERRY_SLAB,
               Blocks.CHERRY_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.CHERRY_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Cobbled Deepslate Slab",
+              VerticalSlabBlockItemIds.VERTICAL_COBBLED_DEEPSLATE_SLAB,
               VerticalSlab.VERTICAL_COBBLED_DEEPSLATE_SLAB,
               Blocks.COBBLED_DEEPSLATE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -120,6 +125,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.COBBLED_DEEPSLATE)),
           new VerticalSlabDetails(
               "Vertical Cobblestone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_COBBLESTONE_SLAB,
               VerticalSlab.VERTICAL_COBBLESTONE_SLAB,
               Blocks.COBBLESTONE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -127,19 +133,16 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.COBBLESTONE)),
           new VerticalSlabDetails(
               "Vertical Crimson Slab",
+              VerticalSlabBlockItemIds.VERTICAL_CRIMSON_SLAB,
               VerticalSlab.VERTICAL_CRIMSON_SLAB,
               Blocks.CRIMSON_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.CRIMSON_PLANKS)),
-          new VerticalSlabDetails(
-              "Vertical Cut Copper Slab",
-              VerticalSlab.VERTICAL_CUT_COPPER_SLAB,
-              Blocks.CUT_COPPER,
-              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
-              List.of(Blocks.CUT_COPPER),
-              List.of(Blocks.COPPER_BLOCK, Blocks.CUT_COPPER)),
+          VerticalSlabDetails.createFromCutCopperCollection(
+              "Vertical Cut Copper Slab", WeatheringCopper.WeatherState.UNAFFECTED, false),
           new VerticalSlabDetails(
               "Vertical Cut Red Sandstone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_CUT_RED_SANDSTONE_SLAB,
               VerticalSlab.VERTICAL_CUT_RED_SANDSTONE_SLAB,
               Blocks.CUT_RED_SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
@@ -166,6 +169,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE)),
           new VerticalSlabDetails(
               "Vertical Cut Sandstone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_CUT_SANDSTONE_SLAB,
               VerticalSlab.VERTICAL_CUT_SANDSTONE_SLAB,
               Blocks.CUT_SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
@@ -192,12 +196,14 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.SANDSTONE, Blocks.CUT_SANDSTONE)),
           new VerticalSlabDetails(
               "Vertical Dark Oak Slab",
+              VerticalSlabBlockItemIds.VERTICAL_DARK_OAK_SLAB,
               VerticalSlab.VERTICAL_DARK_OAK_SLAB,
               Blocks.DARK_OAK_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.DARK_OAK_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Dark Prismarine Slab",
+              VerticalSlabBlockItemIds.VERTICAL_DARK_PRISMARINE_SLAB,
               VerticalSlab.VERTICAL_DARK_PRISMARINE_SLAB,
               Blocks.DARK_PRISMARINE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -205,6 +211,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.DARK_PRISMARINE)),
           new VerticalSlabDetails(
               "Vertical Deepslate Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_DEEPSLATE_BRICK_SLAB,
               VerticalSlab.VERTICAL_DEEPSLATE_BRICK_SLAB,
               Blocks.DEEPSLATE_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -213,6 +220,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                   Blocks.COBBLED_DEEPSLATE, Blocks.DEEPSLATE_BRICKS, Blocks.POLISHED_DEEPSLATE)),
           new VerticalSlabDetails(
               "Vertical Deepslate Tile Slab",
+              VerticalSlabBlockItemIds.VERTICAL_DEEPSLATE_TILE_SLAB,
               VerticalSlab.VERTICAL_DEEPSLATE_TILE_SLAB,
               Blocks.DEEPSLATE_TILES,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -224,6 +232,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                   Blocks.POLISHED_DEEPSLATE)),
           new VerticalSlabDetails(
               "Vertical Diorite Slab",
+              VerticalSlabBlockItemIds.VERTICAL_DIORITE_SLAB,
               VerticalSlab.VERTICAL_DIORITE_SLAB,
               Blocks.DIORITE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -231,6 +240,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.DIORITE)),
           new VerticalSlabDetails(
               "Vertical End Stone Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_END_STONE_BRICK_SLAB,
               VerticalSlab.VERTICAL_END_STONE_BRICK_SLAB,
               Blocks.END_STONE_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -238,6 +248,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.END_STONE_BRICKS)),
           new VerticalSlabDetails(
               "Vertical Granite Slab",
+              VerticalSlabBlockItemIds.VERTICAL_GRANITE_SLAB,
               VerticalSlab.VERTICAL_GRANITE_SLAB,
               Blocks.GRANITE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -245,18 +256,21 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.GRANITE)),
           new VerticalSlabDetails(
               "Vertical Jungle Slab",
+              VerticalSlabBlockItemIds.VERTICAL_JUNGLE_SLAB,
               VerticalSlab.VERTICAL_JUNGLE_SLAB,
               Blocks.JUNGLE_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.JUNGLE_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Mangrove Slab",
+              VerticalSlabBlockItemIds.VERTICAL_MANGROVE_SLAB,
               VerticalSlab.VERTICAL_MANGROVE_SLAB,
               Blocks.MANGROVE_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.MANGROVE_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Mossy Cobblestone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_MOSSY_COBBLESTONE_SLAB,
               VerticalSlab.VERTICAL_MOSSY_COBBLESTONE_SLAB,
               Blocks.MOSSY_COBBLESTONE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -264,6 +278,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.MOSSY_COBBLESTONE)),
           new VerticalSlabDetails(
               "Vertical Mossy Stone Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_MOSSY_STONE_BRICK_SLAB,
               VerticalSlab.VERTICAL_MOSSY_STONE_BRICK_SLAB,
               Blocks.MOSSY_STONE_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -271,6 +286,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.MOSSY_STONE_BRICKS)),
           new VerticalSlabDetails(
               "Vertical Mud Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_MUD_BRICK_SLAB,
               VerticalSlab.VERTICAL_MUD_BRICK_SLAB,
               Blocks.MUD_BRICKS,
               new DirectionalBasedBlockModelGenerator(
@@ -284,6 +300,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.MUD_BRICKS)),
           new VerticalSlabDetails(
               "Vertical Nether Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_NETHER_BRICK_SLAB,
               VerticalSlab.VERTICAL_NETHER_BRICK_SLAB,
               Blocks.NETHER_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -291,18 +308,21 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.NETHER_BRICKS)),
           new VerticalSlabDetails(
               "Vertical Oak Slab",
+              VerticalSlabBlockItemIds.VERTICAL_OAK_SLAB,
               VerticalSlab.VERTICAL_OAK_SLAB,
               Blocks.OAK_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.OAK_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Pale Oak Slab",
+              VerticalSlabBlockItemIds.VERTICAL_PALE_OAK_SLAB,
               VerticalSlab.VERTICAL_PALE_OAK_SLAB,
               Blocks.PALE_OAK_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.PALE_OAK_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Polished Andesite Slab",
+              VerticalSlabBlockItemIds.VERTICAL_POLISHED_ANDESITE_SLAB,
               VerticalSlab.VERTICAL_POLISHED_ANDESITE_SLAB,
               Blocks.POLISHED_ANDESITE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -310,6 +330,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.ANDESITE, Blocks.POLISHED_ANDESITE)),
           new VerticalSlabDetails(
               "Vertical Polished Blackstone Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB,
               VerticalSlab.VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB,
               Blocks.POLISHED_BLACKSTONE_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -320,6 +341,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                   Blocks.POLISHED_BLACKSTONE)),
           new VerticalSlabDetails(
               "Vertical Polished Blackstone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_POLISHED_BLACKSTONE_SLAB,
               VerticalSlab.VERTICAL_POLISHED_BLACKSTONE_SLAB,
               Blocks.POLISHED_BLACKSTONE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -327,6 +349,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE)),
           new VerticalSlabDetails(
               "Vertical Polished Deepslate Slab",
+              VerticalSlabBlockItemIds.VERTICAL_POLISHED_DEEPSLATE_SLAB,
               VerticalSlab.VERTICAL_POLISHED_DEEPSLATE_SLAB,
               Blocks.POLISHED_DEEPSLATE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -334,6 +357,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.COBBLED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE)),
           new VerticalSlabDetails(
               "Vertical Polished Diorite Slab",
+              VerticalSlabBlockItemIds.VERTICAL_POLISHED_DIORITE_SLAB,
               VerticalSlab.VERTICAL_POLISHED_DIORITE_SLAB,
               Blocks.POLISHED_DIORITE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -341,6 +365,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.DIORITE, Blocks.POLISHED_DIORITE)),
           new VerticalSlabDetails(
               "Vertical Polished Granite Slab",
+              VerticalSlabBlockItemIds.VERTICAL_POLISHED_GRANITE_SLAB,
               VerticalSlab.VERTICAL_POLISHED_GRANITE_SLAB,
               Blocks.POLISHED_GRANITE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -348,6 +373,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.GRANITE, Blocks.POLISHED_GRANITE)),
           new VerticalSlabDetails(
               "Vertical Polished Tuff Slab",
+              VerticalSlabBlockItemIds.VERTICAL_POLISHED_TUFF_SLAB,
               VerticalSlab.VERTICAL_POLISHED_TUFF_SLAB,
               Blocks.POLISHED_TUFF,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -355,6 +381,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.TUFF, Blocks.POLISHED_TUFF)),
           new VerticalSlabDetails(
               "Vertical Prismarine Slab",
+              VerticalSlabBlockItemIds.VERTICAL_PRISMARINE_SLAB,
               VerticalSlab.VERTICAL_PRISMARINE_SLAB,
               Blocks.PRISMARINE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -362,6 +389,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.PRISMARINE)),
           new VerticalSlabDetails(
               "Vertical Prismarine Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_PRISMARINE_BRICK_SLAB,
               VerticalSlab.VERTICAL_PRISMARINE_BRICK_SLAB,
               Blocks.PRISMARINE_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -369,6 +397,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.PRISMARINE_BRICKS)),
           new VerticalSlabDetails(
               "Vertical Purpur Slab",
+              VerticalSlabBlockItemIds.VERTICAL_PURPUR_SLAB,
               VerticalSlab.VERTICAL_PURPUR_SLAB,
               Blocks.PURPUR_BLOCK,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -376,6 +405,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.PURPUR_BLOCK)),
           new VerticalSlabDetails(
               "Vertical Quartz Slab",
+              VerticalSlabBlockItemIds.VERTICAL_QUARTZ_SLAB,
               VerticalSlab.VERTICAL_QUARTZ_SLAB,
               Blocks.QUARTZ_BLOCK,
               new BottomTopBasedBlockModelGenerator(
@@ -386,6 +416,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.QUARTZ_BLOCK)),
           new VerticalSlabDetails(
               "Vertical Red Nether Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_RED_NETHER_BRICK_SLAB,
               VerticalSlab.VERTICAL_RED_NETHER_BRICK_SLAB,
               Blocks.RED_NETHER_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -393,6 +424,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.RED_NETHER_BRICKS)),
           new VerticalSlabDetails(
               "Vertical Red Sandstone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_RED_SANDSTONE_SLAB,
               VerticalSlab.VERTICAL_RED_SANDSTONE_SLAB,
               Blocks.RED_SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
@@ -404,6 +436,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.RED_SANDSTONE)),
           new VerticalSlabDetails(
               "Vertical Resin Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_RESIN_BRICK_SLAB,
               VerticalSlab.VERTICAL_RESIN_BRICK_SLAB,
               Blocks.RESIN_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -411,6 +444,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.RESIN_BRICKS)),
           new VerticalSlabDetails(
               "Vertical Sandstone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_SANDSTONE_SLAB,
               VerticalSlab.VERTICAL_SANDSTONE_SLAB,
               Blocks.SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
@@ -422,6 +456,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.SANDSTONE)),
           new VerticalSlabDetails(
               "Vertical Smooth Quartz Slab",
+              VerticalSlabBlockItemIds.VERTICAL_SMOOTH_QUARTZ_SLAB,
               VerticalSlab.VERTICAL_SMOOTH_QUARTZ_SLAB,
               Blocks.QUARTZ_BLOCK,
               new BottomTopBasedBlockModelGenerator(
@@ -440,6 +475,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.SMOOTH_QUARTZ)),
           new VerticalSlabDetails(
               "Vertical Smooth Red Sandstone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_SMOOTH_RED_SANDSTONE_SLAB,
               VerticalSlab.VERTICAL_SMOOTH_RED_SANDSTONE_SLAB,
               Blocks.SMOOTH_RED_SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
@@ -458,6 +494,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.SMOOTH_RED_SANDSTONE)),
           new VerticalSlabDetails(
               "Vertical Smooth Sandstone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_SMOOTH_SANDSTONE_SLAB,
               VerticalSlab.VERTICAL_SMOOTH_SANDSTONE_SLAB,
               Blocks.SMOOTH_SANDSTONE,
               new BottomTopBasedBlockModelGenerator(
@@ -474,6 +511,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.SMOOTH_SANDSTONE)),
           new VerticalSlabDetails(
               "Vertical Smooth Stone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_SMOOTH_STONE_SLAB,
               VerticalSlab.VERTICAL_SMOOTH_STONE_SLAB,
               Blocks.SMOOTH_STONE_SLAB,
               new BottomTopBasedBlockModelGenerator(
@@ -503,12 +541,14 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.SMOOTH_STONE)),
           new VerticalSlabDetails(
               "Vertical Spruce Slab",
+              VerticalSlabBlockItemIds.VERTICAL_SPRUCE_SLAB,
               VerticalSlab.VERTICAL_SPRUCE_SLAB,
               Blocks.SPRUCE_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.SPRUCE_PLANKS)),
           new VerticalSlabDetails(
               "Vertical Stone Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_STONE_BRICK_SLAB,
               VerticalSlab.VERTICAL_STONE_BRICK_SLAB,
               Blocks.STONE_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -516,6 +556,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.STONE, Blocks.STONE_BRICKS)),
           new VerticalSlabDetails(
               "Vertical Stone Slab",
+              VerticalSlabBlockItemIds.VERTICAL_STONE_SLAB,
               VerticalSlab.VERTICAL_STONE_SLAB,
               Blocks.STONE,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -523,6 +564,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.STONE)),
           new VerticalSlabDetails(
               "Vertical Tuff Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_TUFF_BRICK_SLAB,
               VerticalSlab.VERTICAL_TUFF_BRICK_SLAB,
               Blocks.TUFF_BRICKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -530,6 +572,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.TUFF, Blocks.POLISHED_TUFF, Blocks.TUFF_BRICKS)),
           new VerticalSlabDetails(
               "Vertical Tuff Slab",
+              VerticalSlabBlockItemIds.VERTICAL_TUFF_SLAB,
               VerticalSlab.VERTICAL_TUFF_SLAB,
               Blocks.TUFF,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
@@ -537,45 +580,29 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.TUFF)),
           new VerticalSlabDetails(
               "Vertical Warped Slab",
+              VerticalSlabBlockItemIds.VERTICAL_WARPED_SLAB,
               VerticalSlab.VERTICAL_WARPED_SLAB,
               Blocks.WARPED_PLANKS,
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.WARPED_PLANKS)),
-          new VerticalSlabDetails(
+          VerticalSlabDetails.createFromCutCopperCollection(
               "Waxed Exposed Vertical Cut Copper Slab",
-              VerticalSlab.WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB,
-              Blocks.EXPOSED_CUT_COPPER,
-              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
-              List.of(Blocks.WAXED_EXPOSED_CUT_COPPER),
-              List.of(Blocks.WAXED_EXPOSED_COPPER, Blocks.WAXED_EXPOSED_CUT_COPPER)),
-          new VerticalSlabDetails(
+              WeatheringCopper.WeatherState.EXPOSED,
+              true),
+          VerticalSlabDetails.createFromCutCopperCollection(
               "Waxed Oxidized Vertical Cut Copper Slab",
-              VerticalSlab.WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB,
-              Blocks.OXIDIZED_CUT_COPPER,
-              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
-              List.of(Blocks.WAXED_OXIDIZED_CUT_COPPER),
-              List.of(Blocks.WAXED_OXIDIZED_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER)),
-          new VerticalSlabDetails(
-              "Waxed Vertical Cut Copper Slab",
-              VerticalSlab.WAXED_VERTICAL_CUT_COPPER_SLAB,
-              Blocks.CUT_COPPER,
-              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
-              List.of(Blocks.WAXED_CUT_COPPER),
-              List.of(Blocks.WAXED_COPPER_BLOCK, Blocks.WAXED_CUT_COPPER)),
-          new VerticalSlabDetails(
+              WeatheringCopper.WeatherState.OXIDIZED,
+              true),
+          VerticalSlabDetails.createFromCutCopperCollection(
+              "Waxed Vertical Cut Copper Slab", WeatheringCopper.WeatherState.UNAFFECTED, true),
+          VerticalSlabDetails.createFromCutCopperCollection(
               "Waxed Weathered Vertical Cut Copper Slab",
-              VerticalSlab.WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB,
-              Blocks.WEATHERED_CUT_COPPER,
-              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
-              List.of(Blocks.WAXED_WEATHERED_CUT_COPPER),
-              List.of(Blocks.WAXED_WEATHERED_COPPER, Blocks.WAXED_WEATHERED_CUT_COPPER)),
-          new VerticalSlabDetails(
+              WeatheringCopper.WeatherState.WEATHERED,
+              true),
+          VerticalSlabDetails.createFromCutCopperCollection(
               "Weathered Vertical Cut Copper Slab",
-              VerticalSlab.WEATHERED_VERTICAL_CUT_COPPER_SLAB,
-              Blocks.WEATHERED_CUT_COPPER,
-              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
-              List.of(Blocks.WEATHERED_CUT_COPPER),
-              List.of(Blocks.WEATHERED_COPPER, Blocks.WEATHERED_CUT_COPPER)));
+              WeatheringCopper.WeatherState.WEATHERED,
+              false));
 
   @Override
   public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
@@ -629,20 +656,6 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
   }
 
   public static class VerticalSlabsRecipeProvider extends FabricRecipeProvider {
-    private static final List<Pair<Block, Block>> VERTICAL_SLAB_WAX_MAPPING =
-        List.of(
-            new Pair<>(
-                VerticalSlab.VERTICAL_CUT_COPPER_SLAB, VerticalSlab.WAXED_VERTICAL_CUT_COPPER_SLAB),
-            new Pair<>(
-                VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB,
-                VerticalSlab.WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB),
-            new Pair<>(
-                VerticalSlab.WEATHERED_VERTICAL_CUT_COPPER_SLAB,
-                VerticalSlab.WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB),
-            new Pair<>(
-                VerticalSlab.OXIDIZED_VERTICAL_CUT_COPPER_SLAB,
-                VerticalSlab.WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB));
-
     private static final List<Pair<Block, Block>> CHISELED_FROM_VERTICAL_SLAB_MAPPING =
         List.of(
             new Pair<>(VerticalSlab.VERTICAL_STONE_BRICK_SLAB, Blocks.CHISELED_STONE_BRICKS),
@@ -658,24 +671,7 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                 Blocks.CHISELED_POLISHED_BLACKSTONE),
             new Pair<>(VerticalSlab.VERTICAL_QUARTZ_SLAB, Blocks.CHISELED_QUARTZ_BLOCK),
             new Pair<>(VerticalSlab.VERTICAL_PURPUR_SLAB, Blocks.PURPUR_PILLAR),
-            new Pair<>(VerticalSlab.VERTICAL_BAMBOO_SLAB, Blocks.BAMBOO_MOSAIC),
-            new Pair<>(VerticalSlab.VERTICAL_CUT_COPPER_SLAB, Blocks.CHISELED_COPPER),
-            new Pair<>(
-                VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB, Blocks.EXPOSED_CHISELED_COPPER),
-            new Pair<>(
-                VerticalSlab.WEATHERED_VERTICAL_CUT_COPPER_SLAB, Blocks.WEATHERED_CHISELED_COPPER),
-            new Pair<>(
-                VerticalSlab.OXIDIZED_VERTICAL_CUT_COPPER_SLAB, Blocks.OXIDIZED_CHISELED_COPPER),
-            new Pair<>(VerticalSlab.WAXED_VERTICAL_CUT_COPPER_SLAB, Blocks.WAXED_CHISELED_COPPER),
-            new Pair<>(
-                VerticalSlab.WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB,
-                Blocks.WAXED_EXPOSED_CHISELED_COPPER),
-            new Pair<>(
-                VerticalSlab.WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB,
-                Blocks.WAXED_WEATHERED_CHISELED_COPPER),
-            new Pair<>(
-                VerticalSlab.WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB,
-                Blocks.WAXED_OXIDIZED_CHISELED_COPPER));
+            new Pair<>(VerticalSlab.VERTICAL_BAMBOO_SLAB, Blocks.BAMBOO_MOSAIC));
 
     private VerticalSlabsRecipeProvider(
         FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -694,14 +690,18 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
 
           // Generate special recipes - manual hardcode these
           // Apply wax recipe, chiseled blocks from vertical slabs
-          VERTICAL_SLAB_WAX_MAPPING.forEach(
-              waxPair -> generateWaxedVerticalSlabRecipe(waxPair.getFirst(), waxPair.getSecond()));
+          VerticalSlab.VERTICAL_CUT_COPPER_SLAB.zipUnwaxedWaxed(
+              this::generateWaxedVerticalSlabRecipe);
 
           // Chiseled block variants
           CHISELED_FROM_VERTICAL_SLAB_MAPPING.forEach(
               chiseledPair ->
                   generateChiseledFromVerticalSlabRecipe(
                       chiseledPair.getFirst(), chiseledPair.getSecond()));
+          WeatheringCopperCollection.zipApply(
+              VerticalSlab.VERTICAL_CUT_COPPER_SLAB,
+              Blocks.CHISELED_COPPER,
+              this::generateChiseledFromVerticalSlabRecipe);
         }
 
         public void generateWaxedVerticalSlabRecipe(ItemLike unwaxedSlab, ItemLike waxedSlab) {
@@ -734,45 +734,43 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
   }
 
   public static class VerticalSlabsTagsProvider {
-    private static final Set<Block> woodenSlabSet =
+    private static final Set<BlockItemId> woodenSlabSet =
         Set.of(
-            VerticalSlab.VERTICAL_OAK_SLAB,
-            VerticalSlab.VERTICAL_BIRCH_SLAB,
-            VerticalSlab.VERTICAL_SPRUCE_SLAB,
-            VerticalSlab.VERTICAL_JUNGLE_SLAB,
-            VerticalSlab.VERTICAL_ACACIA_SLAB,
-            VerticalSlab.VERTICAL_DARK_OAK_SLAB,
-            VerticalSlab.VERTICAL_CHERRY_SLAB,
-            VerticalSlab.VERTICAL_MANGROVE_SLAB,
-            VerticalSlab.VERTICAL_BAMBOO_SLAB,
-            VerticalSlab.VERTICAL_BAMBOO_MOSAIC_SLAB,
-            VerticalSlab.VERTICAL_PALE_OAK_SLAB,
-            VerticalSlab.VERTICAL_CRIMSON_SLAB,
-            VerticalSlab.VERTICAL_WARPED_SLAB);
+            VerticalSlabBlockItemIds.VERTICAL_OAK_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_BIRCH_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_SPRUCE_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_JUNGLE_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_ACACIA_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_DARK_OAK_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_CHERRY_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_MANGROVE_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_BAMBOO_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_BAMBOO_MOSAIC_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_PALE_OAK_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_CRIMSON_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_WARPED_SLAB);
 
-    private static final List<Block> needsStoneTools =
-        List.of(
-            VerticalSlab.VERTICAL_CUT_COPPER_SLAB,
-            VerticalSlab.EXPOSED_VERTICAL_CUT_COPPER_SLAB,
-            VerticalSlab.WEATHERED_VERTICAL_CUT_COPPER_SLAB,
-            VerticalSlab.OXIDIZED_VERTICAL_CUT_COPPER_SLAB,
-            VerticalSlab.WAXED_VERTICAL_CUT_COPPER_SLAB,
-            VerticalSlab.WAXED_EXPOSED_VERTICAL_CUT_COPPER_SLAB,
-            VerticalSlab.WAXED_WEATHERED_VERTICAL_CUT_COPPER_SLAB,
-            VerticalSlab.WAXED_OXIDIZED_VERTICAL_CUT_COPPER_SLAB);
+    private static final List<ResourceKey<Block>> needsStoneTools =
+        Stream.concat(
+                VerticalSlabBlockItemIds.VERTICAL_CUT_COPPER_SLAB
+                    .map(BlockItemId::block)
+                    .asList()
+                    .stream(),
+                Stream.of())
+            .toList();
 
-    private static final List<Block> flammableVerticalSlabs =
+    private static final List<BlockItemId> flammableVerticalSlabs =
         List.of(
-            VerticalSlab.VERTICAL_OAK_SLAB,
-            VerticalSlab.VERTICAL_BIRCH_SLAB,
-            VerticalSlab.VERTICAL_SPRUCE_SLAB,
-            VerticalSlab.VERTICAL_JUNGLE_SLAB,
-            VerticalSlab.VERTICAL_ACACIA_SLAB,
-            VerticalSlab.VERTICAL_DARK_OAK_SLAB,
-            VerticalSlab.VERTICAL_MANGROVE_SLAB,
-            VerticalSlab.VERTICAL_CHERRY_SLAB,
-            VerticalSlab.VERTICAL_BAMBOO_SLAB,
-            VerticalSlab.VERTICAL_BAMBOO_MOSAIC_SLAB);
+            VerticalSlabBlockItemIds.VERTICAL_OAK_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_BIRCH_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_SPRUCE_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_JUNGLE_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_ACACIA_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_DARK_OAK_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_MANGROVE_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_CHERRY_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_BAMBOO_SLAB,
+            VerticalSlabBlockItemIds.VERTICAL_BAMBOO_MOSAIC_SLAB);
 
     private static void addProvider(FabricDataGenerator.Pack pack) {
       VerticalSlabsBlockTagsProvider verticalSlabsBlockTagProvider =
@@ -793,34 +791,32 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
       @Override
       protected void addTags(HolderLookup.Provider wrapperLookup) {
         // Add all vertical slabs to vertical slab tag
-        TagAppender<Block, Block> verticalSlabBuilder =
-            valueLookupBuilder(VerticalSlabs.VERTICAL_SLABS);
-        TagAppender<Block, Block> verticalWoodenSlabBuilder =
-            valueLookupBuilder(VerticalSlabs.VERTICAL_WOODEN_SLABS);
-        TagAppender<Block, Block> verticalMineableSlabBuilder =
-            valueLookupBuilder(VerticalSlabs.VERTICAL_MINEABLE_SLABS);
+        TagAppender<Block> verticalSlabBuilder = this.tag(VerticalSlabs.VERTICAL_SLABS.block());
+        TagAppender<Block> verticalWoodenSlabBuilder =
+            this.tag(VerticalSlabs.VERTICAL_WOODEN_SLABS.block());
+        TagAppender<Block> verticalMineableSlabBuilder =
+            this.tag(VerticalSlabs.VERTICAL_MINEABLE_SLABS.block());
 
+        verticalWoodenSlabBuilder.addAll(woodenSlabSet.stream().map(BlockItemId::block));
         for (VerticalSlabDetails verticalSlabDetails : VERTICAL_SLAB_DETAILS) {
-          verticalSlabBuilder.add(verticalSlabDetails.slab());
-          if (woodenSlabSet.contains(verticalSlabDetails.slab())) {
-            verticalWoodenSlabBuilder.add(verticalSlabDetails.slab());
-          } else {
-            verticalMineableSlabBuilder.add(verticalSlabDetails.slab());
+          verticalSlabBuilder.add(verticalSlabDetails.slabId().block());
+          if (!woodenSlabSet.contains(verticalSlabDetails.slabId())) {
+            verticalMineableSlabBuilder.add(verticalSlabDetails.slabId().block());
           }
         }
 
         // Append wooden vertical slabs to vanilla wooden slabs tag
-        valueLookupBuilder(BlockTags.WOODEN_SLABS)
-            .addTag(VerticalSlabs.VERTICAL_WOODEN_SLABS)
+        this.tag(BlockTags.WOODEN_SLABS)
+            .addTag(VerticalSlabs.VERTICAL_WOODEN_SLABS.block())
             .setReplace(false);
         // Append stone slabs to mineable with pickaxe
-        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
-            .addTag(VerticalSlabs.VERTICAL_MINEABLE_SLABS)
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+            .addTag(VerticalSlabs.VERTICAL_MINEABLE_SLABS.block())
             .setReplace(false);
         // Append copper slabs to needs stone tool
-        valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL).addAll(needsStoneTools).setReplace(false);
-        valueLookupBuilder(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS)
-            .addAll(flammableVerticalSlabs)
+        this.tag(BlockTags.NEEDS_STONE_TOOL).addAll(needsStoneTools).setReplace(false);
+        this.tag(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS.block())
+            .addAll(flammableVerticalSlabs.stream().map(BlockItemId::block))
             .setReplace(false);
       }
     }
@@ -840,35 +836,32 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
         // Not using copy to allow multiple mods to add to vertical slab tags independently in any
         // order
 
-        TagAppender<Item, Item> verticalSlabBuilder =
-            valueLookupBuilder(VerticalSlabs.VERTICAL_SLABS_ITEMS);
-        TagAppender<Item, Item> verticalWoodenSlabBuilder =
-            valueLookupBuilder(VerticalSlabs.VERTICAL_WOODEN_SLABS_ITEMS);
-        TagAppender<Item, Item> verticalMineableSlabBuilder =
-            valueLookupBuilder(VerticalSlabs.VERTICAL_MINEABLE_SLABS_ITEMS);
+        TagAppender<Item> verticalSlabBuilder = this.tag(VerticalSlabs.VERTICAL_SLABS.item());
+        TagAppender<Item> verticalWoodenSlabBuilder =
+            this.tag(VerticalSlabs.VERTICAL_WOODEN_SLABS.item());
+        TagAppender<Item> verticalMineableSlabBuilder =
+            this.tag(VerticalSlabs.VERTICAL_MINEABLE_SLABS.item());
 
+        verticalWoodenSlabBuilder.addAll(woodenSlabSet.stream().map(BlockItemId::item));
         for (VerticalSlabDetails verticalSlabDetails : VERTICAL_SLAB_DETAILS) {
-          verticalSlabBuilder.add(verticalSlabDetails.slab().asItem());
-          if (woodenSlabSet.contains(verticalSlabDetails.slab())) {
-            verticalWoodenSlabBuilder.add(verticalSlabDetails.slab().asItem());
-          } else {
-            verticalMineableSlabBuilder.add(verticalSlabDetails.slab().asItem());
+          verticalSlabBuilder.add(verticalSlabDetails.slabId().item());
+          if (!woodenSlabSet.contains(verticalSlabDetails.slabId())) {
+            verticalMineableSlabBuilder.add(verticalSlabDetails.slabId().item());
           }
         }
 
         // Append wooden vertical slabs to vanilla wooden slabs tag
-        valueLookupBuilder(ItemTags.WOODEN_SLABS)
-            .addTag(VerticalSlabs.VERTICAL_WOODEN_SLABS_ITEMS)
+        this.tag(ItemTags.WOODEN_SLABS)
+            .addTag(VerticalSlabs.VERTICAL_WOODEN_SLABS.item())
             .setReplace(false);
 
-        valueLookupBuilder(ItemTags.NON_FLAMMABLE_WOOD)
-            .add(
-                VerticalSlab.VERTICAL_CRIMSON_SLAB.asItem(),
-                VerticalSlab.VERTICAL_WARPED_SLAB.asItem())
+        this.tag(ItemTags.NON_FLAMMABLE_WOOD)
+            .add(VerticalSlabBlockItemIds.VERTICAL_CRIMSON_SLAB.item())
+            .add(VerticalSlabBlockItemIds.VERTICAL_WARPED_SLAB.item())
             .setReplace(false);
 
-        valueLookupBuilder(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS_ITEMS)
-            .addAll(flammableVerticalSlabs.stream().map(Block::asItem))
+        this.tag(VerticalSlabs.VERTICAL_FLAMMABLE_SLABS.item())
+            .addAll(flammableVerticalSlabs.stream().map(BlockItemId::item))
             .setReplace(false);
       }
     }

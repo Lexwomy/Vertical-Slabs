@@ -3,14 +3,19 @@ package lexwomy.verticalslabs.data;
 import static net.minecraft.data.recipes.RecipeProvider.getHasName;
 
 import java.util.List;
+import lexwomy.verticalslabs.block.VerticalSlab;
+import lexwomy.verticalslabs.references.VerticalSlabBlockItemIds;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.WeatheringCopper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 // while a generic crafting recipe will be generated for the input block
 public record VerticalSlabDetails(
     @NotNull String slabName,
+    @NotNull BlockItemId slabId,
     @NotNull Block slab,
     @NotNull Block textureSource,
     @NotNull VerticalSlabBlockModelGenerator verticalSlabBlockModelGenerator,
@@ -26,12 +32,14 @@ public record VerticalSlabDetails(
 
   public VerticalSlabDetails(
       @NotNull String slabName,
+      @NotNull BlockItemId slabId,
       @NotNull Block slab,
       @NotNull Block textureSource,
       @NotNull VerticalSlabBlockModelGenerator verticalSlabBlockModelGenerator,
       @Nullable List<Block> craftingRecipeInput) {
     this(
         slabName,
+        slabId,
         slab,
         textureSource,
         verticalSlabBlockModelGenerator,
@@ -41,20 +49,45 @@ public record VerticalSlabDetails(
 
   public VerticalSlabDetails(
       @NotNull String slabName,
+      @NotNull BlockItemId slabId,
       @NotNull Block slab,
       @NotNull Block textureSource,
       @NotNull VerticalSlabBlockModelGenerator verticalSlabBlockModelGenerator) {
-    this(
-        slabName,
-        slab,
-        textureSource,
-        verticalSlabBlockModelGenerator,
-        null,
-        null);
+    this(slabName, slabId, slab, textureSource, verticalSlabBlockModelGenerator, null, null);
+  }
+
+  public static VerticalSlabDetails createFromCutCopperCollection(
+      @NotNull String slabName,
+      @NotNull WeatheringCopper.WeatherState weatherState,
+      boolean waxed) {
+    if (!waxed) {
+      return new VerticalSlabDetails(
+          slabName,
+          VerticalSlabBlockItemIds.VERTICAL_CUT_COPPER_SLAB.weathering().pick(weatherState),
+          VerticalSlab.VERTICAL_CUT_COPPER_SLAB.weathering().pick(weatherState),
+          Blocks.CUT_COPPER.weathering().pick(weatherState),
+          BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
+          List.of(Blocks.CUT_COPPER.weathering().pick(weatherState)),
+          List.of(
+              Blocks.COPPER_BLOCK.weathering().pick(weatherState),
+              Blocks.CUT_COPPER.weathering().pick(weatherState)));
+    } else {
+      return new VerticalSlabDetails(
+          slabName,
+          VerticalSlabBlockItemIds.VERTICAL_CUT_COPPER_SLAB.waxed().pick(weatherState),
+          VerticalSlab.VERTICAL_CUT_COPPER_SLAB.waxed().pick(weatherState),
+          Blocks.CUT_COPPER.weathering().pick(weatherState),
+          BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
+          List.of(Blocks.CUT_COPPER.waxed().pick(weatherState)),
+          List.of(
+              Blocks.COPPER_BLOCK.waxed().pick(weatherState),
+              Blocks.CUT_COPPER.waxed().pick(weatherState)));
+    }
   }
 
   public void generateBlockModels(BlockModelGenerators blockModelGenerators) {
-    this.verticalSlabBlockModelGenerator.generateBlockModels(this.slab, this.textureSource, blockModelGenerators);
+    this.verticalSlabBlockModelGenerator.generateBlockModels(
+        this.slab, this.textureSource, blockModelGenerators);
   }
 
   public void generateRecipes(RecipeProvider recipeProvider, RecipeOutput recipeOutput) {
