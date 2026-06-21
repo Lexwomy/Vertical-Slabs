@@ -116,6 +116,22 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.CHERRY_PLANKS)),
           new VerticalSlabDetails(
+              "Vertical Cinnabar Slab",
+              VerticalSlabBlockItemIds.VERTICAL_CINNABAR_SLAB,
+              VerticalSlab.VERTICAL_CINNABAR_SLAB,
+              Blocks.CINNABAR,
+              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
+              List.of(Blocks.CINNABAR),
+              List.of(Blocks.CINNABAR)),
+          new VerticalSlabDetails(
+              "Vertical Cinnabar Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_CINNABAR_BRICK_SLAB,
+              VerticalSlab.VERTICAL_CINNABAR_BRICK_SLAB,
+              Blocks.CINNABAR_BRICKS,
+              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
+              List.of(Blocks.CINNABAR_BRICKS),
+              List.of(Blocks.CINNABAR, Blocks.POLISHED_CINNABAR, Blocks.CINNABAR_BRICKS)),
+          new VerticalSlabDetails(
               "Vertical Cobbled Deepslate Slab",
               VerticalSlabBlockItemIds.VERTICAL_COBBLED_DEEPSLATE_SLAB,
               VerticalSlab.VERTICAL_COBBLED_DEEPSLATE_SLAB,
@@ -348,6 +364,14 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.POLISHED_BLACKSTONE),
               List.of(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE)),
           new VerticalSlabDetails(
+              "Vertical Polished Cinnabar Slab",
+              VerticalSlabBlockItemIds.VERTICAL_POLISHED_CINNABAR_SLAB,
+              VerticalSlab.VERTICAL_POLISHED_CINNABAR_SLAB,
+              Blocks.POLISHED_CINNABAR,
+              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
+              List.of(Blocks.POLISHED_CINNABAR),
+              List.of(Blocks.CINNABAR, Blocks.POLISHED_CINNABAR)),
+          new VerticalSlabDetails(
               "Vertical Polished Deepslate Slab",
               VerticalSlabBlockItemIds.VERTICAL_POLISHED_DEEPSLATE_SLAB,
               VerticalSlab.VERTICAL_POLISHED_DEEPSLATE_SLAB,
@@ -371,6 +395,14 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
               List.of(Blocks.POLISHED_GRANITE),
               List.of(Blocks.GRANITE, Blocks.POLISHED_GRANITE)),
+          new VerticalSlabDetails(
+              "Vertical Polished Sulfur Slab",
+              VerticalSlabBlockItemIds.VERTICAL_POLISHED_SULFUR_SLAB,
+              VerticalSlab.VERTICAL_POLISHED_SULFUR_SLAB,
+              Blocks.POLISHED_SULFUR,
+              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
+              List.of(Blocks.POLISHED_SULFUR),
+              List.of(Blocks.SULFUR, Blocks.POLISHED_SULFUR)),
           new VerticalSlabDetails(
               "Vertical Polished Tuff Slab",
               VerticalSlabBlockItemIds.VERTICAL_POLISHED_TUFF_SLAB,
@@ -563,6 +595,22 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
               List.of(Blocks.STONE),
               List.of(Blocks.STONE)),
           new VerticalSlabDetails(
+              "Vertical Sulfur Slab",
+              VerticalSlabBlockItemIds.VERTICAL_SULFUR_SLAB,
+              VerticalSlab.VERTICAL_SULFUR_SLAB,
+              Blocks.SULFUR,
+              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
+              List.of(Blocks.SULFUR),
+              List.of(Blocks.SULFUR)),
+          new VerticalSlabDetails(
+              "Vertical Sulfur Brick Slab",
+              VerticalSlabBlockItemIds.VERTICAL_SULFUR_BRICK_SLAB,
+              VerticalSlab.VERTICAL_SULFUR_BRICK_SLAB,
+              Blocks.SULFUR_BRICKS,
+              BottomTopBasedBlockModelGenerator.simpleUVLockedBlockModel(),
+              List.of(Blocks.SULFUR_BRICKS),
+              List.of(Blocks.SULFUR, Blocks.POLISHED_SULFUR, Blocks.SULFUR_BRICKS)),
+          new VerticalSlabDetails(
               "Vertical Tuff Brick Slab",
               VerticalSlabBlockItemIds.VERTICAL_TUFF_BRICK_SLAB,
               VerticalSlab.VERTICAL_TUFF_BRICK_SLAB,
@@ -671,7 +719,9 @@ public class VerticalSlabsDataGenerator implements DataGeneratorEntrypoint {
                 Blocks.CHISELED_POLISHED_BLACKSTONE),
             new Pair<>(VerticalSlab.VERTICAL_QUARTZ_SLAB, Blocks.CHISELED_QUARTZ_BLOCK),
             new Pair<>(VerticalSlab.VERTICAL_PURPUR_SLAB, Blocks.PURPUR_PILLAR),
-            new Pair<>(VerticalSlab.VERTICAL_BAMBOO_SLAB, Blocks.BAMBOO_MOSAIC));
+            new Pair<>(VerticalSlab.VERTICAL_BAMBOO_SLAB, Blocks.BAMBOO_MOSAIC),
+            new Pair<>(VerticalSlab.VERTICAL_CINNABAR_SLAB, Blocks.CHISELED_CINNABAR),
+            new Pair<>(VerticalSlab.VERTICAL_SULFUR_SLAB, Blocks.CHISELED_SULFUR));
 
     private VerticalSlabsRecipeProvider(
         FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {

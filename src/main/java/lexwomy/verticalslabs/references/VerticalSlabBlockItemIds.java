@@ -111,6 +111,18 @@ public class VerticalSlabBlockItemIds {
       VerticalSlabs.createBlockItemId("vertical_quartz_slab");
   public static final BlockItemId VERTICAL_SMOOTH_QUARTZ_SLAB =
       VerticalSlabs.createBlockItemId("vertical_smooth_quartz_slab");
+  public static final BlockItemId VERTICAL_CINNABAR_SLAB =
+      VerticalSlabs.createBlockItemId("vertical_cinnabar_slab");
+  public static final BlockItemId VERTICAL_POLISHED_CINNABAR_SLAB =
+      VerticalSlabs.createBlockItemId("vertical_polished_cinnabar_slab");
+  public static final BlockItemId VERTICAL_CINNABAR_BRICK_SLAB =
+      VerticalSlabs.createBlockItemId("vertical_cinnabar_brick_slab");
+  public static final BlockItemId VERTICAL_SULFUR_SLAB =
+      VerticalSlabs.createBlockItemId("vertical_sulfur_slab");
+  public static final BlockItemId VERTICAL_POLISHED_SULFUR_SLAB =
+      VerticalSlabs.createBlockItemId("vertical_polished_sulfur_slab");
+  public static final BlockItemId VERTICAL_SULFUR_BRICK_SLAB =
+      VerticalSlabs.createBlockItemId("vertical_sulfur_brick_slab");
   public static final WeatheringCopperCollection<BlockItemId> VERTICAL_CUT_COPPER_SLAB =
       WeatheringCopperCollection.prefixWithState(
               WeatheringCopperCollection.create("vertical_cut_copper_slab"))

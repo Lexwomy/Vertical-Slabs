@@ -350,6 +350,42 @@ public class VerticalSlab {
           VerticalSlabBlock::new,
           Properties.ofFullCopy(SMOOTH_QUARTZ_SLAB),
           true);
+  public static final Block VERTICAL_CINNABAR_SLAB =
+      register(
+          VerticalSlabBlockItemIds.VERTICAL_CINNABAR_SLAB,
+          VerticalSlabBlock::new,
+          Properties.ofFullCopy(CINNABAR_SLAB),
+          true);
+  public static final Block VERTICAL_POLISHED_CINNABAR_SLAB =
+      register(
+          VerticalSlabBlockItemIds.VERTICAL_POLISHED_CINNABAR_SLAB,
+          VerticalSlabBlock::new,
+          Properties.ofFullCopy(POLISHED_CINNABAR_SLAB),
+          true);
+  public static final Block VERTICAL_CINNABAR_BRICK_SLAB =
+      register(
+          VerticalSlabBlockItemIds.VERTICAL_CINNABAR_BRICK_SLAB,
+          VerticalSlabBlock::new,
+          Properties.ofFullCopy(CINNABAR_BRICK_SLAB),
+          true);
+  public static final Block VERTICAL_SULFUR_SLAB =
+      register(
+          VerticalSlabBlockItemIds.VERTICAL_SULFUR_SLAB,
+          VerticalSlabBlock::new,
+          Properties.ofFullCopy(SULFUR_SLAB),
+          true);
+  public static final Block VERTICAL_POLISHED_SULFUR_SLAB =
+      register(
+          VerticalSlabBlockItemIds.VERTICAL_POLISHED_SULFUR_SLAB,
+          VerticalSlabBlock::new,
+          Properties.ofFullCopy(POLISHED_SULFUR_SLAB),
+          true);
+  public static final Block VERTICAL_SULFUR_BRICK_SLAB =
+      register(
+          VerticalSlabBlockItemIds.VERTICAL_SULFUR_BRICK_SLAB,
+          VerticalSlabBlock::new,
+          Properties.ofFullCopy(SULFUR_BRICK_SLAB),
+          true);
   public static final WeatheringCopperCollection<Block> VERTICAL_CUT_COPPER_SLAB =
       WeatheringCopperCollection.registerBlocks(
           VerticalSlabBlockItemIds.VERTICAL_CUT_COPPER_SLAB,
@@ -421,7 +457,13 @@ public class VerticalSlab {
             VERTICAL_END_STONE_BRICK_SLAB,
             VERTICAL_PURPUR_SLAB,
             VERTICAL_QUARTZ_SLAB,
-            VERTICAL_SMOOTH_QUARTZ_SLAB),
+            VERTICAL_SMOOTH_QUARTZ_SLAB,
+            VERTICAL_CINNABAR_SLAB,
+            VERTICAL_POLISHED_CINNABAR_SLAB,
+            VERTICAL_CINNABAR_BRICK_SLAB,
+            VERTICAL_SULFUR_SLAB,
+            VERTICAL_POLISHED_SULFUR_SLAB,
+            VERTICAL_SULFUR_BRICK_SLAB),
         VERTICAL_CUT_COPPER_SLAB.asList().stream());
   }
 

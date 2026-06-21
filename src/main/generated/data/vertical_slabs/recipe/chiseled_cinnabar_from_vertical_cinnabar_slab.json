@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "vertical_slabs:vertical_cinnabar_slab"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "minecraft:chiseled_cinnabar"
+  }
+}

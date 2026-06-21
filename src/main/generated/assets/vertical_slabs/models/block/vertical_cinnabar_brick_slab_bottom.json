@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/cinnabar_bricks",
+    "east": "minecraft:block/cinnabar_bricks",
+    "north": "minecraft:block/cinnabar_bricks",
+    "particle": "minecraft:block/cinnabar_bricks",
+    "south": "minecraft:block/cinnabar_bricks",
+    "up": "minecraft:block/cinnabar_bricks",
+    "west": "minecraft:block/cinnabar_bricks"
+  }
+}

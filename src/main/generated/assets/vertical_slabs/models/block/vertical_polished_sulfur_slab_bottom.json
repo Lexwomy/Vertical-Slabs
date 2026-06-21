@@ -1,0 +1,12 @@
+{
+  "parent": "vertical_slabs:block/vertical_bottom_slab",
+  "textures": {
+    "down": "minecraft:block/polished_sulfur",
+    "east": "minecraft:block/polished_sulfur",
+    "north": "minecraft:block/polished_sulfur",
+    "particle": "minecraft:block/polished_sulfur",
+    "south": "minecraft:block/polished_sulfur",
+    "up": "minecraft:block/polished_sulfur",
+    "west": "minecraft:block/polished_sulfur"
+  }
+}
